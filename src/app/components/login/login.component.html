@@ -3,14 +3,24 @@
     <img src="./assets/img/dabubble-logo.png" alt="DA Logo" />
     <span>DA Bubble</span>
   </div>
-  <div class="login-top-register-container">
+  <div class="login-top-register-container" id="create-account-container">
     <p>Neu bei der DA Bubble?</p>
-    <span>Konto erstellen</span>
+    <span
+      (click)="
+        switchContainer(
+          'create-account-container',
+          'login-container',
+          'register-container',
+          ''
+        )
+      "
+      >Konto erstellen</span
+    >
   </div>
 </div>
 
 <div class="login-position-container">
-  <div class="login-content-container">
+  <div class="login-content-container" id="login-container">
     <h1>Anmeldung</h1>
     <p>
       Wir empfehlen dir, die E-Mail-Adresse zu nutzen, die du bei der Arbeit
@@ -23,7 +33,18 @@
         class="email-input"
       />
       <input type="password" placeholder="Passwort" class="password-input" />
-      <span class="forgot-password-span">Passwort vergessen?</span>
+      <span
+        class="forgot-password-span"
+        (click)="
+          switchContainer(
+            'create-account-container',
+            'login-container',
+            'resetpassword-container',
+            ''
+          )
+        "
+        >Passwort vergessen?</span
+      >
       <div class="horizontal-line"></div>
       <div class="login-with-slack-container">
         <img src="./assets/img/Google.png" alt="Slack Logo" />
@@ -35,4 +56,9 @@
       </div>
     </form>
   </div>
+  <app-register id="register-container" class="d-none"></app-register>
+  <app-resetpassword
+    id="resetpassword-container"
+    class="d-none"
+  ></app-resetpassword>
 </div>

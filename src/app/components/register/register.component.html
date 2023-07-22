@@ -1,0 +1,30 @@
+<div class="register-content-container">
+  <span
+    class="go-back-arrow"
+    (click)="
+      switchContainer(
+        '',
+        'register-container',
+        'create-account-container',
+        'login-container'
+      )
+    "
+  ></span>
+  <h1>Konto erstellen</h1>
+  <p>
+    Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
+    DABubble-Konto.
+  </p>
+  <form class="login-formular-container">
+    <input type="text" placeholder="Name und Nachname" class="name-input" />
+    <input
+      type="email"
+      placeholder="beispielname@email.com"
+      class="email-input"
+    />
+    <input type="password" placeholder="Passwort" class="password-input" />
+    <div class="register-button-container">
+      <button>Weiter</button>
+    </div>
+  </form>
+</div>

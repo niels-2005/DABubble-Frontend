@@ -2,11 +2,11 @@ import { Component } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  selector: 'app-resetpassword',
+  templateUrl: './resetpassword.component.html',
+  styleUrls: ['./resetpassword.component.scss']
 })
-export class LoginComponent {
+export class ResetpasswordComponent {
 
   constructor(private authService: AuthenticationService) {}
 

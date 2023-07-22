@@ -67,56 +67,6 @@
   }
 }
 
-.login-formular-container {
-  display: flex;
-  gap: 32px;
-  flex-direction: column;
-  width: 100%;
-  input {
-    width: 100%;
-    border: 1px solid transparent;
-    border-radius: 30px;
-    background-color: #ECEEFE;
-    padding: 26px 64px 24px 64px;
-    cursor: pointer;
-    font-size: 18px;
-    font-weight: bold;
-    transition: 0.2s ease-in-out;
-    &:hover {
-      border: 1px solid black;
-    }
-    &::placeholder {
-      font-size: 18px;
-      font-weight: 400;
-    }
-    &:focus {
-      outline: none;
-      border: 1px solid #444DF2;
-      &::placeholder {
-        color: transparent;
-    }
-    }
-  }
-}
-
-.email-input {
-  background-image: url('../../../assets/img/login-mail-grey.png');
-  background-repeat: no-repeat;
-  background-position:  left 25px center;
-  &:focus {
-    background-image: url('../../../assets/img/login-mail-black.png');
-  }
-}
-
-.password-input {
-  background-image: url('../../../assets/img/login-password-grey.png');
-  background-repeat: no-repeat;
-  background-position:  left 25px center;
-  &:focus {
-    background-image: url('../../../assets/img/login-password-black.png');
-  }
-}
-
 .forgot-password-span {
   color: #797EF3;
   font-size: 20px;
@@ -148,7 +98,7 @@
   gap: 16px;
   color: #797EF3;
   padding: 16px;
-  transition: 0.2s ease-in-out;
+  transition: 0.1s ease-in-out;
   border: 1px solid transparent;
   img {
     height: 40px;
@@ -174,7 +124,7 @@
     border-radius: 30px;
     font-size: 18px;
     cursor: pointer;
-    transition: 0.2s ease-in-out;
+    transition: 0.1s ease-in-out;
   }
 }
 
