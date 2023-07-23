@@ -31,28 +31,40 @@
         type="email"
         placeholder="beispielname@email.com"
         class="email-input"
+        [(ngModel)]="email"
+        name="email"
       />
-      <input type="password" placeholder="Passwort" class="password-input" />
-      <span
-        class="forgot-password-span"
-        (click)="
-          switchContainer(
-            'create-account-container',
-            'login-container',
-            'resetpassword-container',
-            ''
-          )
-        "
-        >Passwort vergessen?</span
-      >
-      <div class="horizontal-line"></div>
-      <div class="login-with-slack-container">
-        <img src="./assets/img/Google.png" alt="Slack Logo" />
-        <span>Anmelden mit Google</span>
-      </div>
-      <div class="login-button-container">
-        <button class="login-button">Anmelden</button>
-        <button class="guest-login-button">Gäste Login</button>
+      <span class="api-errors-span">{{ emailError }}</span>
+      <input
+        type="password"
+        placeholder="Passwort"
+        class="password-input"
+        [(ngModel)]="password"
+        name="password"
+      />
+      <span class="api-errors-span">{{ passwordError }}</span>
+      <div class="login-flexbox-column">
+        <span
+          class="forgot-password-span"
+          (click)="
+            switchContainer(
+              'create-account-container',
+              'login-container',
+              'resetpassword-container',
+              ''
+            )
+          "
+          >Passwort vergessen?</span
+        >
+        <div class="horizontal-line"></div>
+        <div class="login-with-slack-container">
+          <img src="./assets/img/Google.png" alt="Slack Logo" />
+          <span>Anmelden mit Google</span>
+        </div>
+        <div class="login-button-container">
+          <button class="login-button" (click)="loginUser()">Anmelden</button>
+          <button class="guest-login-button">Gäste Login</button>
+        </div>
       </div>
     </form>
   </div>

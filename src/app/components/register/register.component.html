@@ -15,14 +15,37 @@
     Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
     DABubble-Konto.
   </p>
-  <form class="login-formular-container">
-    <input type="text" placeholder="Name und Nachname" class="name-input" />
+  <form class="login-formular-container" (submit)="registerUser($event)">
+    <input
+      type="text"
+      placeholder="Name und Nachname"
+      class="name-input"
+      [(ngModel)]="fullName"
+      name="fullName"
+    />
+    <span class="api-errors-span" id="register-error-name">{{
+      nameError
+    }}</span>
     <input
       type="email"
       placeholder="beispielname@email.com"
       class="email-input"
+      [(ngModel)]="email"
+      name="email"
     />
-    <input type="password" placeholder="Passwort" class="password-input" />
+    <span class="api-errors-span" id="register-error-email">{{
+      emailError
+    }}</span>
+    <input
+      type="password"
+      placeholder="Passwort"
+      class="password-input"
+      [(ngModel)]="password"
+      name="password"
+    />
+    <span class="api-errors-span" id="register-error-password">{{
+      passwordError
+    }}</span>
     <div class="register-button-container">
       <button>Weiter</button>
     </div>
