@@ -1,0 +1,21 @@
+<div class="workspace-around-container">
+  <app-workspaceheadercontent
+    class="workspace-top-container"
+  ></app-workspaceheadercontent>
+  <div class="workspace-content-container">
+    <app-workspacecontentleft
+      class="workspace-content-left-container"
+    ></app-workspacecontentleft>
+    <div class="workspace-content-middle-container"></div>
+    <div class="workspace-content-right-container"></div>
+  </div>
+</div>
+
+<div
+  class="workspace-fixed-sitebar"
+  (mouseenter)="iconSrc = './assets/img/close-side-menu-purple.png'"
+  (mouseleave)="iconSrc = './assets/img/close-side-menu-black.png'"
+>
+  <span>Workspace-Menü schließen</span>
+  <img [src]="iconSrc" alt="Side Nav Close Icon" />
+</div>

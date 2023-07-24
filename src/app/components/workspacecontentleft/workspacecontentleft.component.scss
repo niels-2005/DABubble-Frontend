@@ -1,0 +1,136 @@
+.workspace-title-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  span {
+    font-size: 20px;
+    font-weight: bold;
+  }
+}
+
+.workspace-logo-and-title {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.edit-workspace-image-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  padding: 8px;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  &:hover {
+    background-color: #ECEEFE;
+  }
+}
+
+.workspace-channels-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  position: relative;
+}
+
+.three-circles-image-container {
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+}
+
+.arrow-down-channels-container {
+  width: 40px;
+  height: 25px;
+  background-image: url('../../../assets/img/arrow_drop_down_black.png');
+  background-repeat: no-repeat;
+  background-position: left 5px center;
+  transition: 0.2s ease-in-out;
+}
+
+.three-circles-and-span {
+  width: 155px;
+  display: flex;
+  justify-content: center;
+  background-image: url('../../../assets/img/three-circles-black.png');
+  background-repeat: no-repeat;
+  background-position: left center;
+  transition: 0.2s ease-in-out;
+  span {
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.2s ease-in-out;
+  }
+}
+
+.arrow-down-black {
+  margin-right: 24px;
+}
+
+.channels-add-image-container {
+  width: 20px;
+  height: 20px;
+  padding: 16px;
+  border-radius: 50%;
+  background-image: url('../../../assets/img/plus-symbol-black.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  cursor: pointer;
+  transition: 0.2s ease-in-out;
+  position: absolute;
+  right: 5px;
+  top: -5px;
+  &:hover {
+    background-image: url('../../../assets/img/plus-symbol-purple.png');
+    background-color: #ECEEFE;
+  }
+}
+
+.add-channel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 300px;
+  gap: 12px;
+  background-image: url('../../../assets/img/add_circle_black.png');
+  background-repeat: no-repeat;
+  background-position: left 40px center;
+  transition: 0.2s ease-in-out;
+  height: 25px;
+  cursor: pointer;
+  span {
+    transition: 0.2s ease-in-out;
+    font-size: 17px;
+  }
+  &:hover {
+    background-image: url('../../../assets/img/add_circle_purple.png');
+    span {
+      color: #797EF3;
+    }
+  }
+}
+
+.channels-dropdown-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.flexbox-container-channels {
+  display: flex;
+  &:hover {
+    .three-circles-and-span {
+      span {
+        color: #797EF3;
+      }
+    }
+    .arrow-down-channels-container {
+      background-image: url('../../../assets/img/arrow_drop_down_purple.png');
+    }
+    .three-circles-and-span {
+      background-image: url('../../../assets/img/three-circles-purple.png');
+    }
+  }
+}

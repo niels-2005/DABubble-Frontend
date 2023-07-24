@@ -7,13 +7,19 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ResetpasswordComponent } from './components/resetpassword/resetpassword.component';
 import { FormsModule } from '@angular/forms';
+import { WorkspaceComponent } from './components/workspace/workspace.component';
+import { WorkspacecontentleftComponent } from './components/workspacecontentleft/workspacecontentleft.component';
+import { WorkspaceheadercontentComponent } from './components/workspaceheadercontent/workspaceheadercontent.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    ResetpasswordComponent
+    ResetpasswordComponent,
+    WorkspaceComponent,
+    WorkspacecontentleftComponent,
+    WorkspaceheadercontentComponent
   ],
   imports: [
     BrowserModule,

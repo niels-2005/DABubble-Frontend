@@ -1,0 +1,29 @@
+<div class="workspace-title-container">
+  <div class="workspace-logo-and-title">
+    <img src="./assets/img/workspace-logo.png" alt="Workspace Logo" />
+    <span>Code learning</span>
+  </div>
+  <div
+    class="edit-workspace-image-container"
+    (mouseenter)="editWorkspaceSrc = './assets/img/edit-workspace-purple.png'"
+    (mouseleave)="editWorkspaceSrc = './assets/img/edit-workspace-black.png'"
+  >
+    <img [src]="editWorkspaceSrc" alt="Edit Workspace Icon" />
+  </div>
+</div>
+<div class="workspace-channels-container">
+  <div class="three-circles-image-container">
+    <div class="flexbox-container-channels" (click)="showChannels()">
+      <div class="arrow-down-channels-container"></div>
+      <div class="channels-dropdown-container">
+        <div class="three-circles-and-span">
+          <span>Channels</span>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="add-channel-container" id="all-channels">
+    <span>Channel hinzufügen</span>
+  </div>
+  <div class="channels-add-image-container"></div>
+</div>
