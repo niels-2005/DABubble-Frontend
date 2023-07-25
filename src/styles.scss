@@ -22,6 +22,17 @@ body {
   min-height: 32px;
 }
 
+.opacity-background-container {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  background-color: #999999;
+  z-index: 20;
+  opacity: 0.5;
+}
+
 .name-input {
   background-image: url('./assets/img/login-person-grey.png');
   background-repeat: no-repeat;

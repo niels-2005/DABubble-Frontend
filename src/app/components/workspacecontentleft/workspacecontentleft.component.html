@@ -18,12 +18,56 @@
       <div class="channels-dropdown-container">
         <div class="three-circles-and-span">
           <span>Channels</span>
+          <img src="" alt="" />
         </div>
       </div>
     </div>
   </div>
-  <div class="add-channel-container" id="all-channels">
+  <div
+    class="add-channel-container"
+    id="all-channels"
+    (click)="showCreateChannelContainer()"
+  >
     <span>Channel hinzufügen</span>
   </div>
-  <div class="channels-add-image-container"></div>
+  <div
+    class="channels-add-image-container"
+    (mouseover)="showCreateChannelSrc = './assets/img/plus-symbol-purple.png'"
+    (mouseleave)="showCreateChannelSrc = './assets/img/plus-symbol-black.png'"
+  >
+    <img [src]="showCreateChannelSrc" alt="Add Icon" />
+  </div>
+</div>
+
+<div
+  class="opacity-background-container d-none"
+  id="create-channel-opacity-background"
+></div>
+
+<div
+  class="create-channel-position-container d-none"
+  id="create-channel-container"
+  (click)="hideCreateChannelContainer()"
+>
+  <div class="create-channel-container" (click)="$event.stopPropagation()">
+    <div class="create-channel-top-content">
+      <span>Channel erstellen</span>
+      <div (click)="hideCreateChannelContainer()"></div>
+    </div>
+    <p>
+      Channels dienen deinem Team zur Kommunikation. Am besten sollten sie
+      themenbezogen sein #marketing zum Beispiel.
+    </p>
+    <div class="create-channel-input-container">
+      <span>Channel-Name</span>
+      <input type="text" placeholder="#    z.B. Kooperationsprojekte" />
+    </div>
+    <div class="create-channel-input-container">
+      <span>Beschreibung <span class="optional-span">(optional)</span></span>
+      <input type="text" placeholder="Dein Text hier" />
+    </div>
+    <div class="create-channel-button-container">
+      <button>Erstellen</button>
+    </div>
+  </div>
 </div>

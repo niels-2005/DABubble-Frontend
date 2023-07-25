@@ -70,20 +70,20 @@
 }
 
 .channels-add-image-container {
-  width: 20px;
-  height: 20px;
-  padding: 16px;
+  padding: 8px;
   border-radius: 50%;
-  background-image: url('../../../assets/img/plus-symbol-black.png');
-  background-repeat: no-repeat;
-  background-position: center center;
   cursor: pointer;
   transition: 0.2s ease-in-out;
   position: absolute;
-  right: 5px;
-  top: -5px;
+  right: 6px;
+  top: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  img {
+    height: 15px;
+  }
   &:hover {
-    background-image: url('../../../assets/img/plus-symbol-purple.png');
     background-color: #ECEEFE;
   }
 }
@@ -131,6 +131,111 @@
     }
     .three-circles-and-span {
       background-image: url('../../../assets/img/three-circles-purple.png');
+    }
+  }
+}
+
+.create-channel-position-container {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.create-channel-container {
+  padding: 32px;
+  width: 900px;
+  border-radius: 30px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  p {
+    font-size: 20px;
+  }
+}
+
+.create-channel-top-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  span {
+    font-size: 22px;
+    font-weight: 600;
+  }
+  div {
+    background-image: url('../../../assets/img/close-black.png');
+    background-repeat: no-repeat;
+    background-position: center center;
+    cursor: pointer;
+    padding: 16px;
+    border-radius: 30px;
+    &:hover {
+      background-color: #ECEEFE;
+      background-image: url('../../../assets/img/close-purple.png');
+    }
+  }
+}
+
+.create-channel-input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  span {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  input {
+    border-style: unset;
+    border: 1px solid #ADB0D9;
+    padding: 16px;
+    border-radius: 30px;
+    color: #686868;
+    font-size: 16px;
+    padding-left: 20px;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+    &::placeholder {
+      font-size: 16px;
+    }
+    &:hover {
+      border: 1px solid #444DF2;
+    }
+    &:focus {
+      outline: none;
+      border: 1px solid #444DF2;
+      &::placeholder {
+        color: transparent;
+      }
+    }
+  }
+}
+
+.optional-span {
+  font-weight: 400 !important;
+  color: #686868;
+}
+
+.create-channel-button-container {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    border-style: unset;
+    font-size: 18px;
+    font-weight: bold;
+    padding: 12px 20px;
+    border-radius: 30px;
+    color: white;
+    background-color: #444DF2;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    &:hover {
+      background-color: #797EF3;
     }
   }
 }
