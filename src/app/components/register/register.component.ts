@@ -16,6 +16,9 @@ export class RegisterComponent {
   emailError!: string | undefined;
   passwordError!: string | undefined;
 
+  registerSuccessful = false;
+  registerSuccessfulMessage = "";
+
   constructor(private authService: AuthenticationService) {}
 
   switchContainer(id1: string, id2: string, id3: string, id4: string) {
@@ -43,11 +46,23 @@ export class RegisterComponent {
     if (resp.ok) {
       const result = await resp.json();
       console.log(result);
+      this.showRegisterMessageAndRedirectToLogin(result);
     } else {
       const result = await resp.json();
       console.log('error', result);
       this.handleErrors(result);
     }
+  }
+
+  showRegisterMessageAndRedirectToLogin(result: any){
+    this.registerSuccessful = true;
+    this.registerSuccessfulMessage = result.message;
+    setTimeout(() => {
+      this.switchContainer('',
+      'register-container',
+      'create-account-container',
+      'login-container')
+    }, 3000);
   }
 
   handleErrors(errors: {full_name?: string[], email?: string[], password?: string[]}): void {

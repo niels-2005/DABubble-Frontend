@@ -33,6 +33,19 @@ body {
   opacity: 0.5;
 }
 
+.login-top-logo-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  img {
+    height: 100px;
+  }
+  span {
+    font-size: 36px;
+    font-weight: bold;
+  }
+}
+
 .name-input {
   background-image: url('./assets/img/login-person-grey.png');
   background-repeat: no-repeat;

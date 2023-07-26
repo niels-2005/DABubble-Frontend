@@ -47,7 +47,11 @@
       passwordError
     }}</span>
     <div class="register-button-container">
-      <button>Weiter</button>
+      <button *ngIf="!registerSuccessful">Weiter</button>
+      <div class="register-successful-container" *ngIf="registerSuccessful">
+        <img src="./assets/img/done.png" alt="Done Image" />
+        <span>{{ registerSuccessfulMessage }}</span>
+      </div>
     </div>
   </form>
 </div>
