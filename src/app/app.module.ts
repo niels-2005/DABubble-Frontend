@@ -9,6 +9,7 @@ import { ResetpasswordComponent } from './components/resetpassword/resetpassword
 import { FormsModule } from '@angular/forms';
 import { VerifyuserComponent } from './components/verifyuser/verifyuser.component';
 import { ResetpasswordconfirmComponent } from './components/resetpasswordconfirm/resetpasswordconfirm.component';
+import { VerifyuserquizComponent } from './components/verifyuserquiz/verifyuserquiz.component';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { ResetpasswordconfirmComponent } from './components/resetpasswordconfirm
     ResetpasswordComponent,
     VerifyuserComponent,
     ResetpasswordconfirmComponent,
+    VerifyuserquizComponent,
   ],
   imports: [
     BrowserModule,

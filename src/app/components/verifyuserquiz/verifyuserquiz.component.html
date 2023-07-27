@@ -1,0 +1,93 @@
+<div class="verify-quiz-container">
+  <div class="login-top-logo-container">
+    <img src="./assets/img/dabubble-logo.png" alt="DA Logo" />
+    <span>DA Community App</span>
+  </div>
+  <div class="verify-quiz-profile-container">
+    <span>{{ userFullName }}</span>
+    <div class="position-relative">
+      <img
+        src="./assets/img/avatar-men-1.png"
+        alt="Profile Photo"
+        class="profile-photo"
+      />
+      <div class="green-active-symbol"></div>
+    </div>
+  </div>
+</div>
+
+<div class="verify-welcome-message-position-container">
+  <div class="verify-quiz-content-container" id="quiz-content-container">
+    <div id="welcome-quiz-message">
+      <h1>Willkommen bei der DA Community App</h1>
+      <p>
+        Sie stehen kurz vor dem vollen Zugang zu unserer Plattform. Aber zuerst
+        haben wir eine kleine, aber wichtige Herausforderung für Sie - ein
+        4-Fragen-Quiz, das speziell für Kunden der Developer Akademie erstellt
+        wurde. Dieses Quiz ermöglicht uns, Ihre Mitgliedschaft zu verifizieren
+        und die Sicherheit unserer Community zu gewährleisten.
+      </p>
+      <p>
+        Sie haben insgesamt <b>drei</b> Versuche, das Quiz zu bestehen. Sollten
+        Sie alle drei Versuche aufbrauchen, wird Ihr Account gesperrt, um die
+        Integrität unserer Plattform zu schützen. In einem solchen Fall können
+        Sie unseren Support kontaktieren, um Ihren Account wieder
+        freizuschalten, sobald wir Ihre Mitgliedschaft bei der Developer
+        Akademie bestätigt haben.
+      </p>
+      <p>
+        Bitte beachten Sie, dass wir zum Schutz unserer Community regelmäßige
+        Kontrollen durchführen und Konsequenzen für diejenigen vorsehen, die
+        unsere Verfizierungsfragen und die dazugehörigen Antworten weitergeben.
+      </p>
+      <p>
+        Keine Sorge, selbst wenn Sie ein Neukunde bei der Developer Akademie
+        sind, können Sie die Fragen beantworten.
+      </p>
+      <p>
+        Wir freuen uns auf ihre aktive Teilnahme in unserer Community und
+        wünschen Ihnen viel Spaß und Erfolg!
+      </p>
+      <p><b>Ihr Developer Akademie Team.</b></p>
+      <div class="verify-quiz-button-container">
+        <button (click)="startQuiz()">Quiz starten</button>
+      </div>
+    </div>
+    <div class="question-container d-none" id="question-container">
+      <h1>{{ currentQuestionTitle }}</h1>
+      <div
+        class="answer-container"
+        *ngFor="let answer of answers; let i = index"
+        (click)="selectAnswer(i)"
+        [class.answer-choice-background]="i === selectedAnswerIndex"
+      >
+        <span>{{ i + 1 }}. {{ answer }}</span>
+        <input
+          type="radio"
+          id="answer{{ i }}"
+          name="answer"
+          value="{{ answer }}"
+          #answerRadio
+        />
+      </div>
+      <span class="questions-hint"><b>Hinweis:</b> {{ answerHints }}</span>
+      <div class="question-button-container">
+        <div class="question-and-attempts-container">
+          <span
+            >Verbleibende Versuche: <b>{{ quizAttempts }}</b></span
+          >
+          <p>
+            Frage <b>{{ currentQuestion }}</b> von <b>4</b>
+          </p>
+        </div>
+        <button
+          (click)="sendAnswer()"
+          [disabled]="selectedAnswerIndex === null"
+          [class.button-style-not-disabled]="selectedAnswerIndex !== null"
+        >
+          Nächste Frage
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
