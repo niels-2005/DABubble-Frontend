@@ -1,0 +1,21 @@
+.complete-your-profile-container {
+  display: flex;
+  justify-content: center;
+}
+
+.welcome-to-community-container {
+  padding: 32px;
+  width: 60vw;
+  background-color: white;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  h1 {
+    text-align: center;
+  }
+  p {
+    text-align: center;
+    font-size: 22px;
+  }
+}

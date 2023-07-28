@@ -19,6 +19,8 @@ export class RegisterComponent {
   registerSuccessful = false;
   registerSuccessfulMessage = "";
 
+  dsgvoAccepted = false;
+
   constructor(private authService: AuthenticationService) {}
 
   switchContainer(id1: string, id2: string, id3: string, id4: string) {

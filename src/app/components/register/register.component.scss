@@ -22,7 +22,12 @@
 
 .register-button-container {
   display: flex;
-  justify-content: flex-end;
+  align-items: center;
+  justify-content: space-between;
+  input {
+    width: 15px !important;
+    height: 15px !important;
+  }
   button {
     border-style: unset;
     padding: 16px 24px;
@@ -30,11 +35,8 @@
     font-size: 18px;
     cursor: pointer;
     transition: 0.1s ease-in-out;
-    background-color: #444DF2;
+    background-color: #686868;
     color: white;
-    &:hover {
-      background-color: #797EF3;
-    }
   }
 }
 
@@ -99,5 +101,14 @@
     color: white;
     font-size: 18px;
     text-align: center;
+  }
+}
+
+.dsgvo-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  span {
+    font-weight: bold;
   }
 }

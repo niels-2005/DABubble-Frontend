@@ -10,6 +10,10 @@ import { FormsModule } from '@angular/forms';
 import { VerifyuserComponent } from './components/verifyuser/verifyuser.component';
 import { ResetpasswordconfirmComponent } from './components/resetpasswordconfirm/resetpasswordconfirm.component';
 import { VerifyuserquizComponent } from './components/verifyuserquiz/verifyuserquiz.component';
+import { LoginnewuserwelcomemessageComponent } from './components/loginwelcomemessage/loginnewuserwelcomemessage.component';
+import { UserlockedmessageComponent } from './components/userlockedmessage/userlockedmessage.component';
+import { CompleteyourprofileComponent } from './components/completeyourprofile/completeyourprofile.component';
+import { LogoandprofileheaderComponent } from './components/logoandprofileheader/logoandprofileheader.component';
 
 @NgModule({
   declarations: [
@@ -20,6 +24,10 @@ import { VerifyuserquizComponent } from './components/verifyuserquiz/verifyuserq
     VerifyuserComponent,
     ResetpasswordconfirmComponent,
     VerifyuserquizComponent,
+    LoginnewuserwelcomemessageComponent,
+    UserlockedmessageComponent,
+    CompleteyourprofileComponent,
+    LogoandprofileheaderComponent,
   ],
   imports: [
     BrowserModule,

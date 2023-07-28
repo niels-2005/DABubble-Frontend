@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { LogoutService } from 'src/app/services/logout.service';
 import { Router } from '@angular/router';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-verifyuserquiz',
@@ -23,7 +24,7 @@ export class VerifyuserquizComponent implements OnInit {
 
   selectedAnswerIndex: number | null = null;
 
-  constructor(private localStorageService: LocalstorageService, private logoutService: LogoutService, private router: Router) {}
+  constructor(private localStorageService: LocalstorageService, private logoutService: LogoutService, private router: Router, private messageService: MessageService) {}
 
   ngOnInit(): void {
     let items = this.localStorageService.getItemsFromLocalStorage();
@@ -50,6 +51,7 @@ export class VerifyuserquizComponent implements OnInit {
     if (response.ok) {
         const result = await response.json();
         console.log(result);
+        this.checkIfUserVerifiedQuiz(result);
         this.checkQuizAttemptStatus(result);
         this.renderQuestionsAndAnswers(result);
     } else {
@@ -57,10 +59,17 @@ export class VerifyuserquizComponent implements OnInit {
     }
   }
 
+  checkIfUserVerifiedQuiz(result: any){
+    if(result.quiz_verified === 'true'){
+      this.router.navigateByUrl('/complete-your-profile');
+    }
+  }
+
   checkQuizAttemptStatus(result: any){
     if(result.quiz_attempts === 0){
       this.logoutService.logoutUser();
       this.localStorageService.removeItemsFromLocalStorage();
+      localStorage.setItem('is_locked', 'true');
       this.router.navigateByUrl('/login');
     }
   }

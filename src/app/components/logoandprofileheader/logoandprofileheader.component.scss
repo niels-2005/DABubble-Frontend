@@ -1,0 +1,43 @@
+.verify-quiz-container {
+  padding: 32px 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.verify-quiz-profile-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  cursor: pointer;
+  span {
+    font-size: 28px;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
+  }
+  &:hover {
+    span {
+      color: #797EF3;
+    }
+  }
+}
+
+.profile-photo {
+  height: 100px;
+  border-radius: 50%;
+}
+
+.position-relative {
+  position: relative;
+}
+
+.green-active-symbol {
+  width: 17px;
+  height: 17px;
+  border: 2px solid #ECEEFE;
+  border-radius: 50%;
+  background-color: #92C83E;
+  position: absolute;
+  right: 8px;
+  bottom: 8px;
+}

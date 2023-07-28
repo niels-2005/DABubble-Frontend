@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { Router } from '@angular/router';
+import { MessageService } from 'src/app/services/message.service';
 
 @Component({
   selector: 'app-login',
@@ -14,23 +16,27 @@ export class LoginComponent implements OnInit {
   emailError!: string | undefined;
   passwordError!: string | undefined;
 
-  constructor(private authService: AuthenticationService) {}
+  constructor(private authService: AuthenticationService, private router: Router, private messageService: MessageService) {}
 
   ngOnInit(): void {
       this.checkWelcomeMessageStatus();
+      this.checkIfUserIsLocked();
   }
 
   checkWelcomeMessageStatus(){
     const welcomeMessage =  localStorage.getItem('checkedWelcomeMessage');
     if (welcomeMessage){
-      this.checkedWelcomeMessage();
+      this.messageService.checkedWelcomeMessage();
+  } else {
+    document.getElementById('login-opacity-background')?.classList.remove('d-none');
   }
 }
 
-  checkedWelcomeMessage(){
-    document.getElementById('login-opacity-background')?.classList.add('d-none');
-    document.getElementById('login-message-container')?.classList.add('d-none');
-    localStorage.setItem('checkedWelcomeMessage', 'true');
+  checkIfUserIsLocked(){
+    const userLocked = localStorage.getItem('is_locked');
+    if(userLocked){
+      this.messageService.showUserLockedMessage();
+    }
   }
 
   switchContainer(id1: string, id2: string, id3: string, id4: string){
@@ -57,9 +63,11 @@ export class LoginComponent implements OnInit {
       const result = await resp.json();
       console.log(result);
       this.setItemsToLocalStorage(result);
+      this.checkQuizVerifiedStatus(result);
     } else {
         const result = await resp.json();
         console.log('error', result);
+        this.ifUserIsLockedShowMessage(result);
         this.handleErrors(result);
     }
   }
@@ -69,10 +77,22 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('full_name', result.full_name);
     localStorage.setItem('user_id', result.user_id);
     localStorage.setItem('email', result.email);
-    localStorage.setItem('is_locked', result.is_locked);
-    localStorage.setItem('quiz_attempts', result.quiz_attempts);
-    localStorage.setItem('quiz_verified', result.quiz_verified);
   }
+
+  checkQuizVerifiedStatus(result: any){
+    if(result.quiz_verified === false){
+      this.router.navigate(['/verify-quiz']);
+    } else {
+      this.router.navigate(['/startsite']);
+    }
+  }
+
+  ifUserIsLockedShowMessage(result: any){
+    if(result.user_locked){
+    localStorage.setItem('is_locked', 'true');
+    this.checkIfUserIsLocked();
+  }
+}
 
   handleErrors(errors: {email?: string[], password?: string[], message?: string}): void {
     this.emailError = errors.email && errors.email[0];

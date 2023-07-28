@@ -12,13 +12,13 @@
   ></span>
   <h1>Konto erstellen</h1>
   <p>
-    Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
-    DABubble-Konto.
+    Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DA Community
+    Konto.
   </p>
   <form class="login-formular-container" (submit)="registerUser($event)">
     <input
       type="text"
-      placeholder="Name und Nachname"
+      placeholder="Vorname und Nachname"
       class="name-input"
       [(ngModel)]="fullName"
       name="fullName"
@@ -47,7 +47,21 @@
       passwordError
     }}</span>
     <div class="register-button-container">
-      <button *ngIf="!registerSuccessful">Weiter</button>
+      <div class="dsgvo-checkbox-container">
+        <span>DSGVO aktzeptieren</span>
+        <input
+          type="checkbox"
+          [(ngModel)]="dsgvoAccepted"
+          name="dsgvoAccepted"
+        />
+      </div>
+      <button
+        *ngIf="!registerSuccessful"
+        [disabled]="!dsgvoAccepted"
+        [ngClass]="{ 'button-style-not-disabled': dsgvoAccepted }"
+      >
+        Weiter
+      </button>
       <div class="register-successful-container" *ngIf="registerSuccessful">
         <img src="./assets/img/done.png" alt="Done Image" />
         <span>{{ registerSuccessfulMessage }}</span>
