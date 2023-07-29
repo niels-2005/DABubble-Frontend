@@ -14,6 +14,7 @@ import { LoginnewuserwelcomemessageComponent } from './components/loginwelcomeme
 import { UserlockedmessageComponent } from './components/userlockedmessage/userlockedmessage.component';
 import { CompleteyourprofileComponent } from './components/completeyourprofile/completeyourprofile.component';
 import { LogoandprofileheaderComponent } from './components/logoandprofileheader/logoandprofileheader.component';
+import { ImageCropperModule } from 'ngx-image-cropper';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { LogoandprofileheaderComponent } from './components/logoandprofileheader
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    ImageCropperModule
   ],
   providers: [],
   bootstrap: [AppComponent]

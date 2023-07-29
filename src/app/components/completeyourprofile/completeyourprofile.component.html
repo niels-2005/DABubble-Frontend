@@ -2,22 +2,75 @@
 
 <div class="complete-your-profile-container">
   <div class="welcome-to-community-container">
-    <h1>Willkommen in der Developer Akademie Community, {{ userFullName }}</h1>
-    <p>
-      Wir gratulieren Ihnen herzlich zum erfolgreichen Abschluss unseres Quiz!
-    </p>
-    <p>
-      Als nächstes möchten wir Sie dazu einladen, Ihr Profil auf unserer
-      Plattform zu vervollständigen. Dies ermöglicht anderen Mitglieder der
-      Community, Sie besser kennenzulernen.
-    </p>
-    <p>
-      Wir freuen uns auf Ihre weiteren Beiträge und darauf, Sie auf Ihrem
-      Lernweg zu begleiten. Bei Fragen oder Anliegen zögern Sie bitte nicht, uns
-      zu kontaktieren.
-    </p>
-    <div class="verify-quiz-button-container">
-      <button>Zum Profil</button>
+    <div class="d-none">
+      <h1>
+        Willkommen in der Developer Akademie Community, {{ userFullName }}
+      </h1>
+      <p>
+        Wir gratulieren Ihnen herzlich zum erfolgreichen Abschluss unseres Quiz!
+      </p>
+      <p>
+        Als nächstes möchten wir Sie dazu einladen, Ihr Profil auf unserer
+        Plattform zu vervollständigen. Dies ermöglicht anderen Mitglieder der
+        Community, Sie besser kennenzulernen.
+      </p>
+      <p>
+        Wir freuen uns auf Ihre weiteren Beiträge und darauf, Sie auf Ihrem
+        Lernweg zu begleiten. Bei Fragen oder Anliegen zögern Sie bitte nicht,
+        uns zu kontaktieren.
+      </p>
+      <div class="verify-quiz-button-container">
+        <button>Zum Profil</button>
+      </div>
+    </div>
+    <div class="user-details-container">
+      <h2>Dein Profil vervollständigen</h2>
+      <div class="user-details-top-container">
+        <div class="user-details-around-input-container">
+          <h3>Persönliche Daten</h3>
+          <div class="user-details-input-container">
+            <input type="text" placeholder="Straße" />
+            <input type="text" placeholder="Hausnummer" />
+          </div>
+          <div class="user-details-input-container">
+            <input type="text" placeholder="Postleitzahl" />
+            <input type="text" placeholder="Stadt" />
+          </div>
+          <div class="user-details-input-container">
+            <input type="number" placeholder="Telefonnummer" />
+            <input type="text" placeholder="Website" />
+          </div>
+        </div>
+        <div class="user-details-profile-container">
+          <h3>Dein Profilbild</h3>
+          <image-cropper
+            *ngIf="imageChangedEvent"
+            [imageChangedEvent]="imageChangedEvent"
+            [maintainAspectRatio]="true"
+            [aspectRatio]="1"
+            format="png"
+            (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()"
+            (cropperReady)="cropperReady()"
+            (loadImageFailed)="loadImageFailed()"
+            [style.width.px]="200"
+            [style.height.px]="200"
+          >
+          </image-cropper>
+          <img *ngIf="!imageChangedEvent" src="./assets/img/avatar-men-1.png" />
+          <input type="file" (change)="onFileSelected($event)" />
+        </div>
+      </div>
+      <div class="user-details-textarea-container">
+        <textarea
+          cols="30"
+          rows="10"
+          placeholder="Erzähl etwas über dich"
+        ></textarea>
+      </div>
+      <div class="verify-quiz-button-container">
+        <button (click)="sendProfileDetailsToBackend()">Speichern</button>
+      </div>
     </div>
   </div>
 </div>
