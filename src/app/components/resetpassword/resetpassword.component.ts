@@ -34,6 +34,7 @@ export class ResetpasswordComponent {
     };
 
     try {
+      // const response = await fetch("https://celinemueller.pythonanywhere.com/auth/password-reset/", requestOptions);
         const response = await fetch("http://127.0.0.1:8000/auth/password-reset/", requestOptions);
         if (response.ok) {
             const result = await response.json();

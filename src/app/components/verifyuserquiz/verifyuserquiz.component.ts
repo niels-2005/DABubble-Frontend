@@ -46,6 +46,7 @@ export class VerifyuserquizComponent implements OnInit {
       headers: myHeaders,
     };
 
+    // const response = await fetch(`https://celinemueller.pythonanywhere.com/quiz/answers/${this.currentQuestion}/`, requestOptions);
     const response = await fetch(`http://127.0.0.1:8000/quiz/answers/${this.currentQuestion}/`, requestOptions);
 
     if (response.ok) {
@@ -108,6 +109,7 @@ export class VerifyuserquizComponent implements OnInit {
       body: raw,
 };
 
+    // const response = await fetch(`https://celinemueller.pythonanywhere.com/quiz/check-answer/${this.currentQuestion}/`, requestOptions)
     const response = await fetch(`http://127.0.0.1:8000/quiz/check-answer/${this.currentQuestion}/`, requestOptions)
     if (response.ok) {
       const result = await response.json();

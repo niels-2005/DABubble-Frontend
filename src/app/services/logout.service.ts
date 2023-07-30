@@ -22,6 +22,11 @@ export class LogoutService {
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));
+
+      // await fetch("https://celinemueller.pythonanywhere.com/auth/logout/", requestOptions)
+      // .then(response => response.json())
+      // .then(result => console.log(result))
+      // .catch(error => console.log('error', error));
   }
 
 }

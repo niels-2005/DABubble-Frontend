@@ -56,6 +56,10 @@
   }
 
 .user-details-textarea-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
   textarea {
     border: 1px solid transparent;
     border-radius: 30px;
@@ -82,6 +86,11 @@
     }
     }
   }
+  span {
+    color: #ED1E79;
+    font-size: 14px;
+    min-height: 20px;
+  }
 }
 
 .user-details-top-container {
@@ -94,7 +103,7 @@
 .user-details-around-input-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 8px;
 }
 
 .user-details-profile-container {
@@ -107,8 +116,25 @@
     height: 150px;
     width: 150px;
     object-fit: cover;
+    border-radius: 50%;
     cursor: pointer;
+  }
+  span {
+    color: #ED1E79;
+    text-align: center;
+    font-size: 14px;
+    min-height: 20px;
   }
 }
 
-
+.input-error-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  span {
+    color: #ED1E79;
+    font-size: 14px;
+    min-height: 20px;
+  }
+}

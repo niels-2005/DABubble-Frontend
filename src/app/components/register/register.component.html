@@ -47,7 +47,7 @@
       passwordError
     }}</span>
     <div class="register-button-container">
-      <div class="dsgvo-checkbox-container">
+      <div class="dsgvo-checkbox-container" *ngIf="!registerSuccessful">
         <span>DSGVO aktzeptieren</span>
         <input
           type="checkbox"

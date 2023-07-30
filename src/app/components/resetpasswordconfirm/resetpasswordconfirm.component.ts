@@ -48,6 +48,7 @@ export class ResetpasswordconfirmComponent implements OnInit {
       body: raw,
     };
 
+    // const url = `https://celinemueller.pythonanywhere.com/auth/password-reset-confirm/${this.userId}/${this.token}/`;
     const url = `http://127.0.0.1:8000/auth/password-reset-confirm/${this.userId}/${this.token}/`;
 
     const response = await fetch(url, requestOptions);

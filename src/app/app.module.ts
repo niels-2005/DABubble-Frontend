@@ -15,6 +15,7 @@ import { UserlockedmessageComponent } from './components/userlockedmessage/userl
 import { CompleteyourprofileComponent } from './components/completeyourprofile/completeyourprofile.component';
 import { LogoandprofileheaderComponent } from './components/logoandprofileheader/logoandprofileheader.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
+import { StartsiteComponent } from './components/startsite/startsite.component';
 
 @NgModule({
   declarations: [
@@ -29,6 +30,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
     UserlockedmessageComponent,
     CompleteyourprofileComponent,
     LogoandprofileheaderComponent,
+    StartsiteComponent,
   ],
   imports: [
     BrowserModule,
