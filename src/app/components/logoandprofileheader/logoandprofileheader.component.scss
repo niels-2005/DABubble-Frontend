@@ -1,25 +1,15 @@
 .verify-quiz-container {
   padding: 32px 48px;
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
 }
 
 .verify-quiz-profile-container {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 32px;
   cursor: pointer;
-  span {
-    font-size: 28px;
-    font-weight: bold;
-    transition: 0.2s ease-in-out;
-  }
-  &:hover {
-    span {
-      color: #797EF3;
-    }
-  }
 }
 
 .profile-photo {
@@ -42,4 +32,48 @@
   position: absolute;
   right: 8px;
   bottom: 8px;
+}
+
+.profile-name-and-image-container {
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  span {
+    font-size: 28px;
+    font-weight: bold;
+    transition: 0.2s ease-in-out;
+  }
+  &:hover {
+    span {
+      color: #797EF3;
+    }
+  }
+}
+
+.edit-profile-and-logout-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  background-color: white;
+  padding: 24px 40px;
+  border-radius: 30px;
+  border-top-right-radius: 0px;
+  z-index: 30;
+  cursor: default;
+  button {
+    border-style: none;
+    background-color: white;
+    width: 200px;
+    padding: 8px;
+    font-size: 24px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    &:hover {
+      color: #797EF3;
+      background-color: #ECEEFE;
+    }
+  }
 }

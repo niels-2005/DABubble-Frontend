@@ -1,0 +1,105 @@
+<div
+  class="user-details-position-container"
+  (click)="hideChangeProfileDetailsPopup()"
+>
+  <div class="user-details-container" (click)="$event.stopPropagation()">
+    <div class="edit-your-profile-and-close-container">
+      <h2>Dein Profil bearbeiten</h2>
+      <img
+        src="./assets/img/close-black.png"
+        alt="Close Icon"
+        (click)="hideChangeProfileDetailsPopup()"
+      />
+    </div>
+    <div class="user-details-top-container">
+      <div class="user-details-around-input-container">
+        <h3>Persönliche Daten</h3>
+        <div class="user-details-input-container">
+          <div class="input-error-container">
+            <input
+              type="text"
+              placeholder="Straße"
+              [(ngModel)]="street"
+              name="street"
+            />
+            <span>{{ errors.street ? errors.street[0] : "" }}</span>
+          </div>
+          <div class="input-error-container">
+            <input
+              type="text"
+              placeholder="Hausnummer"
+              [(ngModel)]="house_number"
+              name="house_number"
+            />
+            <span>{{ errors.house_number ? errors.house_number[0] : "" }}</span>
+          </div>
+        </div>
+        <div class="user-details-input-container">
+          <div class="input-error-container">
+            <input
+              type="text"
+              placeholder="Postleitzahl"
+              [(ngModel)]="zip_code"
+              name="zip_code"
+            />
+            <span>{{ errors.zip_code ? errors.zip_code[0] : "" }}</span>
+          </div>
+          <div class="input-error-container">
+            <input
+              type="text"
+              placeholder="Stadt"
+              [(ngModel)]="city"
+              name="city"
+            />
+            <span>{{ errors.city ? errors.city[0] : "" }}</span>
+          </div>
+        </div>
+        <div class="user-details-input-container">
+          <div class="input-error-container">
+            <input
+              type="number"
+              placeholder="Telefonnummer"
+              [(ngModel)]="phone_number"
+              name="phone_number"
+            />
+            <span>{{ errors.phone_number ? errors.phone_number[0] : "" }}</span>
+          </div>
+          <div class="input-error-container">
+            <input
+              type="text"
+              placeholder="Website"
+              [(ngModel)]="website"
+              name="website"
+            />
+            <span>{{ errors.website ? errors.website[0] : "" }}</span>
+          </div>
+        </div>
+      </div>
+      <div class="user-details-profile-container">
+        <h3>Dein Profilbild</h3>
+        <img [src]="imagePreview" />
+        <input type="file" (change)="onFileSelected($event)" />
+        <span>{{ errors.image ? errors.image[0] : "" }}</span>
+      </div>
+    </div>
+    <div class="user-details-textarea-container">
+      <textarea
+        cols="30"
+        rows="10"
+        placeholder="Erzähl etwas über dich"
+        [(ngModel)]="about"
+        name="about"
+      ></textarea>
+      <span>{{ errors.about ? errors.about[0] : "" }}</span>
+    </div>
+    <div class="user-details-button-container">
+      <button class="user-details-delete-button">Dein Profil löschen</button>
+      <button
+        (click)="sendProfileDetailsToBackend()"
+        class="user-details-save-button"
+      >
+        Speichern
+      </button>
+    </div>
+  </div>
+</div>

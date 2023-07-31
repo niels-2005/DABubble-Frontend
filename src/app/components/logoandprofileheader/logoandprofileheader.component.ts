@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LogoutService } from 'src/app/services/logout.service';
+import { UserprofilesService } from 'src/app/services/userprofiles.service';
 
 @Component({
   selector: 'app-logoandprofileheader',
@@ -14,38 +16,35 @@ export class LogoandprofileheaderComponent implements OnInit {
   token = localStorage.getItem('token');
   userId = localStorage.getItem('user_id');
 
+  constructor(private logoutService: LogoutService, private userProfileService: UserprofilesService) {}
+
   ngOnInit(): void {
-      const username = localStorage.getItem('full_name');
-      this.userFullName = username || '';
-      this.getProfileDetailsFromBackend();
+    const username = localStorage.getItem('full_name');
+    this.userFullName = username || '';
+    this.userProfileService.getProfileDetailsFromBackend().then((result) => {
+      if (result && result.image) {
+        this.profileImageUrl = result.image;
+      }
+    });
   }
 
-  async getProfileDetailsFromBackend(){
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Token ${this.token}`);
+  showEditProfileAndLogout(){
+    document.getElementById('edit-profile-and-logout')?.classList.remove('d-none');
+    document.getElementById('edit-profile-and-logout-background')?.classList.remove('d-none');
+  }
 
-    const requestOptions : RequestInit = {
-    method: 'GET',
-    headers: myHeaders,
-    };
+  hideEditProfileAndLogout(){
+    document.getElementById('edit-profile-and-logout')?.classList.add('d-none');
+    document.getElementById('edit-profile-and-logout-background')?.classList.add('d-none');
+    document.getElementById('user-profile-sitebar')?.classList.add('d-none');
+  }
 
-    try {
-      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
-      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+  logoutUser(){
+    this.logoutService.logoutUser();
+  }
 
-      if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-        if (result && result.image) {
-          this.profileImageUrl = result.image;
-        }
-      } else {
-        const errorResult = await response.json();
-        console.log('Error response:', errorResult);
-      }
-    } catch (error) {
-      console.log('Error:', error);
-    }
+  showUserProfile(){
+    this.userProfileService.showUserProfileDetailsSitebar();
   }
 
 }

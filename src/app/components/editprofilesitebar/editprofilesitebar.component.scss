@@ -1,0 +1,123 @@
+.profile-sidebar-container {
+  position: fixed;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: #eceefe;
+  z-index: 50;
+  width: 35vw;
+  padding: 72px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.profile-and-close-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  h2 {
+    font-size: 24px;
+  }
+  img {
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.1s ease-in-out;
+    &:hover {
+      background-color: white;
+    }
+  }
+}
+
+.edit-profile-image-container {
+  display: flex;
+  justify-content: center;
+  img {
+    height: 250px;
+    width: 250px;
+    object-fit: cover;
+    border-radius: 50%;
+  }
+}
+
+.edit-profile-active-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  div {
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: #92C83E;
+  }
+  span {
+    font-size: 20px;
+  }
+}
+
+.full-name-span {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.full-name-and-active-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  button {
+    border-style: unset;
+    padding: 12px 16px;
+    border-radius: 30px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    background-color: #444DF2;
+    color: white;
+    &:hover {
+      background-color: #797EF3;
+    }
+  }
+}
+
+.edit-profile-user-details-container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  h3 {
+    font-size: 24px;
+  }
+}
+
+.details-style-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  span {
+    font-weight: bold;
+  }
+  p {
+    color: #3FA9F5;
+  }
+  a {
+    text-decoration: none;
+    color: #3FA9F5;
+  }
+}
+
+.full-name-active-flex-column {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.opacity-background-container-profile-details {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  z-index: 60;
+  background-color: #999999;
+  opacity: 0.5;
+}

@@ -4,10 +4,37 @@
     <span>DA Community App</span>
   </div>
   <div class="verify-quiz-profile-container">
-    <span>{{ userFullName }}</span>
-    <div class="position-relative">
-      <img [src]="profileImageUrl" alt="Profile Photo" class="profile-photo" />
-      <div class="green-active-symbol"></div>
+    <div
+      class="profile-name-and-image-container"
+      (click)="showEditProfileAndLogout()"
+    >
+      <span>{{ userFullName }}</span>
+      <div class="position-relative">
+        <img
+          [src]="profileImageUrl"
+          alt="Profile Photo"
+          class="profile-photo"
+        />
+        <div class="green-active-symbol"></div>
+      </div>
+    </div>
+    <div
+      class="edit-profile-and-logout-container d-none"
+      id="edit-profile-and-logout"
+    >
+      <button (click)="showUserProfile()">Dein Profil</button>
+      <button (click)="logoutUser()">Log out</button>
     </div>
   </div>
 </div>
+
+<div
+  class="opacity-background-container d-none"
+  id="edit-profile-and-logout-background"
+  (click)="hideEditProfileAndLogout()"
+></div>
+
+<app-editprofilesitebar
+  id="user-profile-sitebar"
+  class="d-none"
+></app-editprofilesitebar>
