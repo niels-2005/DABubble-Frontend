@@ -61,6 +61,13 @@ export class UserprofilesService {
   hideChangeProfileDetailsPopup(){
     document.getElementById('opacity-background-profile-details')?.classList.add('d-none');
     document.getElementById('edit-profile-details-popup')?.classList.add('d-none');
+    document.getElementById('userprofile-delete-container')?.classList.add('d-none');
+    document.getElementById('userprofile-details-container')?.classList.remove('d-none');
+  }
+
+  switchContainerFromDeleteUserToProfileDetails(){
+    document.getElementById('userprofile-details-container')?.classList.remove('d-none');
+    document.getElementById('userprofile-delete-container')?.classList.add('d-none');
   }
 
 

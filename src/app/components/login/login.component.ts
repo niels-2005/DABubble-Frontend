@@ -12,6 +12,7 @@ export class LoginComponent implements OnInit {
 
   email!: string;
   password!: string;
+  hidePassword = true;
 
   emailError!: string | undefined;
   passwordError!: string | undefined;
@@ -108,6 +109,8 @@ export class LoginComponent implements OnInit {
     this.passwordError = errorMessages.join(' ');
   }
 
-
+  toggleHidePassword() {
+    this.hidePassword = !this.hidePassword;
+  }
 
 }

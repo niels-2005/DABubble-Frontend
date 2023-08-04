@@ -193,3 +193,12 @@
   z-index: 15;
 }
 
+.password-input-image-container {
+  position: relative;
+  img {
+    position: absolute;
+    right: 25px;
+    top: 25px;
+    cursor: pointer;
+  }
+}

@@ -18,6 +18,7 @@ import { ImageCropperModule } from 'ngx-image-cropper';
 import { StartsiteComponent } from './components/startsite/startsite.component';
 import { EditprofilesitebarComponent } from './components/editprofilesitebar/editprofilesitebar.component';
 import { EditprofiledetailsComponent } from './components/editprofiledetails/editprofiledetails.component';
+import { DeleteprofileComponent } from './components/deleteprofile/deleteprofile.component';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { EditprofiledetailsComponent } from './components/editprofiledetails/edi
     StartsiteComponent,
     EditprofilesitebarComponent,
     EditprofiledetailsComponent,
+    DeleteprofileComponent,
   ],
   imports: [
     BrowserModule,

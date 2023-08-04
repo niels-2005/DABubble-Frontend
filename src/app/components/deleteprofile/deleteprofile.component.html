@@ -1,0 +1,46 @@
+<div class="delete-profile-flexbox-container">
+  <div class="edit-your-profile-and-close-container">
+    <h2>Dein Profil löschen</h2>
+    <img
+      src="./assets/img/close-black.png"
+      (click)="switchContainerFromDeleteUserToProfileDetails()"
+      alt="Close Icon"
+    />
+  </div>
+  <div class="profile-authentication-delete-user-container">
+    <img [src]="imagePreview" alt="Profile Icon" />
+    <input
+      type="email"
+      [(ngModel)]="email"
+      name="email"
+      #emailField="ngModel"
+      required
+    />
+    <input
+      type="password"
+      [(ngModel)]="password"
+      name="password"
+      #passwordField="ngModel"
+      required
+      placeholder="Passwort"
+    />
+  </div>
+  <div class="delete-profile-button-container">
+    <button
+      class="go-back-button"
+      (click)="switchContainerFromDeleteUserToProfileDetails()"
+    >
+      Abbrechen
+    </button>
+    <button
+      [disabled]="!emailField.valid || !isPasswordValid()"
+      [ngClass]="{
+        'delete-user-button': !emailField.valid || !isPasswordValid(),
+        'delete-user-button-not-disabled': emailField.valid && isPasswordValid()
+      }"
+      (click)="deleteUser()"
+    >
+      Profil löschen
+    </button>
+  </div>
+</div>

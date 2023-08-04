@@ -136,4 +136,10 @@ export class EditprofiledetailsComponent {
     this.userProfileService.hideChangeProfileDetailsPopup();
   }
 
+  switchContainerToDeleteUser(){
+    document.getElementById('userprofile-details-container')?.classList.add('d-none');
+    document.getElementById('userprofile-delete-container')?.classList.remove('d-none');
+  }
+
+
 }

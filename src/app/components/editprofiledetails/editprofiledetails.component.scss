@@ -183,17 +183,3 @@
     }
 }
 
-.edit-your-profile-and-close-container {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  img {
-    padding: 2px;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: 0.1s ease-in-out;
-    &:hover {
-      background-color: #ECEEFE;
-    }
-  }
-}

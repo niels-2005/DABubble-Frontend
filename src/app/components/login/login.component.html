@@ -15,8 +15,7 @@
 
 <div class="login-top-container">
   <div class="login-top-logo-container">
-    <img src="./assets/img/dabubble-logo.png" alt="DA Logo" />
-    <span>DA Community App</span>
+    <img src="./assets/img/Academyhugs.jpg" alt="Community Logo" />
   </div>
   <div class="login-top-register-container" id="create-account-container">
     <p>Neu bei der DA Community App?</p>
@@ -50,13 +49,24 @@
         name="email"
       />
       <span class="api-errors-span">{{ emailError }}</span>
-      <input
-        type="password"
-        placeholder="Passwort"
-        class="password-input"
-        [(ngModel)]="password"
-        name="password"
-      />
+      <div class="password-input-image-container">
+        <input
+          [type]="hidePassword ? 'password' : 'text'"
+          placeholder="Passwort"
+          class="password-input"
+          [(ngModel)]="password"
+          name="password"
+        />
+        <img
+          (click)="toggleHidePassword()"
+          [src]="
+            hidePassword
+              ? './assets/img/password-dont-see-image.png'
+              : './assets/img/password-see-image.png'
+          "
+          alt="Hide/Show Password Icon"
+        />
+      </div>
       <span class="api-errors-span">{{ passwordError }}</span>
       <div class="login-flexbox-column">
         <span
