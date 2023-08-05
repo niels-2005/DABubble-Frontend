@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,11 @@ export class UserprofilesService {
   token = localStorage.getItem('token');
   userId = localStorage.getItem('user_id');
 
+  isLoadingData = false;
+
   private _refreshNeeded$ = new Subject<void>();
+
+  public profileData = new BehaviorSubject<any>(null);
 
   get refreshNeeded$() {
     return this._refreshNeeded$.asObservable();
@@ -21,32 +26,81 @@ export class UserprofilesService {
     this._refreshNeeded$.next();
   }
 
-  async getProfileDetailsFromBackend(){
-    const myHeaders = new Headers();
-    myHeaders.append("Authorization", `Token ${this.token}`);
+  get profileData$() {
+    return this.profileData.asObservable();
+}
 
-    const requestOptions : RequestInit = {
-    method: 'GET',
-    headers: myHeaders,
-    };
+async getProfileDetailsFromBackend(){
 
-    try {
-      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
+  if (this.profileData.value) {
+      return this.profileData.value;
+  }
+
+  if (this.isLoadingData) {
+      return;
+  }
+
+  this.isLoadingData = true;
+
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Token ${this.token}`);
+
+  const requestOptions : RequestInit = {
+      method: 'GET',
+      headers: myHeaders,
+  };
+
+  try {
       const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
 
       if (response.ok) {
-        const result = await response.json();
-        console.log(result);
-        return result;
+          const result = await response.json();
+          console.log(result);
+
+          this.profileData.next(result);
+
+          return result;
       } else {
-        const errorResult = await response.json();
-        console.log('Error response:', errorResult);
-        return null;
+          const errorResult = await response.json();
+          console.log('Error response:', errorResult);
+          return null;
       }
-    } catch (error) {
+  } catch (error) {
       console.log('Error:', error);
-    }
+  } finally {
+      this.isLoadingData = false;  // Hier, innerhalb des "finally" Blocks.
   }
+}
+
+async getProfileDetailsAgainFromBackend(){
+
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Token ${this.token}`);
+
+  const requestOptions : RequestInit = {
+      method: 'GET',
+      headers: myHeaders,
+  };
+
+  try {
+      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+
+      if (response.ok) {
+          const result = await response.json();
+          console.log(result);
+
+          this.profileData.next(result);
+
+          return result;
+      } else {
+          const errorResult = await response.json();
+          console.log('Error response:', errorResult);
+          return null;
+      }
+  } catch (error) {
+      console.log('Error:', error);
+  }
+}
 
   showUserProfileDetailsSitebar(){
     document.getElementById('user-profile-sitebar')?.classList.remove('d-none');

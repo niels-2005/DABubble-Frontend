@@ -1,0 +1,57 @@
+.map-container {
+  height: 83vh;
+  position: relative;
+}
+
+.map-info-container {
+  z-index: 1000;
+  position: relative;
+}
+
+.map-info-image-container {
+  position: absolute;
+  left: 50px;
+  top: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.tooltip-content {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 15px;
+  position: absolute;
+  top: 100%;
+  right: -100px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  img {
+    height: 25px;
+    object-fit: cover;
+  }
+
+  div {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.map-info-container:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}

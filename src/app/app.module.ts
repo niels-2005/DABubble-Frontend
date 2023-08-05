@@ -19,6 +19,8 @@ import { StartsiteComponent } from './components/startsite/startsite.component';
 import { EditprofilesitebarComponent } from './components/editprofilesitebar/editprofilesitebar.component';
 import { EditprofiledetailsComponent } from './components/editprofiledetails/editprofiledetails.component';
 import { DeleteprofileComponent } from './components/deleteprofile/deleteprofile.component';
+import { MapComponent } from './components/map/map.component';
+import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 
 @NgModule({
   declarations: [
@@ -37,13 +39,15 @@ import { DeleteprofileComponent } from './components/deleteprofile/deleteprofile
     EditprofilesitebarComponent,
     EditprofiledetailsComponent,
     DeleteprofileComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    ImageCropperModule
+    ImageCropperModule,
+    LeafletModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

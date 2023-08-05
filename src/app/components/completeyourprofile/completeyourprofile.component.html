@@ -27,12 +27,15 @@
       <h2>Dein Profil vervollständigen</h2>
       <div class="user-details-top-container">
         <div class="user-details-around-input-container">
-          <h3>Persönliche Daten</h3>
+          <h3>
+            Persönliche Daten
+            <span class="required-fields-span">*Pflichtfelder</span>
+          </h3>
           <div class="user-details-input-container">
             <div class="input-error-container">
               <input
                 type="text"
-                placeholder="Straße"
+                placeholder="*Straße"
                 [(ngModel)]="street"
                 name="street"
               />
@@ -41,7 +44,7 @@
             <div class="input-error-container">
               <input
                 type="text"
-                placeholder="Hausnummer"
+                placeholder="*Hausnummer"
                 [(ngModel)]="house_number"
                 name="house_number"
               />
@@ -54,7 +57,7 @@
             <div class="input-error-container">
               <input
                 type="text"
-                placeholder="Postleitzahl"
+                placeholder="*Postleitzahl"
                 [(ngModel)]="zip_code"
                 name="zip_code"
               />
@@ -63,7 +66,7 @@
             <div class="input-error-container">
               <input
                 type="text"
-                placeholder="Stadt"
+                placeholder="*Stadt"
                 [(ngModel)]="city"
                 name="city"
               />
@@ -74,7 +77,7 @@
             <div class="input-error-container">
               <input
                 type="number"
-                placeholder="Telefonnummer"
+                placeholder="*Telefonnummer"
                 [(ngModel)]="phone_number"
                 name="phone_number"
               />
@@ -104,13 +107,38 @@
         <textarea
           cols="30"
           rows="10"
-          placeholder="Erzähl etwas über dich"
+          placeholder="*Erzähl etwas über dich"
           [(ngModel)]="about"
           name="about"
         ></textarea>
         <span>{{ errors.about ? errors.about[0] : "" }}</span>
       </div>
-      <div class="verify-quiz-button-container">
+      <div class="complete-your-profile-button-container">
+        <div class="user-type-container">
+          <div class="user-type-flex-row-container">
+            <div class="complete-your-profile-checkbox-container">
+              <span>Schüler</span>
+              <input
+                type="radio"
+                name="userType"
+                [(ngModel)]="user_type"
+                value="Schüler"
+              />
+            </div>
+            <div class="complete-your-profile-checkbox-container">
+              <span>Alumni</span>
+              <input
+                type="radio"
+                name="userType"
+                [(ngModel)]="user_type"
+                value="Alumni"
+              />
+            </div>
+          </div>
+          <span class="user-type-error-span">{{
+            errors.user_type ? errors.user_type[0] : ""
+          }}</span>
+        </div>
         <button (click)="sendProfileDetailsToBackend()">Speichern</button>
       </div>
     </div>

@@ -42,6 +42,7 @@ export class CompleteyourprofileComponent implements OnInit {
   phone_number = "";
   website = "";
   about = "";
+  user_type = "";
 
   async sendProfileDetailsToBackend() {
     const myHeaders = new Headers();
@@ -56,6 +57,7 @@ export class CompleteyourprofileComponent implements OnInit {
       "phone_number": this.phone_number,
       "website": this.website,
       "about": this.about,
+      "user_type": this.user_type,
       "user_id": this.userId,
     });
 

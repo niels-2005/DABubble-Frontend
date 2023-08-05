@@ -25,24 +25,29 @@ export class EditprofiledetailsComponent {
   constructor(private router: Router, private userProfileService: UserprofilesService) { }
 
   ngOnInit(): void {
-      const username = localStorage.getItem('full_name');
-      this.userFullName = username || ""
-      this.getProfileDetailsFromBackend();
-  }
+    const username = localStorage.getItem('full_name');
+    this.userFullName = username || "";
 
-  getProfileDetailsFromBackend(){
-    this.userProfileService.getProfileDetailsFromBackend().then((result) => {
-      if (result) {
-        this.about = result.about;
-        this.city = result.city;
-        this.house_number = result.house_number;
-        this.imagePreview = result.image;
-        this.phone_number = result.phone_number;
-        this.street = result.street;
-        this.website = result.website;
-        this.zip_code = result.zip_code;
+    this.userProfileService.profileData$.subscribe(data => {
+      if (data) {
+        this.updateProfileData(data);
       }
     });
+
+    if (!this.userProfileService.profileData.value) {
+      this.userProfileService.getProfileDetailsFromBackend();
+    }
+  }
+
+  private updateProfileData(result: any) {
+    this.about = result.about;
+    this.city = result.city;
+    this.house_number = result.house_number;
+    this.imagePreview = result.image;
+    this.phone_number = result.phone_number;
+    this.street = result.street;
+    this.website = result.website;
+    this.zip_code = result.zip_code;
   }
 
   onFileSelected(event: any) {

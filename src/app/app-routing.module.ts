@@ -6,6 +6,7 @@ import { ResetpasswordconfirmComponent } from './components/resetpasswordconfirm
 import { VerifyuserquizComponent } from './components/verifyuserquiz/verifyuserquiz.component';
 import { CompleteyourprofileComponent } from './components/completeyourprofile/completeyourprofile.component';
 import { StartsiteComponent } from './components/startsite/startsite.component';
+import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/login', pathMatch: 'full'},
@@ -14,7 +15,8 @@ const routes: Routes = [
   {path: 'reset-password/:userId/:token', component: ResetpasswordconfirmComponent},
   {path: 'verify-quiz', component: VerifyuserquizComponent},
   {path: 'complete-your-profile', component: CompleteyourprofileComponent},
-  {path: 'startsite', component: StartsiteComponent}
+  {path: 'startsite', component: StartsiteComponent},
+  {path: 'map', component: MapComponent}
 ];
 
 @NgModule({

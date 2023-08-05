@@ -1,33 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserprofilesService } from 'src/app/services/userprofiles.service';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-deleteprofile',
   templateUrl: './deleteprofile.component.html',
   styleUrls: ['./deleteprofile.component.scss']
 })
-export class DeleteprofileComponent implements OnInit {
+export class DeleteprofileComponent implements OnInit, OnDestroy {
 
   imagePreview: string = './assets/img/avatar-men-1.png';
-
   email = localStorage.getItem('email');
   password!: string;
-
   token = localStorage.getItem('token');
+
+  private subscriptions: Subscription[] = [];
 
   constructor (private userProfileService: UserprofilesService, private router: Router) {}
 
   ngOnInit(): void {
-    this.getProfileDetailsFromBackend();
+    this.subscriptions.push(
+      this.userProfileService.profileData$.subscribe(data => {
+        if (data) {
+          this.imagePreview = data.image;
+        }
+      })
+    );
+
+    if (!this.userProfileService.profileData.value) {
+      this.userProfileService.getProfileDetailsFromBackend();
+    }
   }
 
-  getProfileDetailsFromBackend(){
-    this.userProfileService.getProfileDetailsFromBackend().then((result) => {
-      if (result) {
-        this.imagePreview = result.image;
-      }
-    });
+  ngOnDestroy(): void {
+    this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
   isPasswordValid() {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserprofilesService } from 'src/app/services/userprofiles.service';
 import { Subscription } from 'rxjs';
 
@@ -7,7 +7,7 @@ import { Subscription } from 'rxjs';
   templateUrl: './editprofilesitebar.component.html',
   styleUrls: ['./editprofilesitebar.component.scss']
 })
-export class EditprofilesitebarComponent implements OnInit {
+export class EditprofilesitebarComponent implements OnInit, OnDestroy {
 
   fullName = localStorage.getItem('full_name');
   emailAddress = localStorage.getItem('email');
@@ -26,31 +26,39 @@ export class EditprofilesitebarComponent implements OnInit {
   constructor(private userProfileService: UserprofilesService) {}
 
   ngOnInit(): void {
-    this.getProfileDetailsFromBackend();
+    this.subscriptions.push(
+      this.userProfileService.profileData$.subscribe(data => {
+        if (data) {
+          this.updateProfileData(data);
+        }
+      })
+    );
+
+    if (!this.userProfileService.profileData.value) {
+      this.userProfileService.getProfileDetailsFromBackend();
+    }
+
+
     this.subscriptions.push(
       this.userProfileService.refreshNeeded$.subscribe(() => {
-      this.getProfileDetailsFromBackend();
-    })
-  );
+        this.userProfileService.getProfileDetailsAgainFromBackend();
+      })
+    );
   }
 
   ngOnDestroy(): void {
     this.subscriptions.forEach(subscription => subscription.unsubscribe());
   }
 
-  getProfileDetailsFromBackend(){
-    this.userProfileService.getProfileDetailsFromBackend().then((result) => {
-      if (result) {
-        this.about = result.about;
-        this.city = result.city;
-        this.houseNumber = result.house_number;
-        this.profileImageUrl = result.image;
-        this.phoneNumber = result.phone_number;
-        this.street = result.street;
-        this.website = result.website;
-        this.zipCode = result.zip_code;
-      }
-    });
+  private updateProfileData(result: any) {
+    this.about = result.about;
+    this.city = result.city;
+    this.houseNumber = result.house_number;
+    this.profileImageUrl = result.image;
+    this.phoneNumber = result.phone_number;
+    this.street = result.street;
+    this.website = result.website;
+    this.zipCode = result.zip_code;
   }
 
   hideUserProfileDetailsSitebar(){
@@ -66,6 +74,4 @@ export class EditprofilesitebarComponent implements OnInit {
     document.getElementById('opacity-background-profile-details')?.classList.add('d-none');
     document.getElementById('edit-profile-details-popup')?.classList.add('d-none');
   }
-
-  }
-
+}

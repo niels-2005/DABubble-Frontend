@@ -1,5 +1,6 @@
 .verify-quiz-container {
   padding: 32px 48px;
+  height: 17vh;
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
@@ -60,7 +61,7 @@
   padding: 24px 40px;
   border-radius: 30px;
   border-top-right-radius: 0px;
-  z-index: 30;
+  z-index: 510;
   cursor: default;
   button {
     border-style: none;
