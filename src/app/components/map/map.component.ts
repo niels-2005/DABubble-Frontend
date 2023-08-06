@@ -1,6 +1,9 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { tileLayer, LatLngTuple, marker, Map, Layer, Icon, LeafletMouseEvent, LatLng, Marker } from 'leaflet';
+import { tileLayer, LatLngTuple, marker, Map, Layer, Icon, LeafletMouseEvent, Marker } from 'leaflet';
 import { MapService } from 'src/app/services/map.service';
+import { FormGroup, FormBuilder } from '@angular/forms';
+import { Subscription } from 'rxjs';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-map',
@@ -12,17 +15,51 @@ export class MapComponent implements OnInit {
 
   map?: Map;
   layers: Layer[] = [];  // Hier werden die Marker gespeichert
+  allUsersData: any[] = []; // Hier werden alle Benutzerdaten gespeichert
 
-  constructor(private mapService: MapService) { }
+  filterForm: FormGroup;
 
+  private subscriptions: Subscription = new Subscription();
 
-  async ngOnInit(): Promise<void> {
-    const userData = await this.mapService.getUserMapInfos();
-    if (Array.isArray(userData)) {
-      this.addMarkersToMap(userData);
-    }
+  constructor(private mapService: MapService, private fb: FormBuilder) {
+    this.filterForm = this.fb.group({
+      mentor: [true],
+      schuler: [true],
+      alumni: [true]
+    });
   }
 
+  async ngOnInit(): Promise<void> {
+    this.subscriptions.add(
+      this.mapService.mapRefreshNeeded.subscribe(async () => {
+        await this.getAndChangeUserMapInfos();
+        console.log('Refreshed!');
+      })
+    );
+    await this.getAndChangeUserMapInfos();
+}
+
+
+  ngOnDestroy(): void {
+    this.subscriptions.unsubscribe();
+  }
+
+  async getAndChangeUserMapInfos(){
+    const userData = await this.mapService.getUserMapInfos();
+    if (Array.isArray(userData)) {
+      this.allUsersData = userData;
+      this.addMarkersToMap(this.allUsersData);
+    }
+    this.filterForm.valueChanges.subscribe(() => {
+      this.updateMapBasedOnFilters();
+    });
+  }
+
+  updateMapBasedOnFilters() {
+    this.layers.forEach(layer => this.map?.removeLayer(layer));
+    this.layers = [];
+    this.addMarkersToMap(this.allUsersData);
+  }
 
   options = {
     layers: [
@@ -31,7 +68,6 @@ export class MapComponent implements OnInit {
     zoom: 6.5,
     center: <[number, number]>[51.1657, 10.4515]
   };
-
 
   getIconUrlByUserType(userType: string): string {
     switch (userType) {
@@ -46,7 +82,6 @@ export class MapComponent implements OnInit {
     }
   }
 
-
   createCustomIcon(iconUrl: string): Icon {
     return new Icon({
       iconUrl: iconUrl,
@@ -55,17 +90,31 @@ export class MapComponent implements OnInit {
     });
   }
 
-
   onMapReady(map: Map) {
     this.map = map;
-    this.addMarkersToMap();
+    this.addMarkersToMap(this.allUsersData); // Die Benutzerdaten beim Laden der Karte hinzufügen
   }
 
-
   addMarkersToMap(userData?: any[]) {
+    this.clearAllMarkers();
     if (!userData || !this.map) return;
 
-    userData.forEach(user => {
+    const filters = this.filterForm.value;
+
+    const filteredData = userData.filter(user => {
+      switch(user.user_type) {
+        case 'Mentor':
+          return filters.mentor;
+        case 'Schüler':
+          return filters.schuler;
+        case 'Alumni':
+          return filters.alumni;
+        default:
+          return false;
+      }
+    });
+
+    filteredData.forEach(user => {
       const iconUrl = this.getIconUrlByUserType(user.user_type);
       const customIcon = this.createCustomIcon(iconUrl);
       const m = marker([user.latitude, user.longitude], { icon: customIcon })
@@ -76,9 +125,20 @@ export class MapComponent implements OnInit {
     });
   }
 
+  clearAllMarkers() {
+    this.layers.forEach(layer => this.map?.removeLayer(layer));
+    this.layers = [];
+}
 
   zoomToMarker(event: LeafletMouseEvent) {
     const marker: Marker = event.target;
     this.map?.setView(marker.getLatLng(), 15);
   }
+
+  toggleCheckbox(controlName: string) {
+    const currentVal = this.filterForm.get(controlName)?.value;
+    this.filterForm.get(controlName)?.setValue(!currentVal);
+  }
+
+
 }

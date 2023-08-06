@@ -24,4 +24,8 @@ export class MessageService {
     document.getElementById('user-locked-message-container')?.classList.remove('d-none');
   }
 
+  closeMapInformationsAtCompleteYourProfile(){
+    document.getElementById('map-details')?.classList.add('d-none');
+  }
+
 }

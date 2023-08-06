@@ -23,7 +23,7 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.userProfileService.profileData$.subscribe(data => {
         if (data) {
-          this.imagePreview = data.image;
+          this.imagePreview = data.image_url;
         }
       })
     );

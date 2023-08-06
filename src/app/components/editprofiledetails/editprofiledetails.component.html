@@ -97,6 +97,30 @@
         ></textarea>
         <span>{{ errors.about ? errors.about[0] : "" }}</span>
       </div>
+      <div class="user-type-flex-row-container mb-32">
+        <div class="complete-your-profile-checkbox-container">
+          <span>*Schüler</span>
+          <input
+            type="radio"
+            name="userType"
+            value="Schüler"
+            [(ngModel)]="userType"
+          />
+        </div>
+        <div class="complete-your-profile-checkbox-container">
+          <span>*Alumni</span>
+          <input
+            type="radio"
+            name="userType"
+            value="Alumni"
+            [(ngModel)]="userType"
+          />
+        </div>
+        <div class="complete-your-profile-checkbox-container">
+          <span>Auf der Karte anzeigen?</span>
+          <input type="checkbox" [(ngModel)]="showOnMap" />
+        </div>
+      </div>
       <div class="user-details-button-container">
         <button
           class="user-details-delete-button"

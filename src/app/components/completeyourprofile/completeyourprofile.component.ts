@@ -43,6 +43,8 @@ export class CompleteyourprofileComponent implements OnInit {
   website = "";
   about = "";
   user_type = "";
+  showOnMap: boolean = false;
+
 
   async sendProfileDetailsToBackend() {
     const myHeaders = new Headers();
@@ -59,6 +61,7 @@ export class CompleteyourprofileComponent implements OnInit {
       "about": this.about,
       "user_type": this.user_type,
       "user_id": this.userId,
+      "show_on_map": this.showOnMap
     });
 
     const requestOptions: RequestInit = {
@@ -74,7 +77,7 @@ export class CompleteyourprofileComponent implements OnInit {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        this.sendImageToBackend(); // Nachdem die Profildaten erfolgreich gesendet wurden, sende das Bild separat
+        this.checkIfImageIsGiven();
       } else {
         const result = await response.json();
         console.log(result);
@@ -82,6 +85,14 @@ export class CompleteyourprofileComponent implements OnInit {
       }
     } catch (error) {
       console.log('error', error);
+    }
+  }
+
+  checkIfImageIsGiven(){
+    if(this.selectedImage){
+      this.sendImageToBackend();
+    } else {
+      this.router.navigateByUrl('map');
     }
   }
 
@@ -100,12 +111,12 @@ export class CompleteyourprofileComponent implements OnInit {
 
     try {
       // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
-      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+      const response = await fetch(`http://127.0.0.1:8000/images/upload/`, requestOptions);
 
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        this.router.navigateByUrl('startsite');
+        this.router.navigateByUrl('map');
       } else {
         const result = await response.json();
         console.log(result);
@@ -114,6 +125,15 @@ export class CompleteyourprofileComponent implements OnInit {
     } catch (error) {
       console.log('error', error);
     }
+  }
+
+  switchContainerToCompleteYourProfile(){
+    document.getElementById('welcome-to-community-text')?.classList.add('d-none');
+    document.getElementById('complete-your-profile-details')?.classList.remove('d-none');
+  }
+
+  openMapInformations(){
+    document.getElementById('map-details')?.classList.remove('d-none');
   }
 
 

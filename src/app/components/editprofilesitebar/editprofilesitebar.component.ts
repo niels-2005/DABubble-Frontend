@@ -20,6 +20,7 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
   street: string = '';
   website: string = '';
   zipCode: string = '';
+  user_type: string = "";
 
   private subscriptions: Subscription[] = [];
 
@@ -54,11 +55,12 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
     this.about = result.about;
     this.city = result.city;
     this.houseNumber = result.house_number;
-    this.profileImageUrl = result.image;
+    this.profileImageUrl = result.image_url;
     this.phoneNumber = result.phone_number;
     this.street = result.street;
     this.website = result.website;
     this.zipCode = result.zip_code;
+    this.user_type = result.user_type
   }
 
   hideUserProfileDetailsSitebar(){

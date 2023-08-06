@@ -130,3 +130,26 @@ body {
     }
   }
 }
+
+.user-type-flex-row-container {
+  display: flex;
+  gap: 32px;
+}
+
+.complete-your-profile-checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  span {
+    font-size: 20px;
+  }
+  input {
+    height: 15px;
+    width: 15px;
+    cursor: pointer;
+  }
+  img {
+    height: 20px;
+    cursor: pointer;
+  }
+}

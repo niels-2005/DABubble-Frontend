@@ -12,7 +12,27 @@
   </div>
   <div class="full-name-and-active-container">
     <div class="full-name-active-flex-column">
-      <h3 class="full-name-span">{{ fullName }}</h3>
+      <div class="full-name-and-user-type-container">
+        <h3 class="full-name-span">{{ fullName }}</h3>
+        <div class="user-type-container">
+          <img
+            *ngIf="user_type === 'Alumni'"
+            src="./assets/img/blue-marker.png"
+            alt="User Marker Map"
+          />
+          <img
+            *ngIf="user_type === 'Mentor'"
+            src="./assets/img/red-marker.png"
+            alt="User Marker Map"
+          />
+          <img
+            *ngIf="user_type === 'Schüler'"
+            src="./assets/img/green-marker.png"
+            alt="User Marker Map"
+          />
+          <span>{{ user_type }}</span>
+        </div>
+      </div>
       <div class="edit-profile-active-container">
         <div></div>
         <span>Aktiv</span>

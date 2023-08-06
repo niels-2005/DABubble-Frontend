@@ -4,10 +4,6 @@
 }
 
 .welcome-to-community-container {
-  padding: 32px;
-  width: 60vw;
-  background-color: white;
-  border-radius: 30px;
   display: flex;
   flex-direction: column;
   gap: 32px;
@@ -169,27 +165,21 @@
   gap: 8px;
 }
 
-.complete-your-profile-checkbox-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  span {
-    font-size: 20px;
-  }
-  input {
-    height: 15px;
-    width: 15px;
-    cursor: pointer;
-  }
-}
-
-.user-type-flex-row-container {
-  display: flex;
-  gap: 32px;
-}
-
 .user-type-error-span {
     color: #ED1E79;
     font-size: 14px;
     min-height: 20px;
+}
+
+.welcome-to-community-around-container {
+  padding: 32px;
+  width: 60vw;
+  background-color: white;
+  border-radius: 30px;
+}
+
+.show-on-map-radio-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

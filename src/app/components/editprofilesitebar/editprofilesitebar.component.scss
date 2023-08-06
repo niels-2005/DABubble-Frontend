@@ -121,3 +121,21 @@
   background-color: #999999;
   opacity: 0.5;
 }
+
+.user-type-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  img {
+    height: 25px;
+    object-fit: cover;
+  }
+  span {
+    font-size: 20px;
+  }
+}
+
+.full-name-and-user-type-container {
+  display: flex;
+  gap: 16px;
+}

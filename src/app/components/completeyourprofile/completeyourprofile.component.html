@@ -1,8 +1,8 @@
 <app-logoandprofileheader></app-logoandprofileheader>
 
 <div class="complete-your-profile-container">
-  <div class="welcome-to-community-container">
-    <div class="d-none">
+  <div class="welcome-to-community-around-container">
+    <div class="welcome-to-community-container" id="welcome-to-community-text">
       <h1>
         Willkommen in der Developer Akademie Community, {{ userFullName }}
       </h1>
@@ -20,10 +20,15 @@
         uns zu kontaktieren.
       </p>
       <div class="verify-quiz-button-container">
-        <button>Zum Profil</button>
+        <button (click)="switchContainerToCompleteYourProfile()">
+          Zum Profil
+        </button>
       </div>
     </div>
-    <div class="user-details-container">
+    <div
+      class="user-details-container d-none"
+      id="complete-your-profile-details"
+    >
       <h2>Dein Profil vervollständigen</h2>
       <div class="user-details-top-container">
         <div class="user-details-around-input-container">
@@ -43,7 +48,7 @@
             </div>
             <div class="input-error-container">
               <input
-                type="text"
+                type="number"
                 placeholder="*Hausnummer"
                 [(ngModel)]="house_number"
                 name="house_number"
@@ -56,7 +61,7 @@
           <div class="user-details-input-container">
             <div class="input-error-container">
               <input
-                type="text"
+                type="number"
                 placeholder="*Postleitzahl"
                 [(ngModel)]="zip_code"
                 name="zip_code"
@@ -117,7 +122,7 @@
         <div class="user-type-container">
           <div class="user-type-flex-row-container">
             <div class="complete-your-profile-checkbox-container">
-              <span>Schüler</span>
+              <span>*Schüler</span>
               <input
                 type="radio"
                 name="userType"
@@ -126,13 +131,22 @@
               />
             </div>
             <div class="complete-your-profile-checkbox-container">
-              <span>Alumni</span>
+              <span>*Alumni</span>
               <input
                 type="radio"
                 name="userType"
                 [(ngModel)]="user_type"
                 value="Alumni"
               />
+            </div>
+            <div class="complete-your-profile-checkbox-container">
+              <img
+                src="./assets/img/f-zeich-neben-profil.png"
+                alt="Question Icon"
+                (click)="openMapInformations()"
+              />
+              <span>Auf der Karte anzeigen?</span>
+              <input type="checkbox" [(ngModel)]="showOnMap" />
             </div>
           </div>
           <span class="user-type-error-span">{{
@@ -144,3 +158,5 @@
     </div>
   </div>
 </div>
+
+<app-mapwelcomemessage id="map-details" class="d-none"></app-mapwelcomemessage>

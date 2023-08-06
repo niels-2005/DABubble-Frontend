@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { MapService } from 'src/app/services/map.service';
 import { UserprofilesService } from 'src/app/services/userprofiles.service';
 
 @Component({
@@ -22,7 +23,9 @@ export class EditprofiledetailsComponent {
 
   errors: any = {};
 
-  constructor(private router: Router, private userProfileService: UserprofilesService) { }
+  private originalShowOnMap!: boolean;
+
+  constructor(private router: Router, private userProfileService: UserprofilesService, private mapService: MapService) { }
 
   ngOnInit(): void {
     const username = localStorage.getItem('full_name');
@@ -43,11 +46,14 @@ export class EditprofiledetailsComponent {
     this.about = result.about;
     this.city = result.city;
     this.house_number = result.house_number;
-    this.imagePreview = result.image;
+    this.imagePreview = result.image_url;
     this.phone_number = result.phone_number;
     this.street = result.street;
     this.website = result.website;
     this.zip_code = result.zip_code;
+    this.userType = result.user_type;
+    this.originalShowOnMap = result.show_on_map;
+    this.showOnMap = result.show_on_map;
   }
 
   onFileSelected(event: any) {
@@ -64,6 +70,8 @@ export class EditprofiledetailsComponent {
   phone_number = "";
   website = "";
   about = "";
+  userType = "";
+  showOnMap: boolean = false;
 
   async sendProfileDetailsToBackend() {
     const myHeaders = new Headers();
@@ -79,6 +87,8 @@ export class EditprofiledetailsComponent {
       "website": this.website,
       "about": this.about,
       "user_id": this.userId,
+      "show_on_map": this.showOnMap,
+      "user_type": this.userType,
     });
 
     const requestOptions: RequestInit = {
@@ -94,7 +104,12 @@ export class EditprofiledetailsComponent {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        this.sendImageToBackend(); // Nachdem die Profildaten erfolgreich gesendet wurden, sende das Bild separat
+        console.log("originalShowOnMap", this.originalShowOnMap);
+        console.log("showOnMap", this.showOnMap);
+        if (this.originalShowOnMap !== this.showOnMap) {
+          this.mapService.mapRefreshNeeded$.next();
+      }
+        this.checkIfImageNeedsPatched();
       } else {
         const result = await response.json();
         console.log(result);
@@ -103,6 +118,15 @@ export class EditprofiledetailsComponent {
     } catch (error) {
       console.log('error', error);
     }
+  }
+
+  checkIfImageNeedsPatched(){
+    if (this.selectedImage) {
+      this.sendImageToBackend();
+  } else {
+    this.hideChangeProfileDetailsPopup();
+    this.userProfileService.refreshProfileData();
+  }
   }
 
   async sendImageToBackend() {
@@ -120,13 +144,13 @@ export class EditprofiledetailsComponent {
 
     try {
       // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
-      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+      const response = await fetch(`http://127.0.0.1:8000/images/upload/`, requestOptions);
 
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        this.hideChangeProfileDetailsPopup();
-        this.userProfileService.refreshProfileData();
+          this.hideChangeProfileDetailsPopup();
+          this.userProfileService.refreshProfileData();
       } else {
         const result = await response.json();
         console.log(result);

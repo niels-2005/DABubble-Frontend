@@ -15,12 +15,13 @@ import { UserlockedmessageComponent } from './components/userlockedmessage/userl
 import { CompleteyourprofileComponent } from './components/completeyourprofile/completeyourprofile.component';
 import { LogoandprofileheaderComponent } from './components/logoandprofileheader/logoandprofileheader.component';
 import { ImageCropperModule } from 'ngx-image-cropper';
-import { StartsiteComponent } from './components/startsite/startsite.component';
 import { EditprofilesitebarComponent } from './components/editprofilesitebar/editprofilesitebar.component';
 import { EditprofiledetailsComponent } from './components/editprofiledetails/editprofiledetails.component';
 import { DeleteprofileComponent } from './components/deleteprofile/deleteprofile.component';
 import { MapComponent } from './components/map/map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
+import { ReactiveFormsModule } from '@angular/forms';
+import { MapwelcomemessageComponent } from './components/mapwelcomemessage/mapwelcomemessage.component';
 
 @NgModule({
   declarations: [
@@ -35,11 +36,11 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     UserlockedmessageComponent,
     CompleteyourprofileComponent,
     LogoandprofileheaderComponent,
-    StartsiteComponent,
     EditprofilesitebarComponent,
     EditprofiledetailsComponent,
     DeleteprofileComponent,
     MapComponent,
+    MapwelcomemessageComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,6 +49,7 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
     HttpClientModule,
     ImageCropperModule,
     LeafletModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

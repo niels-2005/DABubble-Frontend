@@ -5,7 +5,6 @@ import { VerifyuserComponent } from './components/verifyuser/verifyuser.componen
 import { ResetpasswordconfirmComponent } from './components/resetpasswordconfirm/resetpasswordconfirm.component';
 import { VerifyuserquizComponent } from './components/verifyuserquiz/verifyuserquiz.component';
 import { CompleteyourprofileComponent } from './components/completeyourprofile/completeyourprofile.component';
-import { StartsiteComponent } from './components/startsite/startsite.component';
 import { MapComponent } from './components/map/map.component';
 
 const routes: Routes = [
@@ -15,7 +14,6 @@ const routes: Routes = [
   {path: 'reset-password/:userId/:token', component: ResetpasswordconfirmComponent},
   {path: 'verify-quiz', component: VerifyuserquizComponent},
   {path: 'complete-your-profile', component: CompleteyourprofileComponent},
-  {path: 'startsite', component: StartsiteComponent},
   {path: 'map', component: MapComponent}
 ];
 

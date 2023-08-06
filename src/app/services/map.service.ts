@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,13 @@ export class MapService {
   constructor() { }
 
   token = localStorage.getItem('token');
+
+  public mapRefreshNeeded$ = new Subject<void>();
+
+  get mapRefreshNeeded(): Observable<any> {
+      return this.mapRefreshNeeded$.asObservable();
+  }
+
 
   async getUserMapInfos(){
     const myHeaders = new Headers();
