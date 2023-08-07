@@ -3,9 +3,7 @@
 <div class="complete-your-profile-container">
   <div class="welcome-to-community-around-container">
     <div class="welcome-to-community-container" id="welcome-to-community-text">
-      <h1>
-        Willkommen in der Developer Akademie Community, {{ userFullName }}
-      </h1>
+      <h1>Willkommen in der Community, {{ userFullName }}</h1>
       <p>
         Wir gratulieren Ihnen herzlich zum erfolgreichen Abschluss unseres Quiz!
       </p>
@@ -37,66 +35,78 @@
             <span class="required-fields-span">*Pflichtfelder</span>
           </h3>
           <div class="user-details-input-container">
-            <div class="input-error-container">
+            <div class="input-error-container floating-label-group-cyp">
               <input
                 type="text"
-                placeholder="*Straße"
+                class="form-control"
                 [(ngModel)]="street"
                 name="street"
+                required
               />
+              <label class="floating-label-cyp">*Straße</label>
               <span>{{ errors.street ? errors.street[0] : "" }}</span>
             </div>
-            <div class="input-error-container">
+            <div class="input-error-container floating-label-group-cyp">
               <input
                 type="number"
-                placeholder="*Hausnummer"
+                class="form-control"
                 [(ngModel)]="house_number"
                 name="house_number"
+                required
               />
+              <label class="floating-label-cyp">*Hausnummer</label>
               <span>{{
                 errors.house_number ? errors.house_number[0] : ""
               }}</span>
             </div>
           </div>
           <div class="user-details-input-container">
-            <div class="input-error-container">
+            <div class="input-error-container floating-label-group-cyp">
               <input
                 type="number"
-                placeholder="*Postleitzahl"
+                class="form-control"
                 [(ngModel)]="zip_code"
                 name="zip_code"
+                required
               />
+              <label class="floating-label-cyp">*Postleitzahl</label>
               <span>{{ errors.zip_code ? errors.zip_code[0] : "" }}</span>
             </div>
-            <div class="input-error-container">
+            <div class="input-error-container floating-label-group-cyp">
               <input
                 type="text"
-                placeholder="*Stadt"
+                class="form-control"
                 [(ngModel)]="city"
                 name="city"
+                required
               />
+              <label class="floating-label-cyp">*Stadt</label>
               <span>{{ errors.city ? errors.city[0] : "" }}</span>
             </div>
           </div>
           <div class="user-details-input-container">
-            <div class="input-error-container">
+            <div class="input-error-container floating-label-group-cyp">
               <input
                 type="number"
-                placeholder="*Telefonnummer"
+                class="form-control"
                 [(ngModel)]="phone_number"
                 name="phone_number"
+                required
               />
+              <label class="floating-label-cyp">*Telefonnummer</label>
               <span>{{
                 errors.phone_number ? errors.phone_number[0] : ""
               }}</span>
             </div>
-            <div class="input-error-container">
+            <div class="input-error-container floating-label-group-cyp">
               <input
                 type="text"
-                placeholder="Website"
+                class="form-control"
                 [(ngModel)]="website"
                 name="website"
+                placeholder=" "
               />
+              <label class="floating-label-cyp">Website</label>
               <span>{{ errors.website ? errors.website[0] : "" }}</span>
             </div>
           </div>
@@ -108,50 +118,55 @@
           <span>{{ errors.image ? errors.image[0] : "" }}</span>
         </div>
       </div>
-      <div class="user-details-textarea-container">
+      <div class="user-details-textarea-container floating-label-group-cyp">
         <textarea
           cols="30"
           rows="10"
-          placeholder="*Erzähl etwas über dich"
+          class="form-control"
           [(ngModel)]="about"
           name="about"
-        ></textarea>
+          required
+        >
+        </textarea>
+        <label class="floating-label-cyp">*Erzähl etwas über dich</label>
         <span>{{ errors.about ? errors.about[0] : "" }}</span>
       </div>
       <div class="complete-your-profile-button-container">
         <div class="user-type-container">
-          <div class="user-type-flex-row-container">
-            <div class="complete-your-profile-checkbox-container">
-              <span>*Schüler</span>
-              <input
-                type="radio"
-                name="userType"
-                [(ngModel)]="user_type"
-                value="Schüler"
-              />
+          <div class="user-type-flex-row-containerr">
+            <div class="schuler-alumni-flex-row-container">
+              <div class="complete-your-profile-checkbox-container">
+                <span>*Schüler</span>
+                <input
+                  type="radio"
+                  name="usersType"
+                  [(ngModel)]="users_type"
+                  value="Schüler"
+                />
+              </div>
+              <div class="complete-your-profile-checkbox-container">
+                <span>*Alumni</span>
+                <input
+                  type="radio"
+                  name="usersType"
+                  [(ngModel)]="users_type"
+                  value="Alumni"
+                />
+              </div>
             </div>
-            <div class="complete-your-profile-checkbox-container">
-              <span>*Alumni</span>
-              <input
-                type="radio"
-                name="userType"
-                [(ngModel)]="user_type"
-                value="Alumni"
-              />
-            </div>
-            <div class="complete-your-profile-checkbox-container">
-              <img
-                src="./assets/img/f-zeich-neben-profil.png"
-                alt="Question Icon"
-                (click)="openMapInformations()"
-              />
-              <span>Auf der Karte anzeigen?</span>
-              <input type="checkbox" [(ngModel)]="showOnMap" />
-            </div>
+            <span class="user-type-error-span">{{
+              errors.user_type ? errors.user_type[0] : ""
+            }}</span>
           </div>
-          <span class="user-type-error-span">{{
-            errors.user_type ? errors.user_type[0] : ""
-          }}</span>
+          <div class="complete-your-profile-checkbox-container">
+            <img
+              src="./assets/img/f-zeich-neben-profil.png"
+              alt="Question Icon"
+              (click)="openMapInformations()"
+            />
+            <span>Auf der Karte anzeigen?</span>
+            <input type="checkbox" [(ngModel)]="showOnMap" />
+          </div>
         </div>
         <button (click)="sendProfileDetailsToBackend()">Speichern</button>
       </div>

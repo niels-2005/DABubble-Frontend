@@ -21,6 +21,8 @@ export class RegisterComponent {
 
   dsgvoAccepted = false;
 
+  hidePassword = true;
+
   constructor(private authService: AuthenticationService) {}
 
   switchContainer(id1: string, id2: string, id3: string, id4: string) {
@@ -72,5 +74,9 @@ export class RegisterComponent {
     this.nameError = errors.full_name && errors.full_name[0];
     this.emailError = errors.email && errors.email[0];
     this.passwordError = errors.password && errors.password[0];
+  }
+
+  toggleHidePassword() {
+    this.hidePassword = !this.hidePassword;
   }
 }

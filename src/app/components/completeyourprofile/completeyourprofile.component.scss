@@ -100,6 +100,9 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  h3 {
+    margin-bottom: 16px;
+  }
 }
 
 .user-details-profile-container {
@@ -160,9 +163,8 @@
 
 .user-type-container {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 8px;
+  align-items: flex-start;
+  gap: 24px;
 }
 
 .user-type-error-span {
@@ -182,4 +184,65 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.schuler-alumni-flex-row-container {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+}
+
+.user-type-flex-row-containerr {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.floating-label-group-cyp {
+	position: relative;
+
+	.floating-label-cyp {
+		font-size: 16px;
+    color: #75758B;
+		position: absolute;
+		pointer-events: none;
+		top: 16px;
+		left: 25px;
+		transition: all 0.2s ease-in-out;
+	}
+
+	input:focus ~ .floating-label-cyp,
+input:not(:focus):valid:not(:placeholder-shown) ~ .floating-label-cyp {
+		top: -15px;
+		bottom: 0px;
+		left: 15px;
+		font-size: 12px;
+		opacity: 1;
+    color: #444DF2;
+	}
+}
+
+.floating-label-group-cyp {
+  position: relative;
+
+  .floating-label-cyp {
+      font-size: 16px;
+      color: #75758B;
+      position: absolute;
+      pointer-events: none;
+      top: 20px;
+      left: 25px;
+      transition: all 0.2s ease-in-out;
+  }
+
+  textarea:focus ~ .floating-label-cyp,
+  textarea:not(:focus):valid ~ .floating-label-cyp {
+      top: -15px;
+      left: 15px;
+      font-size: 12px;
+      opacity: 1;
+      color: #444DF2;
+  }
+
 }

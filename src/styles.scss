@@ -6,7 +6,7 @@
 
 body {
   background-color: #ECEEFE;
-  font-family: 'Nunito', sans-serif;
+  font-family: 'Nunito', sans-serif !important;
 }
 
 .d-none {
@@ -17,9 +17,11 @@ body {
   display: flex;
   padding-left: 16px;
   align-items: center;
+  justify-content: center;
   color: #ED1E79;
   font-size: 14px;
   min-height: 32px;
+  text-align: center;
 }
 
 .opacity-background-container {
@@ -153,3 +155,38 @@ body {
     cursor: pointer;
   }
 }
+
+.password-input-image-container {
+  position: relative;
+  img {
+    position: absolute;
+    right: 25px;
+    top: 27.5px;
+    cursor: pointer;
+  }
+}
+
+.floating-label-group {
+	position: relative;
+
+	.floating-label {
+		font-size: 16px;
+    color: #75758B;
+		position: absolute;
+		pointer-events: none;
+		top: 30px;
+		left: 60px;
+		transition: all 0.2s ease-in-out;
+	}
+
+	input:focus ~ .floating-label,
+	input:not(:focus):valid ~ .floating-label {
+		top: -15px;
+		bottom: 0px;
+		left: 15px;
+		font-size: 12px;
+		opacity: 1;
+    color: #444DF2;
+	}
+}
+

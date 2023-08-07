@@ -22,6 +22,7 @@ import { MapComponent } from './components/map/map.component';
 import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MapwelcomemessageComponent } from './components/mapwelcomemessage/mapwelcomemessage.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MapwelcomemessageComponent } from './components/mapwelcomemessage/mapwe
     HttpClientModule,
     ImageCropperModule,
     LeafletModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

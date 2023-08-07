@@ -42,7 +42,7 @@ export class CompleteyourprofileComponent implements OnInit {
   phone_number = "";
   website = "";
   about = "";
-  user_type = "";
+  users_type = "";
   showOnMap: boolean = false;
 
 
@@ -59,7 +59,7 @@ export class CompleteyourprofileComponent implements OnInit {
       "phone_number": this.phone_number,
       "website": this.website,
       "about": this.about,
-      "user_type": this.user_type,
+      "user_type": this.users_type,
       "user_id": this.userId,
       "show_on_map": this.showOnMap
     });

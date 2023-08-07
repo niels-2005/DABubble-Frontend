@@ -16,36 +16,53 @@
     Konto.
   </p>
   <form class="login-formular-container" (submit)="registerUser($event)">
-    <input
-      type="text"
-      placeholder="Vorname und Nachname"
-      class="name-input"
-      [(ngModel)]="fullName"
-      name="fullName"
-    />
-    <span class="api-errors-span" id="register-error-name">{{
-      nameError
-    }}</span>
-    <input
-      type="email"
-      placeholder="beispielname@email.com"
-      class="email-input"
-      [(ngModel)]="email"
-      name="email"
-    />
-    <span class="api-errors-span" id="register-error-email">{{
-      emailError
-    }}</span>
-    <input
-      type="password"
-      placeholder="Passwort"
-      class="password-input"
-      [(ngModel)]="password"
-      name="password"
-    />
-    <span class="api-errors-span" id="register-error-password">{{
-      passwordError
-    }}</span>
+    <div class="row">
+      <div class="col-xs-4 col-xs-offset-4">
+        <div class="floating-label-group">
+          <input
+            type="text"
+            class="form-control"
+            autocomplete="off"
+            autofocus
+            required
+            class="name-input"
+            [(ngModel)]="fullName"
+            name="fullName"
+          />
+          <label class="floating-label">Vorname und Nachname</label>
+        </div>
+        <span class="api-errors-span" id="register-error-name">{{
+          nameError
+        }}</span>
+        <div class="floating-label-group">
+          <input
+            type="text"
+            class="form-control"
+            autocomplete="off"
+            autofocus
+            required
+            class="email-input"
+            [(ngModel)]="email"
+            name="email"
+          />
+          <label class="floating-label">beispielname@email.com</label>
+        </div>
+        <span class="api-errors-span">{{ emailError }}</span>
+        <div class="floating-label-group">
+          <input
+            type="password"
+            class="form-control"
+            autocomplete="off"
+            required
+            class="password-input"
+            [(ngModel)]="password"
+            name="password"
+          />
+          <label class="floating-label">Passwort</label>
+        </div>
+        <span class="api-errors-span">{{ passwordError }}</span>
+      </div>
+    </div>
     <div class="register-button-container">
       <div class="dsgvo-checkbox-container" *ngIf="!registerSuccessful">
         <span>DSGVO aktzeptieren</span>
