@@ -186,3 +186,37 @@
 .mb-32 {
   margin-bottom: 24px;
 }
+
+.floating-label-group-cyp {
+  position: relative;
+
+  .floating-label-cyp {
+    font-size: 16px;
+    color: #75758B;
+    position: absolute;
+    pointer-events: none;
+    top: 19px;  // Standardposition (wenn das Feld leer ist)
+    left: 25px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  // Wenn das Input-Feld fokussiert ist oder einen Wert hat
+  input:focus + .floating-label-cyp,
+  input.has-value + .floating-label-cyp {
+    top: -15px;
+    left: 15px;
+    font-size: 12px;
+    color: #444DF2;
+  }
+
+  // Für Textbereiche (textarea)
+  textarea:focus + .floating-label-cyp,
+  textarea.has-value + .floating-label-cyp {
+    top: -15px;
+    left: 15px;
+    font-size: 12px;
+    color: #444DF2;
+  }
+}
+
+

@@ -17,6 +17,9 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
 
   private subscriptions: Subscription[] = [];
 
+  public errorMessage: string = '';
+
+
   constructor (private userProfileService: UserprofilesService, private router: Router) {}
 
   ngOnInit(): void {
@@ -70,7 +73,17 @@ if (resp.ok) {
 } else {
     const error = await resp.json();
     console.log('error', error);
+    this.checkError(error);
 }
   }
+
+  checkError(error: any){
+    if (error.non_field_errors && error.non_field_errors.length > 0) {
+      this.errorMessage = error.non_field_errors[0];
+  } else {
+      this.errorMessage = 'Ein unbekannter Fehler ist aufgetreten.';
+  }
+  }
+
 
 }

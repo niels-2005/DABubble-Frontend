@@ -122,6 +122,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 32px;
   img {
     padding: 2px;
     cursor: pointer;
@@ -141,7 +142,8 @@ body {
 .complete-your-profile-checkbox-container {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 4px;
+  transition: 0.2s ease-in-out;
   span {
     font-size: 20px;
   }
@@ -154,7 +156,10 @@ body {
     height: 20px;
     cursor: pointer;
   }
+
 }
+
+
 
 .password-input-image-container {
   position: relative;
@@ -190,3 +195,14 @@ body {
 	}
 }
 
+.required-fields-span {
+  font-weight: 400 !important;
+  color: #757575;
+}
+
+.hide-password-image {
+  position: absolute;
+  right: 35px;
+  top: 25px;
+  cursor: pointer;
+}

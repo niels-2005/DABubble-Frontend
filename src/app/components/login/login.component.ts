@@ -79,6 +79,7 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('full_name', result.full_name);
     localStorage.setItem('user_id', result.user_id);
     localStorage.setItem('email', result.email);
+    localStorage.setItem('quiz_verified', result.quiz_verified);
   }
 
   checkQuizVerifiedStatus(result: any){

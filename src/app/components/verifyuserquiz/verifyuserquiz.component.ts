@@ -3,6 +3,7 @@ import { LocalstorageService } from 'src/app/services/localstorage.service';
 import { LogoutService } from 'src/app/services/logout.service';
 import { Router } from '@angular/router';
 import { MessageService } from 'src/app/services/message.service';
+import { UserstatusService } from 'src/app/services/userstatus.service';
 
 @Component({
   selector: 'app-verifyuserquiz',
@@ -24,9 +25,10 @@ export class VerifyuserquizComponent implements OnInit {
 
   selectedAnswerIndex: number | null = null;
 
-  constructor(private localStorageService: LocalstorageService, private logoutService: LogoutService, private router: Router, private messageService: MessageService) {}
+  constructor(private localStorageService: LocalstorageService, private logoutService: LogoutService, private router: Router, private messageService: MessageService, private userStatusService: UserstatusService) {}
 
   ngOnInit(): void {
+    this.userStatusService.checkIfUserIsAuthenticated();
     let items = this.localStorageService.getItemsFromLocalStorage();
     this.userFullName = items.full_name || "";
   }
@@ -62,7 +64,10 @@ export class VerifyuserquizComponent implements OnInit {
 
   checkIfUserVerifiedQuiz(result: any){
     if(result.quiz_verified === 'true'){
-      this.router.navigateByUrl('/complete-your-profile');
+      localStorage.removeItem('quiz_verified');
+      setTimeout(() => {
+        this.router.navigateByUrl('/complete-your-profile');
+      }, 100);
     }
   }
 

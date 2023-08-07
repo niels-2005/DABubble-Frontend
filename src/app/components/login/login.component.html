@@ -59,7 +59,7 @@
           <span class="api-errors-span">{{ emailError }}</span>
           <div class="floating-label-group">
             <input
-              type="password"
+              [type]="hidePassword ? 'password' : 'text'"
               class="form-control"
               autocomplete="off"
               required
@@ -68,6 +68,12 @@
               name="password"
             />
             <label class="floating-label">Passwort</label>
+            <img
+              src="./assets/img/password-dont-see-image.png"
+              alt="Hiding Password"
+              class="hide-password-image"
+              (click)="toggleHidePassword()"
+            />
           </div>
         </div>
       </div>

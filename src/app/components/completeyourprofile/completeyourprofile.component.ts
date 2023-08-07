@@ -1,5 +1,6 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserstatusService } from 'src/app/services/userstatus.service';
 
 @Component({
   selector: 'app-completeyourprofile',
@@ -21,9 +22,11 @@ export class CompleteyourprofileComponent implements OnInit {
 
   errors: any = {};
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private userStatusService: UserstatusService) { }
 
   ngOnInit(): void {
+    this.userStatusService.checkIfUserIsAuthenticated();
+    this.userStatusService.checkIfUserVerifiedQuiz();
       const username = localStorage.getItem('full_name');
       this.userFullName = username || ""
   }

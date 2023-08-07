@@ -207,7 +207,7 @@
     color: #75758B;
 		position: absolute;
 		pointer-events: none;
-		top: 16px;
+		top: 100px;
 		left: 25px;
 		transition: all 0.2s ease-in-out;
 	}
@@ -231,7 +231,7 @@ input:not(:focus):valid:not(:placeholder-shown) ~ .floating-label-cyp {
       color: #75758B;
       position: absolute;
       pointer-events: none;
-      top: 20px;
+      top: 19px;
       left: 25px;
       transition: all 0.2s ease-in-out;
   }

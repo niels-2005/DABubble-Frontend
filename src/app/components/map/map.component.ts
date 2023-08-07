@@ -4,6 +4,7 @@ import { MapService } from 'src/app/services/map.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
+import { UserstatusService } from 'src/app/services/userstatus.service';
 
 @Component({
   selector: 'app-map',
@@ -21,7 +22,7 @@ export class MapComponent implements OnInit {
 
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private mapService: MapService, private fb: FormBuilder) {
+  constructor(private mapService: MapService, private fb: FormBuilder, private userStatusService: UserstatusService) {
     this.filterForm = this.fb.group({
       mentor: [true],
       schuler: [true],
@@ -30,6 +31,8 @@ export class MapComponent implements OnInit {
   }
 
   async ngOnInit(): Promise<void> {
+    this.userStatusService.checkIfUserIsAuthenticated();
+    this.userStatusService.checkIfUserVerifiedQuiz();
     this.subscriptions.add(
       this.mapService.mapRefreshNeeded.subscribe(async () => {
         await this.getAndChangeUserMapInfos();
