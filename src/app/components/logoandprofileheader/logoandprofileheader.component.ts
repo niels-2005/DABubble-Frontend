@@ -92,4 +92,13 @@ ngOnDestroy(): void {
     this.router.navigateByUrl('/map');
   }
 
+  shouldDisplayButtons(): boolean {
+    const currentRoute = this.router.url;
+    if (currentRoute === '/verify-quiz' || currentRoute === '/complete-your-profile') {
+      return false;
+    }
+
+    return true;
+  }
 }
+

@@ -46,7 +46,9 @@ export class EditprofiledetailsComponent {
     this.about = result.about;
     this.city = result.city;
     this.house_number = result.house_number;
-    this.imagePreview = result.image_url;
+    if (result.image_url) {
+      this.imagePreview = result.image_url;
+    }
     this.phone_number = result.phone_number;
     this.street = result.street;
     this.website = result.website;
@@ -98,8 +100,8 @@ export class EditprofiledetailsComponent {
     };
 
     try {
-      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
-      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+      const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
+      // const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
 
       if (response.ok) {
         const result = await response.json();
@@ -143,8 +145,8 @@ export class EditprofiledetailsComponent {
     };
 
     try {
-      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
-      const response = await fetch(`http://127.0.0.1:8000/images/upload/`, requestOptions);
+      const response = await fetch(`https://celinemueller.pythonanywhere.com/images/upload/`, requestOptions);
+      // const response = await fetch(`http://127.0.0.1:8000/images/upload/`, requestOptions);
 
       if (response.ok) {
         const result = await response.json();

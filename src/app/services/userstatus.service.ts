@@ -17,10 +17,5 @@ export class UserstatusService {
       this.router.navigate(['/login']);
     }
   }
-
-  checkIfUserVerifiedQuiz(){
-  if(this.quizVerified === 'false'){
-    this.router.navigate(['/verify-quiz']);
-  }
-  }
 }
+

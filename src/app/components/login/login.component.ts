@@ -59,8 +59,8 @@ export class LoginComponent implements OnInit {
       body: raw,
 };
 
-    // const resp = await fetch("https://celinemueller.pythonanywhere.com/auth/login/", requestOptions)
-    const resp = await fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
+    const resp = await fetch("https://celinemueller.pythonanywhere.com/auth/login/", requestOptions)
+    // const resp = await fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
     if (resp.ok) {
       const result = await resp.json();
       console.log(result);

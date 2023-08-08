@@ -55,7 +55,9 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
     this.about = result.about;
     this.city = result.city;
     this.houseNumber = result.house_number;
-    this.profileImageUrl = result.image_url;
+    if (result.image_url) {
+      this.profileImageUrl = result.image_url;
+    }
     this.phoneNumber = result.phone_number;
     this.street = result.street;
     this.website = result.website;

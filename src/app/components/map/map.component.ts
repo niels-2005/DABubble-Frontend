@@ -32,7 +32,6 @@ export class MapComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.userStatusService.checkIfUserIsAuthenticated();
-    this.userStatusService.checkIfUserVerifiedQuiz();
     this.subscriptions.add(
       this.mapService.mapRefreshNeeded.subscribe(async () => {
         await this.getAndChangeUserMapInfos();

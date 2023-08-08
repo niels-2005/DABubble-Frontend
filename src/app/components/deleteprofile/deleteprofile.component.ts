@@ -25,8 +25,10 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.subscriptions.push(
       this.userProfileService.profileData$.subscribe(data => {
-        if (data) {
+        if (data && data.image_url) {
           this.imagePreview = data.image_url;
+        } else {
+          this.imagePreview = "./assets/img/avatar-men-1.png";
         }
       })
     );
@@ -64,7 +66,8 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
       body: raw,
 };
 
-const resp = await fetch("http://127.0.0.1:8000/userprofiles/delete-user/", requestOptions);
+const resp = await fetch("https://celinemueller.pythonanywhere.com/userprofiles/delete-user/", requestOptions);
+// const resp = await fetch("http://127.0.0.1:8000/userprofiles/delete-user/", requestOptions);
 
 if (resp.ok) {
     const result = await resp.json();

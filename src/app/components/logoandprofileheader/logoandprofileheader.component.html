@@ -21,8 +21,12 @@
       class="edit-profile-and-logout-container d-none"
       id="edit-profile-and-logout"
     >
-      <button (click)="showUserProfile()">Dein Profil</button>
-      <button (click)="navigateToUserMap()">Zur Karte</button>
+      <button (click)="showUserProfile()" [hidden]="!shouldDisplayButtons()">
+        Dein Profil
+      </button>
+      <button (click)="navigateToUserMap()" [hidden]="!shouldDisplayButtons()">
+        Zur Karte
+      </button>
       <button (click)="logoutUser()">Log out</button>
     </div>
   </div>

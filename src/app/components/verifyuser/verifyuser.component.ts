@@ -29,8 +29,8 @@ export class VerifyuserComponent implements OnInit {
       method: 'POST',
     };
 
-    // const response = await fetch(`https://celinemueller.pythonanywhere.com/auth/verify-email/${this.userId}/${this.token}`, requestOptions);
-    const response = await fetch(`http://localhost:8000/auth/verify-email/${this.userId}/${this.token}`, requestOptions);
+    const response = await fetch(`https://celinemueller.pythonanywhere.com/auth/verify-email/${this.userId}/${this.token}`, requestOptions);
+    // const response = await fetch(`http://localhost:8000/auth/verify-email/${this.userId}/${this.token}`, requestOptions);
     const result = await response.json();
     if (response.ok) {
       this.message = result.message;
