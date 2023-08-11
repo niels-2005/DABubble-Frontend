@@ -73,8 +73,8 @@ export class CompleteyourprofileComponent implements OnInit {
     };
 
     try {
-      const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
-      // const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}/`, requestOptions);
+      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
 
       if (response.ok) {
         const result = await response.json();
@@ -112,8 +112,8 @@ export class CompleteyourprofileComponent implements OnInit {
     };
 
     try {
-      const response = await fetch(`https://celinemueller.pythonanywhere.com/images/upload/`, requestOptions);
-      // const response = await fetch(`http://127.0.0.1:8000/images/upload/`, requestOptions);
+      // const response = await fetch(`https://celinemueller.pythonanywhere.com/images/upload/`, requestOptions);
+      const response = await fetch(`http://127.0.0.1:8000/images/upload/`, requestOptions);
 
       if (response.ok) {
         const result = await response.json();

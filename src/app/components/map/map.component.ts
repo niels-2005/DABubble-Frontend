@@ -26,7 +26,8 @@ export class MapComponent implements OnInit {
     this.filterForm = this.fb.group({
       mentor: [true],
       schuler: [true],
-      alumni: [true]
+      alumni: [true],
+      com_manager: [true]
     });
   }
 
@@ -79,8 +80,10 @@ export class MapComponent implements OnInit {
         return './assets/img/green-marker.png';
       case 'Alumni':
         return './assets/img/blue-marker.png';
+      case 'Community Manager':
+        return './assets/img/black-marker.png';
       default:
-        return './assets/img/red-marker.png';
+        return './assets/img/green-marker.png';
     }
   }
 
@@ -111,6 +114,8 @@ export class MapComponent implements OnInit {
           return filters.schuler;
         case 'Alumni':
           return filters.alumni;
+        case 'Community Manager':
+          return filters.com_manager;
         default:
           return false;
       }
@@ -120,7 +125,7 @@ export class MapComponent implements OnInit {
       const iconUrl = this.getIconUrlByUserType(user.user_type);
       const customIcon = this.createCustomIcon(iconUrl);
       const m = marker([user.latitude, user.longitude], { icon: customIcon })
-        .bindTooltip(`${user.user.split(' ')[0]} (${user.user_type})`)
+        .bindTooltip(`${user.user} (${user.user_type})`)
         .addTo(this.map!)
         .on('click', (event: LeafletMouseEvent) => this.zoomToMarker(event));
       this.layers.push(m);
@@ -132,10 +137,40 @@ export class MapComponent implements OnInit {
     this.layers = [];
 }
 
-  zoomToMarker(event: LeafletMouseEvent) {
-    const marker: Marker = event.target;
-    this.map?.setView(marker.getLatLng(), 15);
+zoomToMarker(event: LeafletMouseEvent) {
+  const clickedMarker: Marker = event.target;
+  const userData = this.allUsersData.find(user =>
+      user.latitude === clickedMarker.getLatLng().lat && user.longitude === clickedMarker.getLatLng().lng
+  );
+
+  if (userData) {
+    const popupContent = this.returnPopupContentHTML(userData);
+    clickedMarker.unbindPopup();
+    clickedMarker.bindPopup(popupContent).openPopup();
   }
+  this.map?.setView(clickedMarker.getLatLng(), 13);
+}
+
+
+returnPopupContentHTML(userData: any) {
+  let websiteLink = '';
+  if (userData.website && userData.website !== '') {
+    websiteLink = `<a href="${userData.website}" class="user-website" target="_blank" rel="noopener noreferrer">Portfolio</a>`;
+  }
+
+  return `
+    <div class="popup-content">
+        <h2 class="user-name">${userData.user} (${userData.user_type})</h2>
+        <img class="user-image" src="${userData.image_url}" alt="User Image">
+        <p class="user-email">${userData.email}</p>
+        <p class="user-about">${userData.about}</p>
+        ${websiteLink}
+    </div>
+  `;
+}
+
+
+//      <button class="user-button">Nachricht schreiben</button>
 
   toggleCheckbox(controlName: string) {
     const currentVal = this.filterForm.get(controlName)?.value;

@@ -23,10 +23,7 @@
         </button>
       </div>
     </div>
-    <div
-      class="user-details-container d-none"
-      id="complete-your-profile-details"
-    >
+    <div class="user-details-container d-none" id="complete-your-profile-details">
       <h2>Dein Profil vervollständigen</h2>
       <div class="user-details-top-container">
         <div class="user-details-around-input-container">
@@ -36,76 +33,40 @@
           </h3>
           <div class="user-details-input-container">
             <div class="input-error-container floating-label-group-cyp">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="street"
-                name="street"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="street" name="street" required />
               <label class="floating-label-cyp">*Straße</label>
               <span>{{ errors.street ? errors.street[0] : "" }}</span>
             </div>
             <div class="input-error-container floating-label-group-cyp">
-              <input
-                type="number"
-                class="form-control"
-                [(ngModel)]="house_number"
-                name="house_number"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="house_number" name="house_number" required />
               <label class="floating-label-cyp">*Hausnummer</label>
               <span>{{
                 errors.house_number ? errors.house_number[0] : ""
-              }}</span>
+                }}</span>
             </div>
           </div>
           <div class="user-details-input-container">
             <div class="input-error-container floating-label-group-cyp">
-              <input
-                type="number"
-                class="form-control"
-                [(ngModel)]="zip_code"
-                name="zip_code"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="zip_code" name="zip_code" required />
               <label class="floating-label-cyp">*Postleitzahl</label>
               <span>{{ errors.zip_code ? errors.zip_code[0] : "" }}</span>
             </div>
             <div class="input-error-container floating-label-group-cyp">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="city"
-                name="city"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="city" name="city" required />
               <label class="floating-label-cyp">*Stadt</label>
               <span>{{ errors.city ? errors.city[0] : "" }}</span>
             </div>
           </div>
           <div class="user-details-input-container">
             <div class="input-error-container floating-label-group-cyp">
-              <input
-                type="number"
-                class="form-control"
-                [(ngModel)]="phone_number"
-                name="phone_number"
-                required
-              />
+              <input type="text" class="form-control" [(ngModel)]="phone_number" name="phone_number" required />
               <label class="floating-label-cyp">*Telefonnummer</label>
               <span>{{
                 errors.phone_number ? errors.phone_number[0] : ""
-              }}</span>
+                }}</span>
             </div>
             <div class="input-error-container floating-label-group-cyp">
-              <input
-                type="text"
-                class="form-control"
-                [(ngModel)]="website"
-                name="website"
-                placeholder=" "
-              />
+              <input type="text" class="form-control" [(ngModel)]="website" name="website" placeholder=" " />
               <label class="floating-label-cyp">Website</label>
               <span>{{ errors.website ? errors.website[0] : "" }}</span>
             </div>
@@ -119,14 +80,7 @@
         </div>
       </div>
       <div class="user-details-textarea-container floating-label-group-cyp">
-        <textarea
-          cols="30"
-          rows="10"
-          class="form-control"
-          [(ngModel)]="about"
-          name="about"
-          required
-        >
+        <textarea cols="30" rows="10" class="form-control" [(ngModel)]="about" name="about" required>
         </textarea>
         <label class="floating-label-cyp">*Erzähl etwas über dich</label>
         <span>{{ errors.about ? errors.about[0] : "" }}</span>
@@ -137,33 +91,19 @@
             <div class="schuler-alumni-flex-row-container">
               <div class="complete-your-profile-checkbox-container">
                 <span>*Schüler</span>
-                <input
-                  type="radio"
-                  name="usersType"
-                  [(ngModel)]="users_type"
-                  value="Schüler"
-                />
+                <input type="radio" name="usersType" [(ngModel)]="users_type" value="Schüler" />
               </div>
               <div class="complete-your-profile-checkbox-container">
                 <span>*Alumni</span>
-                <input
-                  type="radio"
-                  name="usersType"
-                  [(ngModel)]="users_type"
-                  value="Alumni"
-                />
+                <input type="radio" name="usersType" [(ngModel)]="users_type" value="Alumni" />
               </div>
             </div>
             <span class="user-type-error-span">{{
               errors.user_type ? errors.user_type[0] : ""
-            }}</span>
+              }}</span>
           </div>
           <div class="complete-your-profile-checkbox-container">
-            <img
-              src="./assets/img/f-zeich-neben-profil.png"
-              alt="Question Icon"
-              (click)="openMapInformations()"
-            />
+            <img src="./assets/img/f-zeich-neben-profil.png" alt="Question Icon" (click)="openMapInformations()" />
             <span>Auf der Karte anzeigen?</span>
             <input type="checkbox" [(ngModel)]="showOnMap" />
           </div>

@@ -26,18 +26,23 @@ export class MapService {
       headers: myHeaders,
     };
 
-    return await fetch("https://celinemueller.pythonanywhere.com/userprofiles/users-on-map/", requestOptions)
-    // return await fetch("http://127.0.0.1:8000/userprofiles/users-on-map/", requestOptions)
+    // return await fetch("https://celinemueller.pythonanywhere.com/userprofiles/users-on-map/", requestOptions)
+    return await fetch("http://127.0.0.1:8000/userprofiles/users-on-map/", requestOptions)
   .then(response => {
     if (!response.ok) {
       throw new Error('Network response was not ok');
     }
     return response.json();
   })
+  .then(data => {
+    console.log('Backend Data:', data);  // Hier wird das Backend-Daten-Logging hinzugefügt
+    return data;
+  })
   .catch(error => {
     console.log('error', error);
     throw error;
   });
   }
+
 
 }

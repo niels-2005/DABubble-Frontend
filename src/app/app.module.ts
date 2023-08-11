@@ -23,6 +23,8 @@ import { LeafletModule } from '@asymmetrik/ngx-leaflet';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MapwelcomemessageComponent } from './components/mapwelcomemessage/mapwelcomemessage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { SitenavigationComponent } from './components/sitenavigation/sitenavigation.component';
+import { StartsiteComponent } from './components/startsite/startsite.component';
 
 @NgModule({
   declarations: [
@@ -42,6 +44,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     DeleteprofileComponent,
     MapComponent,
     MapwelcomemessageComponent,
+    SitenavigationComponent,
+    StartsiteComponent,
   ],
   imports: [
     BrowserModule,

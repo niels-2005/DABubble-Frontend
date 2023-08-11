@@ -1,42 +1,28 @@
-<app-logoandprofileheader></app-logoandprofileheader>
-
-<div
-  class="map-container"
-  leaflet
-  [leafletOptions]="options"
-  (leafletMapReady)="onMapReady($event)"
->
+<div class="map-container" leaflet [leafletOptions]="options" (leafletMapReady)="onMapReady($event)">
   <div class="map-info-container">
     <div class="map-info-image-container">
       <img src="./assets/img/f-zeich-neben-profil.png" alt="Infos Image" />
       <form class="tooltip-content" [formGroup]="filterForm">
         <h3>Filter</h3>
+        <div (click)="toggleCheckbox('com_manager')">
+          <img src="./assets/img/black-marker.png" alt="Red Marker" />
+          <span>Community Manager</span>
+          <input type="checkbox" formControlName="com_manager" (click)="$event.stopPropagation()" />
+        </div>
         <div (click)="toggleCheckbox('mentor')">
           <img src="./assets/img/red-marker.png" alt="Red Marker" />
           <span>Mentoren</span>
-          <input
-            type="checkbox"
-            formControlName="mentor"
-            (click)="$event.stopPropagation()"
-          />
+          <input type="checkbox" formControlName="mentor" (click)="$event.stopPropagation()" />
         </div>
         <div (click)="toggleCheckbox('schuler')">
           <img src="./assets/img/green-marker.png" alt="Red Marker" />
           <span>Schüler</span>
-          <input
-            type="checkbox"
-            formControlName="schuler"
-            (click)="$event.stopPropagation()"
-          />
+          <input type="checkbox" formControlName="schuler" (click)="$event.stopPropagation()" />
         </div>
         <div (click)="toggleCheckbox('alumni')">
           <img src="./assets/img/blue-marker.png" alt="Red Marker" />
           <span>Alumni</span>
-          <input
-            type="checkbox"
-            formControlName="alumni"
-            (click)="$event.stopPropagation()"
-          />
+          <input type="checkbox" formControlName="alumni" (click)="$event.stopPropagation()" />
         </div>
       </form>
     </div>

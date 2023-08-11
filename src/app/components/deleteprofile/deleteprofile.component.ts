@@ -66,8 +66,8 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
       body: raw,
 };
 
-const resp = await fetch("https://celinemueller.pythonanywhere.com/userprofiles/delete-user/", requestOptions);
-// const resp = await fetch("http://127.0.0.1:8000/userprofiles/delete-user/", requestOptions);
+// const resp = await fetch("https://celinemueller.pythonanywhere.com/userprofiles/delete-user/", requestOptions);
+const resp = await fetch("http://127.0.0.1:8000/userprofiles/delete-user/", requestOptions);
 
 if (resp.ok) {
     const result = await resp.json();
