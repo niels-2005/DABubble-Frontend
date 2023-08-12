@@ -1,9 +1,12 @@
 .startsite-around-flexbox-container {
   display: flex;
   height: 83vh;
+  width: 100vw;
   box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
 }
 
 .map-component {
   flex: 1;
 }
+
+

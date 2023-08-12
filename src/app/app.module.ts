@@ -25,6 +25,7 @@ import { MapwelcomemessageComponent } from './components/mapwelcomemessage/mapwe
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SitenavigationComponent } from './components/sitenavigation/sitenavigation.component';
 import { StartsiteComponent } from './components/startsite/startsite.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { StartsiteComponent } from './components/startsite/startsite.component';
     MapwelcomemessageComponent,
     SitenavigationComponent,
     StartsiteComponent,
+    ChatComponent,
   ],
   imports: [
     BrowserModule,

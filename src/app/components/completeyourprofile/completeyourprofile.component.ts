@@ -118,7 +118,7 @@ export class CompleteyourprofileComponent implements OnInit {
       if (response.ok) {
         const result = await response.json();
         console.log(result);
-        this.router.navigateByUrl('map');
+        this.router.navigateByUrl('startsite');
       } else {
         const result = await response.json();
         console.log(result);

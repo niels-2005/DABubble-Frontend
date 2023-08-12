@@ -86,7 +86,7 @@ export class LoginComponent implements OnInit {
     if(result.quiz_verified === false){
       this.router.navigate(['/verify-quiz']);
     } else {
-      this.router.navigate(['/map']);
+      this.router.navigate(['/startsite']);
     }
   }
 
