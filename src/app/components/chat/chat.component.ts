@@ -1,10 +1,49 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { ChannelsService } from 'src/app/services/channels.service';
 
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.scss']
 })
-export class ChatComponent {
+export class ChatComponent implements OnInit {
+
+  constructor(private channelService: ChannelsService) {}
+
+  private subscription: Subscription = new Subscription();
+
+  channelData: any;
+
+  ngOnInit(): void {
+    this.subscription.add(
+      this.channelService.selectedChannelId$.subscribe(channelId => {
+        if (channelId !== null) {
+          this.loadChannelContent();
+          console.log(channelId, "ausgeführt!");
+        }
+      })
+    );
+  }
+
+  loadChannelContent() {
+    this.channelService.loadChannelContent().subscribe(content => {
+      console.log('Channel Daten', content);
+      this.channelData = content;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  formatMessageTime(timestamp: string): string {
+    const date = new Date(timestamp);
+    date.setHours(date.getHours() + 2);
+    const hours = ('0' + date.getHours()).slice(-2);
+    const minutes = ('0' + date.getMinutes()).slice(-2);
+    return `${hours}:${minutes}`;
+}
+
 
 }

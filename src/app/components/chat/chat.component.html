@@ -1,19 +1,31 @@
 <div class="chat-container">
-  <div class="chat-header">
-    <div class="chat-header-left">
+  <div class="chat-header-container">
+    <div class="chat-header-channel-name">
       <span>#</span>
-      <span>allgemein</span>
+      <span>{{channelData?.details.name}}</span>
     </div>
-    <div class="chat-header-right">
-      <span>3</span>
+    <div class="chat-header-members-container">
+      <div *ngFor="let member of channelData?.details.members">
+        <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}">
+      </div>
+      <span>{{channelData?.details.members.length}}</span>
     </div>
   </div>
-  <div class="chat-content">
-    <div class="chat-textarea-container">
-      <div class="textarea-items-container">
-        <textarea cols="30" rows="10" placeholder="Nachricht an #allgemein"></textarea>
-        <button>Nachricht absenden</button>
+  <div class="messages-around-container">
+    <div *ngFor="let message of channelData?.messages">
+      <div class="each-message-container">
+        <img src="{{message.user.image_url}}" alt="">
+        <div class="message-details-container">
+          <span>{{message.user.full_name}} {{ formatMessageTime(message.timestamp) }} Uhr</span>
+          <div>
+            <p>{{message.content}}</p>
+          </div>
+        </div>
       </div>
     </div>
+  </div>
+  <div class="textarea-container">
+    <textarea cols="30" rows="10" placeholder="Nachricht an #{{channelData?.details.name}}"></textarea>
+    <img src="./assets/img/send-message.png" alt="Send Message Image">
   </div>
 </div>

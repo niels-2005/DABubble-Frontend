@@ -24,8 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MapwelcomemessageComponent } from './components/mapwelcomemessage/mapwelcomemessage.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SitenavigationComponent } from './components/sitenavigation/sitenavigation.component';
-import { StartsiteComponent } from './components/startsite/startsite.component';
 import { ChatComponent } from './components/chat/chat.component';
+import { StartsiteComponent } from './components/startsite/startsite.component';
 
 @NgModule({
   declarations: [
@@ -46,8 +46,8 @@ import { ChatComponent } from './components/chat/chat.component';
     MapComponent,
     MapwelcomemessageComponent,
     SitenavigationComponent,
-    StartsiteComponent,
     ChatComponent,
+    StartsiteComponent,
   ],
   imports: [
     BrowserModule,

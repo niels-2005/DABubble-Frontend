@@ -1,25 +1,26 @@
 .sitenavigation-container {
   width: 15vw;
   height: 83vh;
-  box-shadow: inset -10px 0 10px -10px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  border-right: 2px solid #ECEEFE;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
 }
 
 .switch-to-map-button-container {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
   button {
       border-style: unset;
-      padding: 16px 64px;
       border-radius: 30px;
       font-size: 18px;
       cursor: pointer;
       transition: 0.1s ease-in-out;
-      color: white;
-      background-color: #444DF2;
+      color: black;
+    background-color: white;
       &:hover {
-        background-color: #797EF3;
+        background-color: #ECEEFE;
       }
   }
 }
@@ -27,13 +28,25 @@
 .channels-container {
   display: flex;
   flex-direction: column;
+
   gap: 8px;
-  justify-content: center;
-  align-items: center;
   h4 {
     font-size: 22px;
   }
-  div {
+}
+
+.all-channels-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.each-channel-name {
+  cursor: pointer;
+  padding: 4px;
+  &:hover {
+    background-color: #ECEEFE;
+  }
+  span {
     font-size: 18px;
   }
 }

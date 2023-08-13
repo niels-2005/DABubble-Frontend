@@ -4,6 +4,9 @@
   </div>
   <div class="channels-container">
     <h4>Channels</h4>
-    <div># allgemein</div>
+    <div *ngFor="let channel of channels" class="all-channels-container">
+      <div class="each-channel-name" (click)="this.channelService.setSelectedChannelId(channel.id)">
+        <span># {{channel.name}}</span>
+      </div>
+    </div>
   </div>
-</div>

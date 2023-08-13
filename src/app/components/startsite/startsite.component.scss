@@ -1,12 +1,10 @@
-.startsite-around-flexbox-container {
+.startsite-content-container {
   display: flex;
-  height: 83vh;
-  width: 100vw;
-  box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.2);
 }
 
-.map-component {
+.startsite-components-container {
   flex: 1;
+  background-color: white;
+  width: 85vw;
+  height: 83vh;
 }
-
-
