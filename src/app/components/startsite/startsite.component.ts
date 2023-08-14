@@ -7,4 +7,10 @@ import { Component } from '@angular/core';
 })
 export class StartsiteComponent {
 
+  isChatVisible = false;
+
+  handleSwitchView(view: string) {
+    this.isChatVisible = (view === 'chat');
+}
+
 }

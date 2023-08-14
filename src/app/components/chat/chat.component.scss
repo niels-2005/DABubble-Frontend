@@ -7,7 +7,7 @@
 
 .chat-header-container {
   padding: 16px;
-  border-bottom: 1px solid #ECEEFE;
+  border-bottom: 2px solid #ECEEFE;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -59,44 +59,105 @@
 
 .chat-header-members-container {
   display: flex;
-  gap: 16px;
   align-items: center;
   img {
+    margin-left: -12px;
     height: 50px;
     aspect-ratio: 1;
     border-radius: 50%;
     object-fit: cover;
   }
   span {
+    margin-left: 32px;
     font-size: 22px;
     font-weight: bold;
   }
 }
 
-.each-message-container {
-  display: flex;
-  align-items: center;
-  gap: 32px;
-  img {
-    height: 75px;
-    aspect-ratio: 1;
-    object-fit: cover;
-    border-radius: 50%;
-    }
-}
-
-.message-details-container {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-  span {
-    font-weight: bold;
-    font-size: 20px;
-  }
-}
+// Classes for your User
 
 .messages-around-container {
   display: flex;
   flex-direction: column;
   gap: 32px;
+  padding: 0 24px;
+  padding-top: 24px;
+  overflow-y: auto;
+  &::-webkit-scrollbar {
+    width: 10px;
+  }
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #797EFE;
+    border-radius: 5px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #797EFE;
+  }
+}
+
+.my-message {
+  .each-message-container {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: row-reverse;
+    gap: 32px;
+    img {
+      height: 75px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      }
+  }
+  .message-details-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 16px;
+    span {
+      font-size: 20px;
+    }
+    p {
+      text-align: left;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 30px;
+      border-top-right-radius: 0;
+      color: white;
+      background-color: #797EFE;
+    }
+  }
+}
+
+.other-message {
+  .each-message-container {
+    display: flex;
+    align-items: flex-start;
+    gap: 32px;
+    img {
+      height: 75px;
+      aspect-ratio: 1;
+      object-fit: cover;
+      border-radius: 50%;
+      }
+  }
+  .message-details-container {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    span {
+      font-size: 20px;
+    }
+    p {
+      text-align: left;
+      font-size: 18px;
+      padding: 12px;
+      border-radius: 30px;
+      border-top-left-radius: 0;
+      color: black;
+      background-color: #ECEEFE;
+    }
+  }
 }

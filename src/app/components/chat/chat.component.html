@@ -5,18 +5,20 @@
       <span>{{channelData?.details.name}}</span>
     </div>
     <div class="chat-header-members-container">
-      <div *ngFor="let member of channelData?.details.members">
-        <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}">
+      <div *ngFor="let member of channelData?.details.members; let i = index">
+        <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}" [style.z-index]="10 - i">
       </div>
-      <span>{{channelData?.details.members.length}}</span>
+      <span>{{channelData?.details?.members?.length}}</span>
     </div>
+
   </div>
   <div class="messages-around-container">
-    <div *ngFor="let message of channelData?.messages">
+    <div *ngFor="let message of channelData?.messages"
+      [ngClass]="{'my-message': message.user.full_name === currentUser, 'other-message': message.user.full_name !== currentUser}">
       <div class="each-message-container">
         <img src="{{message.user.image_url}}" alt="">
         <div class="message-details-container">
-          <span>{{message.user.full_name}} {{ formatMessageTime(message.timestamp) }} Uhr</span>
+          <span>{{ formatMessageTime(message.timestamp) }} Uhr <b>{{message.user?.full_name}}</b></span>
           <div>
             <p>{{message.content}}</p>
           </div>
@@ -25,7 +27,8 @@
     </div>
   </div>
   <div class="textarea-container">
-    <textarea cols="30" rows="10" placeholder="Nachricht an #{{channelData?.details.name}}"></textarea>
-    <img src="./assets/img/send-message.png" alt="Send Message Image">
+    <textarea cols="30" rows="10" placeholder="Nachricht an #{{channelData?.details.name}}"
+      [(ngModel)]="messageContent"></textarea>
+    <img src="./assets/img/send-message.png" alt="Send Message Image" (click)="createNewMessage()">
   </div>
 </div>

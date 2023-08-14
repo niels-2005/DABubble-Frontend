@@ -13,9 +13,21 @@ export class ChatComponent implements OnInit {
 
   private subscription: Subscription = new Subscription();
 
-  channelData: any;
+  channelData: any = { messages: [], details: {} };
+
+  messageContent: string = "";
+
+  currentUser = localStorage.getItem('full_name');
+
+
 
   ngOnInit(): void {
+    console.log(this.currentUser);
+    this.subscribeToChannelContent();
+    this.subscribeToNewMessagesContent();
+  }
+
+  subscribeToChannelContent(){
     this.subscription.add(
       this.channelService.selectedChannelId$.subscribe(channelId => {
         if (channelId !== null) {
@@ -33,6 +45,16 @@ export class ChatComponent implements OnInit {
     });
   }
 
+  subscribeToNewMessagesContent(){
+    this.subscription.add(
+      this.channelService.newMessage$.subscribe(newMessage => {
+        if (newMessage && this.channelData.messages) {
+          this.channelData.messages.push(newMessage);
+        }
+      })
+    );
+  }
+
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
@@ -45,5 +67,8 @@ export class ChatComponent implements OnInit {
     return `${hours}:${minutes}`;
 }
 
-
+createNewMessage(){
+  this.channelService.createNewMessage(this.messageContent);
+  this.messageContent = "";
+}
 }

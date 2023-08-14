@@ -11,17 +11,14 @@
 
 .switch-to-map-button-container {
   display: flex;
-  button {
-      border-style: unset;
-      border-radius: 30px;
-      font-size: 18px;
-      cursor: pointer;
-      transition: 0.1s ease-in-out;
-      color: black;
-    background-color: white;
-      &:hover {
-        background-color: #ECEEFE;
-      }
+  justify-content: center;
+  cursor: pointer;
+  padding: 4px;
+  &:hover {
+    background-color: #ECEEFE;
+  }
+  span {
+      font-size: 20px;
   }
 }
 

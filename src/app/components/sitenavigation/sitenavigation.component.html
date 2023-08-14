@@ -1,11 +1,11 @@
 <div class="sitenavigation-container">
-  <div class="switch-to-map-button-container">
-    <button>Zur Karte</button>
+  <div class="switch-to-map-button-container" (click)="switchToMap()">
+    <span>Zur Karte</span>
   </div>
   <div class="channels-container">
     <h4>Channels</h4>
     <div *ngFor="let channel of channels" class="all-channels-container">
-      <div class="each-channel-name" (click)="this.channelService.setSelectedChannelId(channel.id)">
+      <div class="each-channel-name" (click)="setSelectedChannelId(channel.id)">
         <span># {{channel.name}}</span>
       </div>
     </div>
