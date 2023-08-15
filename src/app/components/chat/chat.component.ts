@@ -19,7 +19,7 @@ export class ChatComponent implements OnInit {
 
   currentUser = localStorage.getItem('full_name');
 
-
+  lastDisplayedDate: string = '';
 
   ngOnInit(): void {
     console.log(this.currentUser);
@@ -42,6 +42,7 @@ export class ChatComponent implements OnInit {
     this.channelService.loadChannelContent().subscribe(content => {
       console.log('Channel Daten', content);
       this.channelData = content;
+      this.initializeMessagesDisplayDate(content.messages);
     });
   }
 
@@ -59,6 +60,33 @@ export class ChatComponent implements OnInit {
     this.subscription.unsubscribe();
   }
 
+  initializeMessagesDisplayDate(messages: any[]): void {
+    let lastDisplayedDate = '';
+
+    for (const message of messages) {
+        const messageDate = this.formatDate(message.timestamp);
+
+        if (messageDate !== lastDisplayedDate) {
+            lastDisplayedDate = messageDate;
+            message.displayDate = true;
+        } else {
+            message.displayDate = false;
+        }
+    }
+}
+
+
+  formatDate(timestamp: string): string {
+    const date = new Date(timestamp);
+    const options: Intl.DateTimeFormatOptions = {
+      weekday: 'long',
+      month: 'long',
+      day: 'numeric'
+  };
+    return date.toLocaleDateString('de-DE', options);
+  }
+
+
   formatMessageTime(timestamp: string): string {
     const date = new Date(timestamp);
     date.setHours(date.getHours() + 2);
@@ -71,4 +99,9 @@ createNewMessage(){
   this.channelService.createNewMessage(this.messageContent);
   this.messageContent = "";
 }
+
+get firstThreeMembers() {
+  return this.channelData.details.members?.slice(0, 3);
+}
+
 }

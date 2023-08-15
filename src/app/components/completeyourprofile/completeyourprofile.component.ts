@@ -33,7 +33,6 @@ export class CompleteyourprofileComponent implements OnInit {
   onFileSelected(event: any) {
     this.selectedImage = event.target.files[0];
 
-    // Erstellt eine URL, die das ausgewählte Bild repräsentiert
     this.imagePreview = URL.createObjectURL(this.selectedImage);
 }
 
@@ -137,7 +136,4 @@ export class CompleteyourprofileComponent implements OnInit {
   openMapInformations(){
     document.getElementById('map-details')?.classList.remove('d-none');
   }
-
-
-
 }

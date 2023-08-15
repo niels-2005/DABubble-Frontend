@@ -27,6 +27,12 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
   constructor(private userProfileService: UserprofilesService) {}
 
   ngOnInit(): void {
+    this.getUserInformations();
+    this.checkIfUserInformationsArrived();
+    this.checkIfUserInformationsChanged();
+  }
+
+  getUserInformations(){
     this.subscriptions.push(
       this.userProfileService.profileData$.subscribe(data => {
         if (data) {
@@ -34,12 +40,15 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
 
+  checkIfUserInformationsArrived(){
     if (!this.userProfileService.profileData.value) {
       this.userProfileService.getProfileDetailsFromBackend();
     }
+  }
 
-
+  checkIfUserInformationsChanged(){
     this.subscriptions.push(
       this.userProfileService.refreshNeeded$.subscribe(() => {
         this.userProfileService.getProfileDetailsAgainFromBackend();

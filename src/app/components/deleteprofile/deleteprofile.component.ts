@@ -23,6 +23,11 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
   constructor (private userProfileService: UserprofilesService, private router: Router) {}
 
   ngOnInit(): void {
+    this.subscribeToUserProfileInformations();
+    this.checkIfUserProfileIsGiven();
+  }
+
+  subscribeToUserProfileInformations(){
     this.subscriptions.push(
       this.userProfileService.profileData$.subscribe(data => {
         if (data && data.image_url) {
@@ -32,7 +37,9 @@ export class DeleteprofileComponent implements OnInit, OnDestroy {
         }
       })
     );
+  }
 
+  checkIfUserProfileIsGiven(){
     if (!this.userProfileService.profileData.value) {
       this.userProfileService.getProfileDetailsFromBackend();
     }
@@ -76,11 +83,11 @@ if (resp.ok) {
 } else {
     const error = await resp.json();
     console.log('error', error);
-    this.checkError(error);
+    this.throwError(error);
 }
   }
 
-  checkError(error: any){
+  throwError(error: any){
     if (error.non_field_errors && error.non_field_errors.length > 0) {
       this.errorMessage = error.non_field_errors[0];
   } else {

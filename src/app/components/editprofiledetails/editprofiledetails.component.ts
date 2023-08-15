@@ -31,12 +31,19 @@ export class EditprofiledetailsComponent {
     const username = localStorage.getItem('full_name');
     this.userFullName = username || "";
 
+    this.getProfileInformationsFromUserProfileService();
+    this.checkIfProfileInformationsComeFromUserProfileService();
+  }
+
+  getProfileInformationsFromUserProfileService(){
     this.userProfileService.profileData$.subscribe(data => {
       if (data) {
         this.updateProfileData(data);
       }
     });
+  }
 
+  checkIfProfileInformationsComeFromUserProfileService(){
     if (!this.userProfileService.profileData.value) {
       this.userProfileService.getProfileDetailsFromBackend();
     }
@@ -61,7 +68,6 @@ export class EditprofiledetailsComponent {
   onFileSelected(event: any) {
     this.selectedImage = event.target.files[0];
 
-    // Erstellt eine URL, die das ausgewählte Bild repräsentiert
     this.imagePreview = URL.createObjectURL(this.selectedImage);
 }
 

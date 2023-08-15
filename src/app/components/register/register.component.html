@@ -1,70 +1,40 @@
 <div class="register-content-container">
-  <span
-    class="go-back-arrow"
-    (click)="
+  <span class="go-back-arrow" (click)="
       switchContainer(
         '',
         'register-container',
         'create-account-container',
         'login-container'
       )
-    "
-  ></span>
+    "></span>
   <h1>Konto erstellen</h1>
   <p>
-    Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues DA Community
+    Mit deinem Namen und deiner E-Mail-Adresse hast du dein neues
     Konto.
   </p>
   <form class="login-formular-container" (submit)="registerUser($event)">
     <div class="row">
       <div class="col-xs-4 col-xs-offset-4">
         <div class="floating-label-group">
-          <input
-            type="text"
-            class="form-control"
-            autocomplete="off"
-            autofocus
-            required
-            class="name-input"
-            [(ngModel)]="fullName"
-            name="fullName"
-          />
+          <input type="text" class="form-control" autocomplete="off" autofocus required class="name-input"
+            [(ngModel)]="fullName" name="fullName" />
           <label class="floating-label">Vorname und Nachname</label>
         </div>
         <span class="api-errors-span" id="register-error-name">{{
           nameError
-        }}</span>
+          }}</span>
         <div class="floating-label-group">
-          <input
-            type="text"
-            class="form-control"
-            autocomplete="off"
-            autofocus
-            required
-            class="email-input"
-            [(ngModel)]="email"
-            name="email"
-          />
+          <input type="text" class="form-control" autocomplete="off" autofocus required class="email-input"
+            [(ngModel)]="email" name="email" />
           <label class="floating-label">beispielname@email.com</label>
         </div>
         <span class="api-errors-span">{{ emailError }}</span>
         <div class="floating-label-group">
-          <input
-            [type]="hidePassword ? 'password' : 'text'"
-            class="form-control"
-            autocomplete="off"
-            required
-            class="password-input"
-            [(ngModel)]="password"
-            name="password"
-          />
+          <input [type]="hidePassword ? 'password' : 'text'" class="form-control" autocomplete="off" required
+            class="password-input" [(ngModel)]="password" name="password" />
           <label class="floating-label">Passwort</label>
-          <img
-            src="./assets/img/password-dont-see-image.png"
-            alt="Hiding Password"
-            class="hide-password-image"
-            (click)="toggleHidePassword()"
-          />
+          <img src="./assets/img/password-dont-see-image.png" alt="Hiding Password" class="hide-password-image"
+            (click)="toggleHidePassword()" />
         </div>
         <span class="api-errors-span">{{ passwordError }}</span>
       </div>
@@ -72,17 +42,10 @@
     <div class="register-button-container">
       <div class="dsgvo-checkbox-container" *ngIf="!registerSuccessful">
         <span>DSGVO aktzeptieren</span>
-        <input
-          type="checkbox"
-          [(ngModel)]="dsgvoAccepted"
-          name="dsgvoAccepted"
-        />
+        <input type="checkbox" [(ngModel)]="dsgvoAccepted" name="dsgvoAccepted" />
       </div>
-      <button
-        *ngIf="!registerSuccessful"
-        [disabled]="!dsgvoAccepted"
-        [ngClass]="{ 'button-style-not-disabled': dsgvoAccepted }"
-      >
+      <button *ngIf="!registerSuccessful" [disabled]="!dsgvoAccepted"
+        [ngClass]="{ 'button-style-not-disabled': dsgvoAccepted }">
         Weiter
       </button>
       <div class="register-successful-container" *ngIf="registerSuccessful">

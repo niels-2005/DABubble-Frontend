@@ -5,16 +5,20 @@
       <span>{{channelData?.details.name}}</span>
     </div>
     <div class="chat-header-members-container">
-      <div *ngFor="let member of channelData?.details.members; let i = index">
-        <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}" [style.z-index]="10 - i">
+      <div *ngFor="let member of firstThreeMembers; let i = index" [style.z-index]="10 - i">
+        <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}">
       </div>
       <span>{{channelData?.details?.members?.length}}</span>
     </div>
-
   </div>
   <div class="messages-around-container">
     <div *ngFor="let message of channelData?.messages"
       [ngClass]="{'my-message': message.user.full_name === currentUser, 'other-message': message.user.full_name !== currentUser}">
+      <div *ngIf="message.displayDate" class="message-day-time-container">
+        <div class="horizontal-line"></div>
+        <div class="message-show-date"><span>{{ formatDate(message.timestamp) }}</span></div>
+        <div class="horizontal-line"></div>
+      </div>
       <div class="each-message-container">
         <img src="{{message.user.image_url}}" alt="">
         <div class="message-details-container">
