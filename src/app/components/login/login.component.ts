@@ -14,14 +14,25 @@ export class LoginComponent implements OnInit {
   password!: string;
   hidePassword = true;
 
+  stayLoggedInCheckbox : boolean = false;
+
   emailError!: string | undefined;
   passwordError!: string | undefined;
 
   constructor(private authService: AuthenticationService, private router: Router, private messageService: MessageService) {}
 
   ngOnInit(): void {
+      this.checkIfUserStayedLogin();
       this.checkWelcomeMessageStatus();
       this.checkIfUserIsLocked();
+  }
+
+  checkIfUserStayedLogin(){
+    const stayLoggedIn = localStorage.getItem('stayLoggedIn');
+    const token = localStorage.getItem('token');
+    if (stayLoggedIn === "true" && token) {
+      this.authService.loginUserWithAccessToken(token);
+    }
   }
 
   checkWelcomeMessageStatus(){
@@ -113,5 +124,11 @@ export class LoginComponent implements OnInit {
   toggleHidePassword() {
     this.hidePassword = !this.hidePassword;
   }
+
+  onCheckboxChange() {
+    localStorage.setItem('stayLoggedIn', this.stayLoggedInCheckbox.toString());
+}
+
+
 
 }

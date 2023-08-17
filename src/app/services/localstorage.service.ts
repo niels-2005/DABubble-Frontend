@@ -26,6 +26,8 @@ export class LocalstorageService {
     localStorage.removeItem('full_name');
     localStorage.removeItem('user_id');
     localStorage.removeItem('email');
+    localStorage.removeItem('quiz_verified');
+    localStorage.removeItem('stayLoggedIn');
   }
 
 }

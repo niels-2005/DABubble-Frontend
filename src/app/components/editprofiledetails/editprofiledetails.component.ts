@@ -25,6 +25,8 @@ export class EditprofiledetailsComponent {
 
   private originalShowOnMap!: boolean;
 
+  numbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
+
   constructor(private router: Router, private userProfileService: UserprofilesService, private mapService: MapService) { }
 
   ngOnInit(): void {
@@ -63,6 +65,9 @@ export class EditprofiledetailsComponent {
     this.userType = result.user_type;
     this.originalShowOnMap = result.show_on_map;
     this.showOnMap = result.show_on_map;
+    this.isSearchingForJob = result.searching_job;
+    this.selectedCourse = result.course;
+    this.selectedNumber = result.module;
   }
 
   onFileSelected(event: any) {
@@ -80,6 +85,9 @@ export class EditprofiledetailsComponent {
   about = "";
   userType = "";
   showOnMap: boolean = false;
+  selectedCourse: string = '';
+  selectedNumber: number | null = null;
+  isSearchingForJob: boolean = false;
 
   async sendProfileDetailsToBackend() {
     const myHeaders = new Headers();
@@ -97,6 +105,9 @@ export class EditprofiledetailsComponent {
       "user_id": this.userId,
       "show_on_map": this.showOnMap,
       "user_type": this.userType,
+      "searching_job": this.isSearchingForJob,
+      "course": this.selectedCourse,
+      "module": this.selectedNumber
     });
 
     const requestOptions: RequestInit = {
@@ -176,6 +187,14 @@ export class EditprofiledetailsComponent {
   switchContainerToDeleteUser(){
     document.getElementById('userprofile-details-container')?.classList.add('d-none');
     document.getElementById('userprofile-delete-container')?.classList.remove('d-none');
+  }
+
+  selectCourse(course: string) {
+    this.selectedCourse = course;
+  }
+
+  selectNumber(num: number) {
+    this.selectedNumber = num;
   }
 
 

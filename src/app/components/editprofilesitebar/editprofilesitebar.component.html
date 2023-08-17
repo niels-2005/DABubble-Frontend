@@ -1,11 +1,7 @@
 <div class="profile-sidebar-container">
   <div class="profile-and-close-container">
     <h2>Profil</h2>
-    <img
-      src="./assets/img/close-black.png"
-      alt="Close Icon"
-      (click)="hideUserProfileDetailsSitebar()"
-    />
+    <img src="./assets/img/close-black.png" alt="Close Icon" (click)="hideUserProfileDetailsSitebar()" />
   </div>
   <div class="edit-profile-image-container">
     <img [src]="profileImageUrl" alt="Profile Photo" class="profile-photo" />
@@ -15,23 +11,14 @@
       <div class="full-name-and-user-type-container">
         <h3 class="full-name-span">{{ fullName }}</h3>
         <div class="user-type-container">
-          <img
-            *ngIf="user_type === 'Alumni'"
-            src="./assets/img/blue-marker.png"
-            alt="User Marker Map"
-          />
-          <img
-            *ngIf="user_type === 'Mentor'"
-            src="./assets/img/red-marker.png"
-            alt="User Marker Map"
-          />
-          <img
-            *ngIf="user_type === 'Schüler'"
-            src="./assets/img/green-marker.png"
-            alt="User Marker Map"
-          />
+          <img *ngIf="user_type === 'Alumni'" src="./assets/img/blue-marker.png" alt="User Marker Map" />
+          <img *ngIf="user_type === 'Mentor'" src="./assets/img/red-marker.png" alt="User Marker Map" />
+          <img *ngIf="user_type === 'Schüler'" src="./assets/img/green-marker.png" alt="User Marker Map" />
           <span>{{ user_type }}</span>
         </div>
+      </div>
+      <div class="show-course-and-module">
+        <span><b>Kurs:</b> {{selectedCourse}} in Modul {{selectedNumber}}</span>
       </div>
       <div class="edit-profile-active-container">
         <div></div>
@@ -71,13 +58,7 @@
   </div>
 </div>
 
-<div
-  class="opacity-background-container-profile-details d-none"
-  id="opacity-background-profile-details"
-  (click)="hideChangeProfileDetailsPopup()"
-></div>
+<div class="opacity-background-container-profile-details d-none" id="opacity-background-profile-details"
+  (click)="hideChangeProfileDetailsPopup()"></div>
 
-<app-editprofiledetails
-  id="edit-profile-details-popup"
-  class="d-none"
-></app-editprofiledetails>
+<app-editprofiledetails id="edit-profile-details-popup" class="d-none"></app-editprofiledetails>

@@ -65,11 +65,11 @@
       </div>
       <div class="user-type-flex-row-container mb-32">
         <div class="complete-your-profile-checkbox-container">
-          <span>Schüler</span>
+          <span>*Schüler</span>
           <input type="radio" name="userType" value="Schüler" [(ngModel)]="userType" />
         </div>
         <div class="complete-your-profile-checkbox-container">
-          <span>Alumni</span>
+          <span>*Alumni</span>
           <input type="radio" name="userType" value="Alumni" [(ngModel)]="userType" />
         </div>
         <!-- Checkbox label -->
@@ -77,6 +77,45 @@
           <span>Auf der Karte anzeigen?</span>
           <input type="checkbox" [(ngModel)]="showOnMap" />
         </div>
+        <div class="searching-job-container">
+          <span>Bist du auf Jobsuche?</span>
+          <input type="checkbox" [(ngModel)]="isSearchingForJob" name="jobSearch">
+        </div>
+      </div>
+      <div class="course-details-container" *ngIf="userType === 'Schüler'">
+        <div class="dropdown-choice-container">
+          <div class="dropdown">
+            <button class="dropdown-toggle">
+              Wähle deinen Kurs
+            </button>
+            <ul class="dropdown-menu">
+              <li class="dropdown-item" (click)="selectCourse('Frontend')">
+                Frontend
+              </li>
+              <li class="dropdown-item" (click)="selectCourse('Backend')">
+                Backend
+              </li>
+              <li class="dropdown-item" (click)="selectCourse('Fullstack')">
+                Fullstack
+              </li>
+            </ul>
+          </div>
+          <span class="selected-course-span">{{ selectedCourse }}</span>
+        </div>
+        <div class="dropdown-choice-container">
+          <div class="dropdown">
+            <button class="dropdown-toggle">
+              Wähle dein Modul
+            </button>
+            <ul class="dropdown-scrollbar dropdown-menu">
+              <li class="dropdown-item" *ngFor="let i of numbers" (click)="selectNumber(i)">
+                {{ i }}
+              </li>
+            </ul>
+          </div>
+          <span class="selected-course-span">{{ selectedNumber }}</span>
+        </div>
+
       </div>
       <div class="user-details-button-container">
         <button class="user-details-delete-button" (click)="switchContainerToDeleteUser()">

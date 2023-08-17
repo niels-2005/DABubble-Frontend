@@ -139,3 +139,11 @@
   display: flex;
   gap: 16px;
 }
+
+.show-course-and-module {
+  display: flex;
+  gap: 8px;
+  span {
+    font-size: 20px;
+  }
+}

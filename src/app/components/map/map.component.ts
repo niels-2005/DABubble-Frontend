@@ -68,7 +68,10 @@ export class MapComponent implements OnInit {
     layers: [
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
+    zoomAnimation: true,
     zoom: 6.5,
+    zoomSnap: 0.99,
+    zoomDelta: 0.5,
     center: <[number, number]>[51.1657, 10.4515]
   };
 
@@ -148,7 +151,8 @@ zoomToMarker(event: LeafletMouseEvent) {
     clickedMarker.unbindPopup();
     clickedMarker.bindPopup(popupContent).openPopup();
   }
-  this.map?.setView(clickedMarker.getLatLng(), 13);
+  this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
+
 }
 
 
@@ -157,11 +161,26 @@ returnPopupContentHTML(userData: any) {
   if (userData.website && userData.website !== '') {
     websiteLink = `<a href="${userData.website}" class="user-website" target="_blank" rel="noopener noreferrer">Portfolio</a>`;
   }
+  let courseAndModule = "";
+  if (userData.course && userData.course !== null && userData.module && userData.module !== null) {
+    courseAndModule = `<p class="user-about"><b>${userData.course}</b> in Modul <b>${userData.module}</b></p>`;
+  }
+  let searchingJob = "";
+  if(userData.searching_job === true) {
+    searchingJob = `
+    <div class="active-jobsearch-container">
+      <img src="./assets/img/laptop.png">
+      <span>Aktiv auf Jobsuche</span>
+    </div>`
+  }
+
 
   return `
     <div class="popup-content">
         <h2 class="user-name">${userData.user} (${userData.user_type})</h2>
         <img class="user-image" src="${userData.image_url}" alt="User Image">
+        ${searchingJob}
+        ${courseAndModule}
         <p class="user-email">${userData.email}</p>
         <p class="user-about">${userData.about}</p>
         ${websiteLink}

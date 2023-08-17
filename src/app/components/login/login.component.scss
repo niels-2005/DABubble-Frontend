@@ -35,7 +35,6 @@
 
 .login-content-container {
   width: 600px;
-  height: 750px;
   display: flex;
   gap: 32px;
   flex-direction: column;
@@ -58,7 +57,7 @@
   color: #797EF3;
   font-size: 20px;
   transition: 0.2s ease-in-out;
-  padding: 8px 12px;
+  padding-left: 8px;
   border-radius: 30px;
   cursor: pointer;
   width: 44%;
@@ -74,31 +73,17 @@
   background-color: #D6D8EC;
   }
 
-.login-with-slack-container {
-  height: 65px;
-  background-color: #ECEEFE;
-  border-radius: 30px;
-  width: 100%;
-  cursor: pointer;
+.already-login-container {
   display: flex;
   align-items: center;
-  gap: 16px;
-  color: #797EF3;
-  padding: 16px;
-  transition: 0.1s ease-in-out;
-  border: 1px solid transparent;
-  img {
-    height: 40px;
-  }
+  gap: 18px;
+  padding-left: 8px;
   span {
     font-size: 20px;
-    margin-right: 50px;
   }
-  &:hover {
-    border: 1px solid #444DF2;
-    span {
-      color: #444DF2;
-    }
+  input {
+    width: 15px !important;
+    height: 15px !important;
   }
 }
 

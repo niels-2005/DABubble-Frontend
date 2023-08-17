@@ -58,11 +58,12 @@
               ''
             )
           ">Passwort vergessen?</span>
-        <div class="horizontal-line"></div>
-        <div class="login-with-slack-container">
-          <img src="./assets/img/slack-logo.png" alt="Slack Logo" />
-          <span>Anmelden mit Slack</span>
+        <div class="already-login-container">
+          <span>Angemeldet bleiben?</span>
+          <input type="checkbox" [(ngModel)]="stayLoggedInCheckbox" (ngModelChange)="onCheckboxChange()"
+            name="stayLoggedInCheckbox">
         </div>
+        <div class="horizontal-line"></div>
         <div class="login-button-container">
           <button class="login-button" (click)="loginUser()">Anmelden</button>
           <button class="guest-login-button">Gäste Login</button>

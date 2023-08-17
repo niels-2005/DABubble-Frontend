@@ -21,6 +21,9 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
   website: string = '';
   zipCode: string = '';
   user_type: string = "";
+  isSearchingForJob!: boolean;
+  selectedCourse: string = "";
+  selectedNumber: string = "";
 
   private subscriptions: Subscription[] = [];
 
@@ -72,6 +75,9 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
     this.website = result.website;
     this.zipCode = result.zip_code;
     this.user_type = result.user_type
+    this.isSearchingForJob = result.searching_job;
+    this.selectedCourse = result.course;
+    this.selectedNumber = result.module;
   }
 
   hideUserProfileDetailsSitebar(){
