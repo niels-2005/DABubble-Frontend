@@ -24,13 +24,9 @@
       </div>
     </div>
     <div class="user-details-container d-none" id="complete-your-profile-details">
-      <h2>Dein Profil vervollständigen</h2>
+      <h2>Dein Profil vervollständigen <span class="required-fields-span">*Pflichtfelder</span></h2>
       <div class="user-details-top-container">
         <div class="user-details-around-input-container">
-          <h3>
-            Persönliche Daten
-            <span class="required-fields-span">*Pflichtfelder</span>
-          </h3>
           <div class="user-details-input-container">
             <div class="input-error-container floating-label-group-cyp">
               <input type="text" class="form-control" [(ngModel)]="street" name="street" required />
@@ -87,25 +83,65 @@
       </div>
       <div class="complete-your-profile-button-container">
         <div class="user-type-container">
-          <div class="user-type-flex-row-containerr">
-            <div class="schuler-alumni-flex-row-container">
-              <div class="complete-your-profile-checkbox-container">
-                <span>*Schüler</span>
-                <input type="radio" name="usersType" [(ngModel)]="users_type" value="Schüler" />
+          <div class="choice-user-type-searching-job-container">
+            <div class="user-type-flex-row-containerr">
+              <div class="schuler-alumni-flex-row-container">
+                <div class="complete-your-profile-checkbox-container">
+                  <span>*Schüler</span>
+                  <input type="radio" name="usersType" [(ngModel)]="users_type" value="Schüler" />
+                </div>
+                <div class="complete-your-profile-checkbox-container">
+                  <span>*Alumni</span>
+                  <input type="radio" name="usersType" [(ngModel)]="users_type" value="Alumni" />
+                </div>
               </div>
-              <div class="complete-your-profile-checkbox-container">
-                <span>*Alumni</span>
-                <input type="radio" name="usersType" [(ngModel)]="users_type" value="Alumni" />
-              </div>
+              <span class="user-type-error-span">{{
+                errors.user_type ? errors.user_type[0] : ""
+                }}</span>
             </div>
-            <span class="user-type-error-span">{{
-              errors.user_type ? errors.user_type[0] : ""
-              }}</span>
+            <div class="complete-your-profile-checkbox-container">
+              <img src="./assets/img/f-zeich-neben-profil.png" alt="Question Icon" (click)="openMapInformations()" />
+              <span>Auf der Karte anzeigen?</span>
+              <input type="checkbox" [(ngModel)]="showOnMap" />
+            </div>
+            <div class="searching-job-container">
+              <span>Bist du auf Jobsuche?</span>
+              <input type="checkbox" [(ngModel)]="isSearchingForJob" name="jobSearch">
+            </div>
           </div>
-          <div class="complete-your-profile-checkbox-container">
-            <img src="./assets/img/f-zeich-neben-profil.png" alt="Question Icon" (click)="openMapInformations()" />
-            <span>Auf der Karte anzeigen?</span>
-            <input type="checkbox" [(ngModel)]="showOnMap" />
+          <div class="course-details-container" *ngIf="users_type === 'Schüler'">
+            <div class="dropdown-choice-container">
+              <div class="dropdown">
+                <button class="dropdown-toggle">
+                  Wähle deinen Kurs
+                </button>
+                <ul class="dropdown-menu">
+                  <li class="dropdown-item" (click)="selectCourse('Frontend')">
+                    Frontend
+                  </li>
+                  <li class="dropdown-item" (click)="selectCourse('Backend')">
+                    Backend
+                  </li>
+                  <li class="dropdown-item" (click)="selectCourse('Fullstack')">
+                    Fullstack
+                  </li>
+                </ul>
+              </div>
+              <span class="selected-course-span">{{ selectedCourse }}</span>
+            </div>
+            <div class="dropdown-choice-container">
+              <div class="dropdown">
+                <button class="dropdown-toggle">
+                  Wähle dein Modul
+                </button>
+                <ul class="dropdown-scrollbar dropdown-menu">
+                  <li class="dropdown-item" *ngFor="let i of numbers" (click)="selectNumber(i)">
+                    {{ i }}
+                  </li>
+                </ul>
+              </div>
+              <span class="selected-course-span">{{ selectedNumber }}</span>
+            </div>
           </div>
         </div>
         <button (click)="sendProfileDetailsToBackend()">Speichern</button>

@@ -226,18 +226,6 @@
   margin-bottom: 24px;
 }
 
-.searching-job-container {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  span {
-    font-size: 20px;
-  }
-  input {
-    cursor: pointer;
-  }
-}
-
 .dropdown-scrollbar {
   max-height: 115px !important;
   overflow-y: auto;

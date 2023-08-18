@@ -12,6 +12,8 @@ export class SitenavigationComponent implements OnInit {
 
   channels: any;
 
+  selectedChannelId: any = null;
+
   @Output() switchView = new EventEmitter<string>();
 
   ngOnInit(): void {
@@ -23,6 +25,10 @@ export class SitenavigationComponent implements OnInit {
   }
 
   setSelectedChannelId(channelid: any){
+    if(this.selectedChannelId === channelid) {
+      return;
+  }
+    this.selectedChannelId = channelid;
     this.channelService.setSelectedChannelId(channelid);
     this.switchView.emit('chat');
   }
@@ -30,5 +36,10 @@ export class SitenavigationComponent implements OnInit {
   switchToMap() {
     this.switchView.emit('map');
   }
+
+  clearSelectedChannel() {
+    this.selectedChannelId = null;
+}
+
 
 }

@@ -186,7 +186,7 @@ returnPopupContentHTML(userData: any) {
     websiteLink = `<a href="${userData.website}" class="user-website" target="_blank" rel="noopener noreferrer">Portfolio</a>`;
   }
   let courseAndModule = "";
-  if (userData.course && userData.course !== null && userData.module && userData.module !== null) {
+  if (userData.user_type === 'Schüler' && userData.course && userData.course !== null && userData.module && userData.module !== null) {
     courseAndModule = `<p class="user-about"><b>${userData.course}</b> in Modul <b>${userData.module}</b></p>`;
   }
   let searchingJob = "";

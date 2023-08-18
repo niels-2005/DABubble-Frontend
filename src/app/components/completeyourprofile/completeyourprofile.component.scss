@@ -19,12 +19,12 @@
 .user-details-container {
   display: flex;
   flex-direction: column;
-  gap: 16px;
 }
 
 .user-details-input-container {
   display: flex;
-  gap: 32px;
+  flex-direction: column;
+  gap: 16px;
   input {
       border: 1px solid transparent;
       border-radius: 30px;
@@ -98,7 +98,6 @@
 
 .user-details-around-input-container {
   display: flex;
-  flex-direction: column;
   gap: 8px;
   h3 {
     margin-bottom: 16px;
@@ -145,6 +144,7 @@
 
 .complete-your-profile-button-container {
   display: flex;
+  align-items: flex-end;
   justify-content: space-between;
   button {
     border-style: unset;
@@ -163,6 +163,11 @@
 
 .user-type-container {
   display: flex;
+  flex-direction: column;
+}
+
+.choice-user-type-searching-job-container {
+  display: flex;
   align-items: flex-start;
   gap: 24px;
 }
@@ -175,7 +180,7 @@
 
 .welcome-to-community-around-container {
   padding: 32px;
-  width: 60vw;
+  width: 65vw;
   background-color: white;
   border-radius: 30px;
 }
@@ -245,4 +250,15 @@ input:not(:focus):valid:not(:placeholder-shown) ~ .floating-label-cyp {
       color: #444DF2;
   }
 
+}
+
+.course-details-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.dropdown-scrollbar {
+  max-height: 115px !important;
+  overflow-y: auto;
 }

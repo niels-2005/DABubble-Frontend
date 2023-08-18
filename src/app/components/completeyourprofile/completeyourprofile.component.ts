@@ -22,6 +22,8 @@ export class CompleteyourprofileComponent implements OnInit {
 
   errors: any = {};
 
+  numbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
+
   constructor(private router: Router, private userStatusService: UserstatusService) { }
 
   ngOnInit(): void {
@@ -45,6 +47,9 @@ export class CompleteyourprofileComponent implements OnInit {
   about = "";
   users_type = "";
   showOnMap: boolean = false;
+  selectedCourse: string = '';
+  selectedNumber: number | null = null;
+  isSearchingForJob: boolean = false;
 
 
   async sendProfileDetailsToBackend() {
@@ -62,7 +67,10 @@ export class CompleteyourprofileComponent implements OnInit {
       "about": this.about,
       "user_type": this.users_type,
       "user_id": this.userId,
-      "show_on_map": this.showOnMap
+      "show_on_map": this.showOnMap,
+      "searching_job": this.isSearchingForJob,
+      "course": this.selectedCourse,
+      "module": this.selectedNumber
     });
 
     const requestOptions: RequestInit = {
@@ -135,5 +143,13 @@ export class CompleteyourprofileComponent implements OnInit {
 
   openMapInformations(){
     document.getElementById('map-details')?.classList.remove('d-none');
+  }
+
+  selectCourse(course: string) {
+    this.selectedCourse = course;
+  }
+
+  selectNumber(num: number) {
+    this.selectedNumber = num;
   }
 }
