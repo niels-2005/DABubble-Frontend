@@ -20,6 +20,12 @@ export class MapComponent implements OnInit {
 
   filterForm: FormGroup;
 
+  numbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
+  selectedNumber: number | null = null;
+  selectedModules: number[] = this.numbers;
+
+  displayNumbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
+
   private subscriptions: Subscription = new Subscription();
 
   constructor(private mapService: MapService, private fb: FormBuilder, private userStatusService: UserstatusService) {
@@ -27,7 +33,12 @@ export class MapComponent implements OnInit {
       mentor: [true],
       schuler: [true],
       alumni: [true],
-      com_manager: [true]
+      com_manager: [true],
+      frontend: [true],
+      backend: [true],
+      fullstack: [true],
+      modules: [this.numbers],
+      searchingJob: [false]
     });
   }
 
@@ -110,30 +121,43 @@ export class MapComponent implements OnInit {
     const filters = this.filterForm.value;
 
     const filteredData = userData.filter(user => {
-      switch(user.user_type) {
-        case 'Mentor':
-          return filters.mentor;
-        case 'Schüler':
-          return filters.schuler;
-        case 'Alumni':
-          return filters.alumni;
-        case 'Community Manager':
-          return filters.com_manager;
-        default:
-          return false;
-      }
+        switch(user.user_type) {
+            case 'Mentor':
+                if (!filters.mentor) return false;
+                break;
+            case 'Schüler':
+                if (!filters.schuler) return false;
+                break;
+            case 'Alumni':
+                if (!filters.alumni) return false;
+                break;
+            case 'Community Manager':
+                if (!filters.com_manager) return false;
+                break;
+            default:
+                return false;
+        }
+
+        if (user.course && !filters[user.course.toLowerCase()]) return false;
+
+        if (user.module && !filters.modules.includes(user.module)) return false;
+
+        if (filters.searchingJob && !user.searching_job) return false;
+
+        return true;
     });
 
     filteredData.forEach(user => {
-      const iconUrl = this.getIconUrlByUserType(user.user_type);
-      const customIcon = this.createCustomIcon(iconUrl);
-      const m = marker([user.latitude, user.longitude], { icon: customIcon })
-        .bindTooltip(`${user.user} (${user.user_type})`)
-        .addTo(this.map!)
-        .on('click', (event: LeafletMouseEvent) => this.zoomToMarker(event));
-      this.layers.push(m);
+        const iconUrl = this.getIconUrlByUserType(user.user_type);
+        const customIcon = this.createCustomIcon(iconUrl);
+        const m = marker([user.latitude, user.longitude], { icon: customIcon })
+            .bindTooltip(`${user.user} (${user.user_type})`)
+            .addTo(this.map!)
+            .on('click', (event: LeafletMouseEvent) => this.zoomToMarker(event));
+        this.layers.push(m);
     });
-  }
+}
+
 
   clearAllMarkers() {
     this.layers.forEach(layer => this.map?.removeLayer(layer));
@@ -195,6 +219,20 @@ returnPopupContentHTML(userData: any) {
     const currentVal = this.filterForm.get(controlName)?.value;
     this.filterForm.get(controlName)?.setValue(!currentVal);
   }
+
+  selectNumber(num: number) {
+    this.selectedNumber = num;
+  }
+
+  toggleModule(moduleNumber: number) {
+    if (this.selectedModules.includes(moduleNumber)) {
+        const index = this.selectedModules.indexOf(moduleNumber);
+        this.selectedModules.splice(index, 1);
+    } else {
+        this.selectedModules.push(moduleNumber);
+    }
+    this.filterForm.get('modules')?.setValue(this.selectedModules);
+}
 
 
 }

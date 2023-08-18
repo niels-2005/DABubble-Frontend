@@ -20,6 +20,8 @@ export class ResetpasswordconfirmComponent implements OnInit {
   passwordChanged = false;
   passwordChangedMessage = "";
 
+  hidePassword = true;
+
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('userId');
     this.token = this.route.snapshot.paramMap.get('token');
@@ -48,8 +50,8 @@ export class ResetpasswordconfirmComponent implements OnInit {
       body: raw,
     };
 
-    const url = `https://celinemueller.pythonanywhere.com/auth/password-reset-confirm/${this.userId}/${this.token}/`;
-    // const url = `http://127.0.0.1:8000/auth/password-reset-confirm/${this.userId}/${this.token}/`;
+    // const url = `https://celinemueller.pythonanywhere.com/auth/password-reset-confirm/${this.userId}/${this.token}/`;
+    const url = `http://127.0.0.1:8000/auth/password-reset-confirm/${this.userId}/${this.token}/`;
 
     const response = await fetch(url, requestOptions);
 
@@ -78,6 +80,10 @@ export class ResetpasswordconfirmComponent implements OnInit {
   } else if (result.new_password2) {
       this.errorMessage = result.new_password2[0];
 }
+  }
+
+  toggleHidePassword() {
+    this.hidePassword = !this.hidePassword;
   }
 
 }

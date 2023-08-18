@@ -34,7 +34,7 @@
   border-radius: 15px;
   position: absolute;
   top: 100%;
-  right: -185px;
+  right: -615px;
 
   opacity: 0;
   visibility: hidden;
@@ -45,8 +45,8 @@
     object-fit: cover;
   }
 
-  div {
-    width: 200px;
+  .filter-roles-container {
+    width: auto;
     padding: 6px;
     border-radius: 8px;
     transition: 0.1s ease-in-out;
@@ -60,6 +60,9 @@
     &:hover {
       background-color: #ECEEFE;
     }
+  }
+  span {
+    font-size: 16px;
   }
 
   h3 {
@@ -135,4 +138,69 @@
     font-size: 18px;
     color: #007F00;
   }
+}
+
+.filter-flexbox-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+}
+
+.select-number-span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  input {
+    cursor: pointer;
+  }
+}
+
+.dropdown-toggle-map {
+  color: black;
+  background-color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 150px;
+  transition: 0.1s ease-in-out;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  &:hover {
+    background-color: #ECEEFE;
+  }
+  img {
+    height: 7px;
+    object-fit: contain;
+  }
+}
+
+.coding-image {
+  height: 15px !important;
+  object-fit: cover;
+}
+
+.course-and-modules-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+.dropdown-scrollbar {
+  max-height: 200px !important;
+  overflow-y: auto;
+}
+
+.searching-job-span {
+  min-width: 100px;
+}
+
+.community-manager-span {
+  min-width: 150px;
 }

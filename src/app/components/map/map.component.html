@@ -4,25 +4,66 @@
       <img src="./assets/img/f-zeich-neben-profil.png" alt="Infos Image" />
       <form class="tooltip-content" [formGroup]="filterForm">
         <h3>Filter</h3>
-        <div (click)="toggleCheckbox('com_manager')">
-          <img src="./assets/img/black-marker.png" alt="Red Marker" />
-          <span>Community Manager</span>
-          <input type="checkbox" formControlName="com_manager" (click)="$event.stopPropagation()" />
-        </div>
-        <div (click)="toggleCheckbox('mentor')">
-          <img src="./assets/img/red-marker.png" alt="Red Marker" />
-          <span>Mentoren</span>
-          <input type="checkbox" formControlName="mentor" (click)="$event.stopPropagation()" />
-        </div>
-        <div (click)="toggleCheckbox('schuler')">
-          <img src="./assets/img/green-marker.png" alt="Red Marker" />
-          <span>Schüler</span>
-          <input type="checkbox" formControlName="schuler" (click)="$event.stopPropagation()" />
-        </div>
-        <div (click)="toggleCheckbox('alumni')">
-          <img src="./assets/img/blue-marker.png" alt="Red Marker" />
-          <span>Alumni</span>
-          <input type="checkbox" formControlName="alumni" (click)="$event.stopPropagation()" />
+        <div class="filter-flexbox-container">
+          <div>
+            <div (click)="toggleCheckbox('com_manager')" class="filter-roles-container">
+              <img src="./assets/img/black-marker.png" alt="Red Marker" />
+              <span class="community-manager-span">Community Manager</span>
+              <input type="checkbox" formControlName="com_manager" (click)="$event.stopPropagation()" />
+            </div>
+            <div (click)="toggleCheckbox('mentor')" class="filter-roles-container">
+              <img src="./assets/img/red-marker.png" alt="Red Marker" />
+              <span>Mentoren</span>
+              <input type="checkbox" formControlName="mentor" (click)="$event.stopPropagation()" />
+            </div>
+            <div (click)="toggleCheckbox('schuler')" class="filter-roles-container">
+              <img src="./assets/img/green-marker.png" alt="Red Marker" />
+              <span>Schüler</span>
+              <input type="checkbox" formControlName="schuler" (click)="$event.stopPropagation()" />
+            </div>
+            <div (click)="toggleCheckbox('alumni')" class="filter-roles-container">
+              <img src="./assets/img/blue-marker.png" alt="Red Marker" />
+              <span>Alumni</span>
+              <input type="checkbox" formControlName="alumni" (click)="$event.stopPropagation()" />
+            </div>
+          </div>
+          <div class="course-and-modules-container">
+            <div (click)="toggleCheckbox('frontend')" class="filter-roles-container">
+              <img src="./assets/img/coding.png" alt="Coding Image" class="coding-image" />
+              <span>Frontend</span>
+              <input type="checkbox" formControlName="frontend" (click)="$event.stopPropagation()" />
+            </div>
+            <div (click)="toggleCheckbox('backend')" class="filter-roles-container">
+              <img src="./assets/img/coding.png" alt="Coding Image" class="coding-image" />
+              <span>Backend</span>
+              <input type="checkbox" formControlName="backend" (click)="$event.stopPropagation()" />
+            </div>
+            <div (click)="toggleCheckbox('fullstack')" class="filter-roles-container">
+              <img src="./assets/img/coding.png" alt="Coding Image" class="coding-image" />
+              <span>Fullstack</span>
+              <input type="checkbox" formControlName="fullstack" (click)="$event.stopPropagation()" />
+            </div>
+            <div class="dropdown-choice-container">
+              <div class="dropdown">
+                <button class="dropdown-toggle-map">
+                  Module <img src="./assets/img/arrow_drop_down_black.png" alt="">
+                </button>
+                <ul class="dropdown-scrollbar dropdown-menu">
+                  <li class="dropdown-item" *ngFor="let i of displayNumbers" (click)="toggleModule(i)">
+                    <span class="select-number-span">{{ i }} <input type="checkbox"
+                        [checked]="selectedModules.includes(i)"></span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+          <div>
+            <div (click)="toggleCheckbox('searchingJob')" class="filter-roles-container">
+              <img src="./assets/img/laptop.png" alt="Red Marker" />
+              <span class="searching-job-span">Auf Jobsuche</span>
+              <input type="checkbox" formControlName="searchingJob" (click)="$event.stopPropagation()" />
+            </div>
+          </div>
         </div>
       </form>
     </div>

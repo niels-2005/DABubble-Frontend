@@ -1,9 +1,9 @@
 <app-logoandprofileheader></app-logoandprofileheader>
 
 <div class="startsite-content-container">
-  <!-- <app-sitenavigation (switchView)="handleSwitchView($event)"></app-sitenavigation>  -->
+  <app-sitenavigation (switchView)="handleSwitchView($event)"></app-sitenavigation>
   <div class="startsite-components-container">
     <app-map [class.d-none]="isChatVisible"></app-map>
-    <!-- <app-chat [class.d-none]="!isChatVisible"></app-chat>  -->
+    <app-chat [class.d-none]="!isChatVisible"></app-chat>
   </div>
 </div>

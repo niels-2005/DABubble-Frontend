@@ -9,41 +9,68 @@
   gap: 24px;
 }
 
-.switch-to-map-button-container {
+.switch-to-map-container {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  gap: 12px;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
+  transition: 0.1s ease-in-out;
   &:hover {
     background-color: #ECEEFE;
   }
   span {
       font-size: 20px;
+      margin-top: 6px;
   }
+}
+
+.map-image {
+  height: 35px;
+  object-fit: contain;
+}
+
+.da-image {
+  height: 35px;
+  object-fit: contain;
+}
+
+.da-link {
+  text-decoration: none;
+  color: black;
+}
+
+.slack-image {
+  height: 30px;
+  object-fit: contain;
+}
+
+.discord-image {
+  height: 30px;
+  object-fit: contain;
 }
 
 .channels-container {
   display: flex;
   flex-direction: column;
-
   gap: 8px;
   h4 {
     font-size: 22px;
   }
 }
 
-.all-channels-container {
-  display: flex;
-  flex-direction: column;
-}
+
 
 .each-channel-name {
+  display: flex;
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
+  transition: 0.1s ease-in-out;
   &:hover {
     background-color: #ECEEFE;
   }
   span {
-    font-size: 18px;
+    font-size: 20px;
   }
 }
+
