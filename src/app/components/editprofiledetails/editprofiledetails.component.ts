@@ -189,6 +189,12 @@ export class EditprofiledetailsComponent {
     document.getElementById('userprofile-delete-container')?.classList.remove('d-none');
   }
 
+  switchToMapSettings(){
+    document.getElementById('userprofile-details-container')?.classList.add('d-none');
+    document.getElementById('map-settings')?.classList.remove('d-none');
+  }
+
+
   selectCourse(course: string) {
     this.selectedCourse = course;
   }

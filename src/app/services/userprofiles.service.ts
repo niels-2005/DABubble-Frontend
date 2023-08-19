@@ -119,11 +119,17 @@ async getProfileDetailsAgainFromBackend(){
     document.getElementById('edit-profile-details-popup')?.classList.add('d-none');
     document.getElementById('userprofile-delete-container')?.classList.add('d-none');
     document.getElementById('userprofile-details-container')?.classList.remove('d-none');
+    document.getElementById('map-settings')?.classList.add('d-none');
   }
 
   switchContainerFromDeleteUserToProfileDetails(){
     document.getElementById('userprofile-details-container')?.classList.remove('d-none');
     document.getElementById('userprofile-delete-container')?.classList.add('d-none');
+  }
+
+  switchContainerFromMapSettingsToProfileDetails(){
+    document.getElementById('map-settings')?.classList.add('d-none');
+    document.getElementById('userprofile-details-container')?.classList.remove('d-none');
   }
 
 

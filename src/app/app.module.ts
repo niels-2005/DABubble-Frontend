@@ -26,6 +26,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SitenavigationComponent } from './components/sitenavigation/sitenavigation.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { StartsiteComponent } from './components/startsite/startsite.component';
+import { MapsettingsComponent } from './components/mapsettings/mapsettings.component';
 
 @NgModule({
   declarations: [
@@ -48,6 +49,7 @@ import { StartsiteComponent } from './components/startsite/startsite.component';
     SitenavigationComponent,
     ChatComponent,
     StartsiteComponent,
+    MapsettingsComponent,
   ],
   imports: [
     BrowserModule,

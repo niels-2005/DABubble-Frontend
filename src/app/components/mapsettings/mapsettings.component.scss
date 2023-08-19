@@ -1,0 +1,130 @@
+.map-settings-header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  img {
+    padding: 2px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: 0.1s ease-in-out;
+    &:hover {
+      background-color: #ECEEFE;
+    }
+  }
+}
+
+.default-map-settings-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.dialog-preview-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  max-width: 375px;
+  min-width: 375px;
+  box-shadow: 0 3px 14px rgba(0,0,0,0.4);
+  padding: 20px;
+  border-radius: 30px;
+  pointer-events: none;
+}
+
+.your-profile-image {
+  height: 150px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.laptop-searching-job-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  img {
+    height: 30px;
+    object-fit: cover;
+  }
+  p {
+    color: #52A852;
+    font-size: 20px;
+  }
+}
+
+.portfolio-email-style {
+  color: #444DF2;
+  text-decoration: none;
+}
+
+.font-size-20 {
+  font-size: 20px;
+}
+
+.font-size-22 {
+  font-size: 22px;
+}
+
+.map-settings-choice-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  div {
+    width: 125%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    transition: 0.1s ease-in-out;
+    padding: 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    position: relative;
+    span {
+      font-size: 20px;
+    }
+    input {
+      cursor: pointer;
+    }
+    &:hover {
+      background-color: #ECEEFE;
+    }
+    img {
+      position: absolute;
+      left: -30px;
+      height: 20px;
+      object-fit: contain;
+    }
+  }
+}
+
+
+.text-align-center {
+  text-align: center;
+}
+
+.map-option-disabled {
+  pointer-events: none !important;
+  background-color: lightgrey !important;
+  color: grey;
+}
+
+.map-settings-button-container {
+  display: flex;
+  justify-content: flex-end;
+  button {
+    background-color: #444DF2;
+    color: white;
+    cursor: pointer;
+    padding: 12px 20px;
+    font-size: 20px;
+    border-radius: 30px;
+    border-style: unset;
+    &:hover {
+      background-color: #797EF3;
+    }
+  }
+}

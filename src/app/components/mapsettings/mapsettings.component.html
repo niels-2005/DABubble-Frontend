@@ -1,0 +1,50 @@
+<div class="map-settings-header-container">
+  <h2>Karteneinstellungen</h2>
+  <img src="./assets/img/close-black.png" alt="Close Icon" (click)="switchContainerFromMapSettingsToProfileDetails()" />
+</div>
+<div class="default-map-settings-container">
+  <div class="dialog-preview-container">
+    <p class="font-size-22 text-align-center"><b>{{userFullName}} ({{userType}})</b></p>
+    <img [src]="imagePreview" alt="Profile Image" class="your-profile-image" *ngIf="dialogImage">
+    <div class="laptop-searching-job-container" *ngIf="isSearchingForJob && dialogSearchingJob">
+      <img src="./assets/img/laptop.png" alt="Laptop Image">
+      <p>Aktiv auf Jobsuche</p>
+    </div>
+    <p class="font-size-20" *ngIf="dialogCourseAndModule && userType === 'Schüler' && selectedCourse && selectedNumber">
+      <b>{{selectedCourse}}</b> in Module <b>{{selectedNumber}}</b>
+    </p>
+    <p class="portfolio-email-style font-size-20" *ngIf="dialogEmail">{{userEmail}}</p>
+    <p class="font-size-20 text-align-center" *ngIf="dialogAboutMe">{{about}}</p>
+    <a href="{{website}}" class="portfolio-email-style font-size-20" *ngIf="dialogPortfolio && website">Portfolio</a>
+  </div>
+  <div class="map-settings-choice-container">
+    <div (click)="dialogImage = !dialogImage">
+      <span>Dein Profilbild anzeigen?</span>
+      <input type="checkbox" [(ngModel)]="dialogImage" (click)="$event.stopPropagation()">
+    </div>
+    <div (click)="dialogSearchingJob = !dialogSearchingJob" [class.map-option-disabled]="!isSearchingForJob">
+      <span>Auf Jobsuche anzeigen?</span>
+      <input type="checkbox" [(ngModel)]="dialogSearchingJob" (click)="$event.stopPropagation()">
+    </div>
+    <div (click)="dialogCourseAndModule = !dialogCourseAndModule"
+      [class.map-option-disabled]="userType === 'Alumni' || userType === 'Mentor' || userType === 'Community Manager'">
+      <span>Kurs und Modul anzeigen?</span>
+      <input type="checkbox" [(ngModel)]="dialogCourseAndModule" (click)="$event.stopPropagation()">
+    </div>
+    <div (click)="dialogEmail = !dialogEmail">
+      <span>Deine E-Mail anzeigen?</span>
+      <input type="checkbox" [(ngModel)]="dialogEmail" (click)="$event.stopPropagation()">
+    </div>
+    <div (click)="dialogAboutMe = !dialogAboutMe">
+      <span>Über dich Text anzeigen?</span>
+      <input type="checkbox" [(ngModel)]="dialogAboutMe" (click)="$event.stopPropagation()">
+    </div>
+    <div (click)="dialogPortfolio = !dialogPortfolio" [class.map-option-disabled]="!website">
+      <span>Link zum Portfolio anzeigen?</span>
+      <input type="checkbox" [(ngModel)]="dialogPortfolio" (click)="$event.stopPropagation()">
+    </div>
+  </div>
+</div>
+<div class="map-settings-button-container">
+  <button (click)="saveUserMapSettings()">Speichern</button>
+</div>

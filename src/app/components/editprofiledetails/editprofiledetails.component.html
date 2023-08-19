@@ -76,6 +76,10 @@
         <div class="complete-your-profile-checkbox-container">
           <span>Auf der Karte anzeigen?</span>
           <input type="checkbox" [(ngModel)]="showOnMap" />
+          <div class="map-settings-container" *ngIf="showOnMap" (click)="switchToMapSettings()">
+            <span>Karteneinstellungen</span>
+            <img src="./assets/img/settings.png" alt="Settings Icon">
+          </div>
         </div>
         <div class="searching-job-container">
           <span>Bist du auf Jobsuche?</span>
@@ -126,5 +130,6 @@
       </div>
     </div>
     <app-deleteprofile class="d-none" id="userprofile-delete-container"></app-deleteprofile>
+    <app-mapsettings class="d-none" id="map-settings"></app-mapsettings>
   </div>
 </div>

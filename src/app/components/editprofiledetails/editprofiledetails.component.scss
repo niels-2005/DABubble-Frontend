@@ -230,3 +230,27 @@
   max-height: 115px !important;
   overflow-y: auto;
 }
+
+.map-settings-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  border-radius: 8px;
+  &:hover {
+    text-decoration: underline;
+    img {
+      animation: circleing 5s linear infinite;
+    }
+  }
+}
+
+@keyframes circleing {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+}
