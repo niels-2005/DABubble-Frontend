@@ -31,7 +31,8 @@ export class AuthenticationService {
     };
 
     try {
-        const resp = await fetch("http://127.0.0.1:8000/auth/verify-token/", requestOptions);
+      const resp = await fetch("https://celinemueller.pythonanywhere.com/auth/verify-token/", requestOptions);
+        // const resp = await fetch("http://127.0.0.1:8000/auth/verify-token/", requestOptions);
 
         if (resp.ok) {
             const result = await resp.json();

@@ -23,12 +23,15 @@
       <input type="checkbox" [(ngModel)]="dialogImage" (click)="$event.stopPropagation()">
     </div>
     <div (click)="dialogSearchingJob = !dialogSearchingJob" [class.map-option-disabled]="!isSearchingForJob">
-      <span>Auf Jobsuche anzeigen?</span>
+      <span *ngIf="!isSearchingForJob">Aktuell nicht auf Jobsuche</span>
+      <span *ngIf="isSearchingForJob">Auf Jobsuche anzeigen?</span>
       <input type="checkbox" [(ngModel)]="dialogSearchingJob" (click)="$event.stopPropagation()">
     </div>
     <div (click)="dialogCourseAndModule = !dialogCourseAndModule"
       [class.map-option-disabled]="userType === 'Alumni' || userType === 'Mentor' || userType === 'Community Manager'">
-      <span>Kurs und Modul anzeigen?</span>
+      <span *ngIf="userType === 'Schüler'">Kurs und Modul anzeigen?</span>
+      <span *ngIf="userType === 'Alumni' || userType === 'Mentor' || userType === 'Community Manager'">Kurs, Module nur
+        für Schüler</span>
       <input type="checkbox" [(ngModel)]="dialogCourseAndModule" (click)="$event.stopPropagation()">
     </div>
     <div (click)="dialogEmail = !dialogEmail">
@@ -40,11 +43,12 @@
       <input type="checkbox" [(ngModel)]="dialogAboutMe" (click)="$event.stopPropagation()">
     </div>
     <div (click)="dialogPortfolio = !dialogPortfolio" [class.map-option-disabled]="!website">
-      <span>Link zum Portfolio anzeigen?</span>
+      <span *ngIf="!website">Keine Website angegeben</span>
+      <span *ngIf="website">Link zum Portfolio anzeigen?</span>
       <input type="checkbox" [(ngModel)]="dialogPortfolio" (click)="$event.stopPropagation()">
     </div>
   </div>
 </div>
 <div class="map-settings-button-container">
-  <button (click)="saveUserMapSettings()">Speichern</button>
+  <button (click)="saveUserMapSettingsAndClosePopup()">Speichern</button>
 </div>

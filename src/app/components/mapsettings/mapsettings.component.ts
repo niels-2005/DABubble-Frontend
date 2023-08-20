@@ -46,7 +46,8 @@ export class MapsettingsComponent implements OnInit {
       headers: myHeaders,
     };
 
-    const resp = await fetch("http://127.0.0.1:8000/userprofiles/map-settings/", requestOptions);
+    const resp = await fetch("https://celinemueller.pythonanywhere.com/userprofiles/map-settings/", requestOptions);
+    // const resp = await fetch("http://127.0.0.1:8000/userprofiles/map-settings/", requestOptions);
 
     if (resp.ok) {
       const result = await resp.json();
@@ -96,6 +97,11 @@ export class MapsettingsComponent implements OnInit {
     this.userProfileService.switchContainerFromMapSettingsToProfileDetails();
   }
 
+  saveUserMapSettingsAndClosePopup(){
+    this.userProfileService.hideChangeProfileDetailsPopup();
+    this.saveUserMapSettings();
+  }
+
   async saveUserMapSettings(){
     const myHeaders = new Headers();
     myHeaders.append("Authorization", `Token ${this.token}`);
@@ -117,7 +123,8 @@ export class MapsettingsComponent implements OnInit {
       body: raw,
     };
 
-    await fetch("http://127.0.0.1:8000/userprofiles/map-settings/", requestOptions)
+    // await fetch("http://127.0.0.1:8000/userprofiles/map-settings/", requestOptions)
+    await fetch("https://celinemueller.pythonanywhere.com/userprofiles/map-settings/", requestOptions)
       .then(response => response.json())
       .then(result => console.log(result))
       .catch(error => console.log('error', error));

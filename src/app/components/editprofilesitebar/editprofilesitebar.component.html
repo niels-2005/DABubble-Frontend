@@ -46,7 +46,7 @@
       <span>Straße und Hausnummer</span>
       <p>{{ street }}, {{ houseNumber }}</p>
     </div>
-    <div class="details-style-container">
+    <div class="details-style-container" *ngIf="website">
       <span>Website</span>
       <p>
         <a href="{{ website }}">{{ website }}</a>

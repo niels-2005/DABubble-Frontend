@@ -158,7 +158,6 @@ export class MapComponent implements OnInit {
     });
 }
 
-
   clearAllMarkers() {
     this.layers.forEach(layer => this.map?.removeLayer(layer));
     this.layers = [];
@@ -179,39 +178,72 @@ zoomToMarker(event: LeafletMouseEvent) {
 
 }
 
-
-returnPopupContentHTML(userData: any) {
-  let websiteLink = '';
-  if (userData.website && userData.website !== '') {
-    websiteLink = `<a href="${userData.website}" class="user-website" target="_blank" rel="noopener noreferrer">Portfolio</a>`;
-  }
-  let courseAndModule = "";
-  if (userData.user_type === 'Schüler' && userData.course && userData.course !== null && userData.module && userData.module !== null) {
-    courseAndModule = `<p class="user-about"><b>${userData.course}</b> in Modul <b>${userData.module}</b></p>`;
-  }
-  let searchingJob = "";
-  if(userData.searching_job === true) {
-    searchingJob = `
-    <div class="active-jobsearch-container">
-      <img src="./assets/img/laptop.png">
-      <span>Aktiv auf Jobsuche</span>
-    </div>`
-  }
-
+returnPopupContentHTML(userData: any): string {
+  const userImage = this.getUserImage(userData);
+  const searchingJob = this.getSearchingJob(userData);
+  const courseAndModule = this.getCourseAndModule(userData);
+  const email = this.getEmail(userData);
+  const about = this.getAbout(userData);
+  const websiteLink = this.getWebsiteLink(userData);
 
   return `
     <div class="popup-content">
         <h2 class="user-name">${userData.user} (${userData.user_type})</h2>
-        <img class="user-image" src="${userData.image_url}" alt="User Image">
+        ${userImage}
         ${searchingJob}
         ${courseAndModule}
-        <p class="user-email">${userData.email}</p>
-        <p class="user-about">${userData.about}</p>
+        ${email}
+        ${about}
         ${websiteLink}
     </div>
   `;
 }
 
+getUserImage(userData: any): string {
+  if (userData.image_url) {
+    return `<img class="user-image" src="${userData.image_url}" alt="User Image">`;
+  }
+  return '';
+}
+
+getSearchingJob(userData: any): string {
+  if (userData.searching_job === true) {
+    return `
+      <div class="active-jobsearch-container">
+        <img src="./assets/img/laptop.png">
+        <span>Aktiv auf Jobsuche</span>
+      </div>`;
+  }
+  return '';
+}
+
+getCourseAndModule(userData: any): string {
+  if (userData.user_type === 'Schüler' && userData.course && userData.module) {
+    return `<p class="user-about"><b>${userData.course}</b> in Modul <b>${userData.module}</b></p>`;
+  }
+  return '';
+}
+
+getEmail(userData: any): string {
+  if (userData.email) {
+    return `<p class="user-email">${userData.email}</p>`;
+  }
+  return '';
+}
+
+getAbout(userData: any): string {
+  if (userData.about) {
+    return `<p class="user-about">${userData.about}</p>`;
+  }
+  return '';
+}
+
+getWebsiteLink(userData: any): string {
+  if (userData.website && userData.website !== '') {
+    return `<a href="${userData.website}" class="user-website" target="_blank" rel="noopener noreferrer">Portfolio</a>`;
+  }
+  return '';
+}
 
 //      <button class="user-button">Nachricht schreiben</button>
 

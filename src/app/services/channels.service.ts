@@ -28,7 +28,8 @@ newMessage$ = this.newMessage.asObservable();
   getAllChannels(): Observable<any> {
     const headers = new HttpHeaders().set("Authorization", `Token ${this.token}`);
 
-    return this.http.get("http://127.0.0.1:8000/chats/channels", { headers: headers })
+    // return this.http.get("http://127.0.0.1:8000/chats/channels", { headers: headers })
+    return this.http.get("https://celinemueller.pythonanywhere.com/chats/channels/", { headers: headers })
         .pipe(
             tap(data => console.log(data))
         );
@@ -39,8 +40,11 @@ loadChannelContent(): Observable<any> {
 
   const headers = new HttpHeaders().set("Authorization", `Token ${this.token}`);
 
-  const messages$ = this.http.get(`http://127.0.0.1:8000/chats/channels/${this.selectedChannelId.value}/messages`, { headers: headers });
-  const details$ = this.http.get(`http://127.0.0.1:8000/chats/channels/${this.selectedChannelId.value}`, { headers: headers });
+  // const messages$ = this.http.get(`http://127.0.0.1:8000/chats/channels/${this.selectedChannelId.value}/messages`, { headers: headers });
+  // const details$ = this.http.get(`http://127.0.0.1:8000/chats/channels/${this.selectedChannelId.value}`, { headers: headers });
+
+  const messages$ = this.http.get(`https://celinemueller.pythonanywhere.com/chats/channels/${this.selectedChannelId.value}/messages`, { headers: headers });
+  const details$ = this.http.get(`https://celinemueller.pythonanywhere.com/chats/channels/${this.selectedChannelId.value}`, { headers: headers });
 
   return forkJoin({messages: messages$, details: details$});
 }
@@ -61,7 +65,9 @@ async createNewMessage(messageContent: any){
       body: JSON.stringify(body),
     };
 
-    const response = await fetch(`http://127.0.0.1:8000/chats/channels/${this.selectedChannelId.value}/messages/`, requestOptions);
+    // const response = await fetch(`http://127.0.0.1:8000/chats/channels/${this.selectedChannelId.value}/messages/`, requestOptions);
+
+    const response = await fetch(`https://celinemueller.pythonanywhere.com/chats/channels/${this.selectedChannelId.value}/messages/`, requestOptions);
 
     if (response.ok) {
       const newMessage = await response.json();

@@ -51,8 +51,8 @@ async getProfileDetailsFromBackend(){
   };
 
   try {
-      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
-      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}`, requestOptions);
+      // const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+      const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}`, requestOptions);
 
       if (response.ok) {
           const result = await response.json();
@@ -84,8 +84,8 @@ async getProfileDetailsAgainFromBackend(){
   };
 
   try {
-      const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
-      // const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}`, requestOptions);
+      // const response = await fetch(`http://127.0.0.1:8000/userprofiles/profile/${this.userId}/`, requestOptions);
+      const response = await fetch(`https://celinemueller.pythonanywhere.com/userprofiles/profile/${this.userId}`, requestOptions);
 
       if (response.ok) {
           const result = await response.json();

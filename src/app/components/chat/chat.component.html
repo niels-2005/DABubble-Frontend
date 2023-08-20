@@ -5,7 +5,7 @@
       <span>{{channelData?.details.name}}</span>
     </div>
     <div class="chat-header-members-container">
-      <div *ngFor="let member of firstThreeMembers; let i = index" [style.z-index]="10 - i">
+      <div *ngFor="let member of firstFiveMembersWithImageAndName; let i = index" [style.z-index]="10 - i">
         <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}">
       </div>
       <span>{{channelData?.details?.members?.length}}</span>

@@ -100,8 +100,11 @@ createNewMessage(){
   this.messageContent = "";
 }
 
-get firstThreeMembers() {
-  return this.channelData.details.members?.slice(0, 3);
+get firstFiveMembersWithImageAndName() {
+  return this.channelData.details.members
+    ?.filter((member: any) => member.image_url !== null && member.full_name !== null)
+    .slice(0, 5);
 }
+
 
 }
