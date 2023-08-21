@@ -70,8 +70,8 @@
         </div>
         <div class="user-details-profile-container">
           <h3>Dein Profilbild</h3>
-          <img [src]="imagePreview" />
-          <input type="file" (change)="onFileSelected($event)" />
+          <img [src]="imagePreview" (click)="fileInput.click()" />
+          <input #fileInput type="file" style="display:none" (change)="onFileSelected($event)" />
           <span>{{ errors.image ? errors.image[0] : "" }}</span>
         </div>
       </div>
@@ -104,13 +104,13 @@
               <span>Auf der Karte anzeigen?</span>
               <input type="checkbox" [(ngModel)]="showOnMap" />
             </div>
-            <div class="searching-job-container">
+            <div class="searching-job-container" *ngIf="users_type === 'Alumni'">
               <span>Bist du auf Jobsuche?</span>
               <input type="checkbox" [(ngModel)]="isSearchingForJob" name="jobSearch">
             </div>
           </div>
-          <div class="course-details-container" *ngIf="users_type === 'Schüler'">
-            <div class="dropdown-choice-container">
+          <div class="course-details-container">
+            <div class="dropdown-choice-container" *ngIf="users_type === 'Schüler' || users_type === 'Alumni'">
               <div class="dropdown">
                 <button class="dropdown-toggle">
                   Wähle deinen Kurs
@@ -129,7 +129,7 @@
               </div>
               <span class="selected-course-span">{{ selectedCourse }}</span>
             </div>
-            <div class="dropdown-choice-container">
+            <div class="dropdown-choice-container" *ngIf="users_type === 'Schüler'">
               <div class="dropdown">
                 <button class="dropdown-toggle">
                   Wähle dein Modul

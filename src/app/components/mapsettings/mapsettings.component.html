@@ -13,25 +13,33 @@
     <p class="font-size-20" *ngIf="dialogCourseAndModule && userType === 'Schüler' && selectedCourse && selectedNumber">
       <b>{{selectedCourse}}</b> in Module <b>{{selectedNumber}}</b>
     </p>
+    <p class="font-size-20" *ngIf="dialogCourseAndModule && userType === 'Alumni' && selectedCourse">
+      <b>{{selectedCourse}}</b> erfolgreich abgeschlossen
+    </p>
     <p class="portfolio-email-style font-size-20" *ngIf="dialogEmail">{{userEmail}}</p>
     <p class="font-size-20 text-align-center" *ngIf="dialogAboutMe">{{about}}</p>
     <a href="{{website}}" class="portfolio-email-style font-size-20" *ngIf="dialogPortfolio && website">Portfolio</a>
   </div>
   <div class="map-settings-choice-container">
     <div (click)="dialogImage = !dialogImage">
-      <span>Dein Profilbild anzeigen?</span>
+      <span *ngIf="dialogImage">Dein Profilbild anzeigen?</span>
+      <span *ngIf="!dialogImage">Aktuell kein Profilbild</span>
       <input type="checkbox" [(ngModel)]="dialogImage" (click)="$event.stopPropagation()">
     </div>
-    <div (click)="dialogSearchingJob = !dialogSearchingJob" [class.map-option-disabled]="!isSearchingForJob">
+    <div (click)="dialogSearchingJob = !dialogSearchingJob" [class.map-option-disabled]="!isSearchingForJob"
+      *ngIf="userType === 'Alumni'">
       <span *ngIf="!isSearchingForJob">Aktuell nicht auf Jobsuche</span>
       <span *ngIf="isSearchingForJob">Auf Jobsuche anzeigen?</span>
       <input type="checkbox" [(ngModel)]="dialogSearchingJob" (click)="$event.stopPropagation()">
     </div>
-    <div (click)="dialogCourseAndModule = !dialogCourseAndModule"
-      [class.map-option-disabled]="userType === 'Alumni' || userType === 'Mentor' || userType === 'Community Manager'">
+    <div (click)="dialogCourseAndModule = !dialogCourseAndModule" *ngIf="userType === 'Schüler'">
       <span *ngIf="userType === 'Schüler'">Kurs und Modul anzeigen?</span>
-      <span *ngIf="userType === 'Alumni' || userType === 'Mentor' || userType === 'Community Manager'">Kurs, Module nur
-        für Schüler</span>
+      <span *ngIf="userType === 'Schüler' && !selectedCourse && !selectedNumber ">Aktuell kein Kurs/Modul</span>
+      <input type="checkbox" [(ngModel)]="dialogCourseAndModule" (click)="$event.stopPropagation()">
+    </div>
+    <div (click)="dialogCourseAndModule = !dialogCourseAndModule" *ngIf="userType === 'Alumni'">
+      <span *ngIf="userType === 'Alumni'">Absolvierten Kurs anzeigen?</span>
+      <span *ngIf="userType === 'Alumni' && !selectedCourse && !selectedNumber ">Aktuell kein Kurs ausgewählt</span>
       <input type="checkbox" [(ngModel)]="dialogCourseAndModule" (click)="$event.stopPropagation()">
     </div>
     <div (click)="dialogEmail = !dialogEmail">

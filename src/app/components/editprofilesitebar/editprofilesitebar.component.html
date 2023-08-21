@@ -21,6 +21,9 @@
       <div class="show-course-and-module" *ngIf="user_type === 'Schüler'">
         <span><b>Kurs:</b> {{selectedCourse}} in Modul {{selectedNumber}}</span>
       </div>
+      <div class="show-course-and-module" *ngIf="user_type === 'Alumni'">
+        <span><b>Kurs:</b> {{selectedCourse}}</span>
+      </div>
       <div class="edit-profile-active-container">
         <div></div>
         <span>Aktiv</span>

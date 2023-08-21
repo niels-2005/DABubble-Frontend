@@ -220,6 +220,8 @@ getSearchingJob(userData: any): string {
 getCourseAndModule(userData: any): string {
   if (userData.user_type === 'Schüler' && userData.course && userData.module) {
     return `<p class="user-about"><b>${userData.course}</b> in Modul <b>${userData.module}</b></p>`;
+  } else if (userData.user_type === 'Alumni' && userData.course){
+    return `<p class="user-about"><b>${userData.course}</b> erfolgreich abgeschlossen</p>`;
   }
   return '';
 }

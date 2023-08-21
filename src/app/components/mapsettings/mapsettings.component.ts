@@ -16,7 +16,7 @@ export class MapsettingsComponent implements OnInit {
   selectedCourse: string = '';
   selectedNumber: number | null = null;
   isSearchingForJob: boolean = false;
-  imagePreview: string = './assets/img/avatar-men-1.png';
+  imagePreview: string = '';
   userFullName = localStorage.getItem('full_name');
   userEmail = localStorage.getItem('email');
 

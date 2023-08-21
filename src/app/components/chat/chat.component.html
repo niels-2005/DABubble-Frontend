@@ -1,10 +1,16 @@
 <div class="chat-container">
+  <div class="rendered-member-data-container d-none" id="all-member-rendered-data">
+    <div *ngFor="let members of channelData.details.members">
+      <span>{{members.full_name}}</span>
+      <img *ngIf="members.image_url" src="{{members.image_url}}" alt="Profilbild von {{members.full_name}}">
+    </div>
+  </div>
   <div class="chat-header-container">
     <div class="chat-header-channel-name">
       <span>#</span>
       <span>{{channelData?.details.name}}</span>
     </div>
-    <div class="chat-header-members-container">
+    <div class="chat-header-members-container" (click)="openSitebarRenderedMembersData()">
       <div *ngFor="let member of firstFiveMembersWithImageAndName; let i = index" [style.z-index]="10 - i">
         <img src="{{ member.image_url }}" alt="Profilbild von {{ member.full_name }}">
       </div>
@@ -36,3 +42,6 @@
     <img src="./assets/img/send-message.png" alt="Send Message Image" (click)="createNewMessage()">
   </div>
 </div>
+
+<div class="position-fixed-background-container d-none" id="unseen-background-container"
+  (click)="closeSitebarRenderedMembersData()"></div>

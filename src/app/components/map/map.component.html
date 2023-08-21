@@ -2,8 +2,38 @@
   <div class="map-info-container">
     <div class="map-info-image-container">
       <img src="./assets/img/f-zeich-neben-profil.png" alt="Infos Image" />
-      <form class="tooltip-content" [formGroup]="filterForm">
-        <h3>Filter</h3>
+      <form class="tooltip-content">
+        <h3>Legende</h3>
+        <div class="filter-flexbox-container">
+          <div>
+            <div class="filter-roles-container">
+              <img src="./assets/img/black-marker.png" alt="Red Marker" />
+              <span class="community-manager-span">Community Manager</span>
+            </div>
+            <div class="filter-roles-container">
+              <img src="./assets/img/red-marker.png" alt="Red Marker" />
+              <span>Mentoren</span>
+            </div>
+            <div class="filter-roles-container">
+              <img src="./assets/img/green-marker.png" alt="Red Marker" />
+              <span>Schüler</span>
+            </div>
+            <div class="filter-roles-container">
+              <img src="./assets/img/blue-marker.png" alt="Red Marker" />
+              <span>Alumni</span>
+            </div>
+            <!-- <div class="filter-roles-container">
+              <img src="./assets/img/laptop.png" alt="Red Marker" />
+              <span class="searching-job-span">Auf Jobsuche</span>
+            </div> -->
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="map-info-image-container-glasses">
+      <img src="./assets/img/glasses-map.png" alt="Infos Image" class="magni-classes-image" />
+      <form class="tooltip-content-glasses" [formGroup]="filterForm">
+        <h3>Suchoptionen</h3>
         <div class="filter-flexbox-container">
           <div>
             <div (click)="toggleCheckbox('com_manager')" class="filter-roles-container">

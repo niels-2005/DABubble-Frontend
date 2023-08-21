@@ -25,7 +25,71 @@
   background-color: white;
 }
 
+.map-info-image-container-glasses {
+  position: absolute;
+  left: 13px;
+  top: 80px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: white;
+}
+
+.magni-classes-image {
+  height: 27px;
+  aspect-ratio: 1;
+  object-fit: cover;
+}
+
 .tooltip-content {
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 15px;
+  position: absolute;
+  top: 100%;
+  right: -200px;
+
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+
+  img {
+    height: 25px;
+    object-fit: cover;
+  }
+
+  .filter-roles-container {
+    width: auto;
+    padding: 6px;
+    border-radius: 8px;
+    transition: 0.1s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    input {
+      cursor: pointer;
+    }
+    &:hover {
+      background-color: #ECEEFE;
+    }
+  }
+  span {
+    font-size: 16px;
+  }
+
+  h3 {
+    text-align: center;
+  }
+}
+
+
+.tooltip-content-glasses {
   background-color: white;
   display: flex;
   flex-direction: column;
@@ -70,7 +134,12 @@
   }
 }
 
-.map-info-container:hover .tooltip-content {
+.map-info-image-container:hover .tooltip-content {
+  opacity: 1;
+  visibility: visible;
+}
+
+.map-info-image-container-glasses:hover .tooltip-content-glasses {
   opacity: 1;
   visibility: visible;
 }

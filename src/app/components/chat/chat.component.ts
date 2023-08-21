@@ -106,5 +106,15 @@ get firstFiveMembersWithImageAndName() {
     .slice(0, 5);
 }
 
+openSitebarRenderedMembersData() {
+  document.getElementById('all-member-rendered-data')?.classList.remove('d-none');
+  document.getElementById('unseen-background-container')?.classList.remove('d-none');
+}
+
+closeSitebarRenderedMembersData() {
+  document.getElementById('all-member-rendered-data')?.classList.add('d-none');
+  document.getElementById('unseen-background-container')?.classList.add('d-none');
+}
+
 
 }
