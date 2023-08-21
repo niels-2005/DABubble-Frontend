@@ -129,6 +129,33 @@ export class LoginComponent implements OnInit {
     localStorage.setItem('stayLoggedIn', this.stayLoggedInCheckbox.toString());
 }
 
+  async loginGuest(){
+    const myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
 
+    const raw = JSON.stringify({
+      "email": 'guest@guest.com',
+      "password": 'GuestGuest12345'
+    });
 
+    const requestOptions : RequestInit = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+};
+
+    const resp = await fetch("https://celinemueller.pythonanywhere.com/auth/login/", requestOptions)
+    // const resp = await fetch("http://127.0.0.1:8000/auth/login/", requestOptions)
+    if (resp.ok) {
+      const result = await resp.json();
+      console.log(result);
+      this.setItemsToLocalStorage(result);
+      this.router.navigateByUrl('/startsite');
+    } else {
+        const result = await resp.json();
+        console.log('error', result);
+    }
+  }
 }
+
+

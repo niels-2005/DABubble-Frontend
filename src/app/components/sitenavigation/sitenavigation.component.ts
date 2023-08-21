@@ -1,5 +1,7 @@
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ChannelsService } from 'src/app/services/channels.service';
+import { Subscription } from 'rxjs';
+import { UserprofilesService } from 'src/app/services/userprofiles.service';
 
 @Component({
   selector: 'app-sitenavigation',
@@ -8,13 +10,17 @@ import { ChannelsService } from 'src/app/services/channels.service';
 })
 export class SitenavigationComponent implements OnInit {
 
-  constructor(public channelService: ChannelsService) {}
+  constructor(public channelService: ChannelsService, private userProfileService: UserprofilesService) {}
 
   channels: any;
 
   selectedChannelId: any = null;
 
+  user_type: string = "";
+
   @Output() switchView = new EventEmitter<string>();
+
+  private subscriptions: Subscription[] = [];
 
   ngOnInit(): void {
     this.channelService.getAllChannels().subscribe(data => {
@@ -22,6 +28,21 @@ export class SitenavigationComponent implements OnInit {
     }, error => {
       console.log('error', error);
     });
+    this.getUserInformations();
+  }
+
+  getUserInformations(){
+    this.subscriptions.push(
+      this.userProfileService.profileData$.subscribe(data => {
+        if (data) {
+          this.updateProfileData(data);
+        }
+      })
+    );
+  }
+
+  private updateProfileData(result: any) {
+    this.user_type = result.user_type
   }
 
   setSelectedChannelId(channelid: any){

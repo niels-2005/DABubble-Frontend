@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { distinctUntilChanged } from 'rxjs/operators';
 import { UserstatusService } from 'src/app/services/userstatus.service';
+import { UserprofilesService } from 'src/app/services/userprofiles.service';
 
 @Component({
   selector: 'app-map',
@@ -24,11 +25,15 @@ export class MapComponent implements OnInit {
   selectedNumber: number | null = null;
   selectedModules: number[] = this.numbers;
 
+  user_type = "";
+
+  fullNameGuest = localStorage.getItem('full_name');
+
   displayNumbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
 
   private subscriptions: Subscription = new Subscription();
 
-  constructor(private mapService: MapService, private fb: FormBuilder, private userStatusService: UserstatusService) {
+  constructor(private mapService: MapService, private fb: FormBuilder, private userStatusService: UserstatusService, private userProfileService: UserprofilesService) {
     this.filterForm = this.fb.group({
       mentor: [true],
       schuler: [true],
@@ -44,6 +49,7 @@ export class MapComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     this.userStatusService.checkIfUserIsAuthenticated();
+    this.getUserInformations();
     this.subscriptions.add(
       this.mapService.mapRefreshNeeded.subscribe(async () => {
         await this.getAndChangeUserMapInfos();
@@ -58,8 +64,27 @@ export class MapComponent implements OnInit {
     this.subscriptions.unsubscribe();
   }
 
+  getUserInformations(){
+    this.subscriptions.add(
+      this.userProfileService.profileData$.subscribe((data: any) => {
+        if (data) {
+          this.updateProfileData(data);
+        }
+      })
+    );
+  }
+
+  private updateProfileData(result: any) {
+    this.user_type = result.user_type;
+  }
+
   async getAndChangeUserMapInfos(){
-    const userData = await this.mapService.getUserMapInfos();
+    let userData;
+    if(this.fullNameGuest === 'Guest') {
+      userData = await this.mapService.getUserMapInfosForGuest();
+  } else {
+      userData = await this.mapService.getUserMapInfos();
+  }
     if (Array.isArray(userData)) {
       this.allUsersData = userData;
       this.addMarkersToMap(this.allUsersData);

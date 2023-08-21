@@ -15,7 +15,9 @@
           <img *ngIf="user_type === 'Mentor'" src="./assets/img/red-marker.png" alt="User Marker Map" />
           <img *ngIf="user_type === 'Schüler'" src="./assets/img/green-marker.png" alt="User Marker Map" />
           <img *ngIf="user_type === 'Community Manager'" src="./assets/img/black-marker.png" alt="User Marker Map" />
-          <span>{{ user_type }}</span>
+          <span
+            *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">{{
+            user_type }}</span>
         </div>
       </div>
       <div class="show-course-and-module" *ngIf="user_type === 'Schüler'">
@@ -29,7 +31,9 @@
         <span>Aktiv</span>
       </div>
     </div>
-    <button (click)="showChangeProfileDetailsPopup()">Profil bearbeiten</button>
+    <button (click)="showChangeProfileDetailsPopup()"
+      *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">Profil
+      bearbeiten</button>
   </div>
   <div class="edit-profile-user-details-container">
     <h3>Kontaktdaten</h3>
@@ -37,19 +41,23 @@
       <span>E-Mail Adresse</span>
       <p>{{ emailAddress }}</p>
     </div>
-    <div class="details-style-container">
+    <div class="details-style-container"
+      *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
       <span>Telefon</span>
       <p>{{ phoneNumber }}</p>
     </div>
-    <div class="details-style-container">
+    <div class="details-style-container"
+      *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
       <span>PLZ und Stadt</span>
       <p>{{ zipCode }} {{ city }}</p>
     </div>
-    <div class="details-style-container">
+    <div class="details-style-container"
+      *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
       <span>Straße und Hausnummer</span>
       <p>{{ street }}, {{ houseNumber }}</p>
     </div>
-    <div class="details-style-container" *ngIf="website">
+    <div class="details-style-container"
+      *ngIf="website && user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
       <span>Website</span>
       <p>
         <a href="{{ website }}">{{ website }}</a>

@@ -30,7 +30,8 @@
         </div>
       </form>
     </div>
-    <div class="map-info-image-container-glasses">
+    <div class="map-info-image-container-glasses"
+      *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
       <img src="./assets/img/glasses-map.png" alt="Infos Image" class="magni-classes-image" />
       <form class="tooltip-content-glasses" [formGroup]="filterForm">
         <h3>Suchoptionen</h3>

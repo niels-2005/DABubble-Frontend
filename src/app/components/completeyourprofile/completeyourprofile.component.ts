@@ -101,7 +101,7 @@ export class CompleteyourprofileComponent implements OnInit {
     if(this.selectedImage){
       this.sendImageToBackend();
     } else {
-      this.router.navigateByUrl('map');
+      this.router.navigateByUrl('startsite');
     }
   }
 

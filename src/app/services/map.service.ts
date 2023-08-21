@@ -44,5 +44,31 @@ export class MapService {
   });
   }
 
+  async getUserMapInfosForGuest(){
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Token ${this.token} `);
+
+    const requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+
+    return await fetch("https://celinemueller.pythonanywhere.com/userprofiles/guest/users-on-map/", requestOptions)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log(data);  // Hier wird das Backend-Daten-Logging für Gäste hinzugefügt
+        return data;
+      })
+      .catch(error => {
+        console.log('error', error);
+        throw error;
+      });
+  }
+
 
 }

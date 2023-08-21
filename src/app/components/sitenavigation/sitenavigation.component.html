@@ -4,24 +4,33 @@
     <span>Karte öffnen</span>
   </div>
   <a class="switch-to-map-container da-link" href="https://developer-akademie.teachable.com/courses/" target="_blank"
-    rel="noopener noreferrer" (click)="clearSelectedChannel()">
+    rel="noopener noreferrer" (click)="clearSelectedChannel()"
+    *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
     <img src="./assets/img/da-academy.png" alt="Da Image" class="da-image">
     <span>Teachable</span>
   </a>
+  <a class="switch-to-map-container da-link" href="https://developerakademie.com/" target="_blank"
+    rel="noopener noreferrer" *ngIf="user_type === 'Guest'">
+    <img src="./assets/img/da-academy.png" alt="Da Image" class="da-image">
+    <span>Unsere Website</span>
+  </a>
   <a class="switch-to-map-container da-link" href="slack://channel?team=T01CDQFUXFE&id=C01CXF3B5MW"
-    (click)="clearSelectedChannel()">
+    (click)="clearSelectedChannel()"
+    *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
     <img src="./assets/img/slack-logo.png" alt="Slack Image" class="slack-image">
     <span>Slack Channel</span>
   </a>
   <a class="switch-to-map-container da-link" href="https://discord.com/channels/1018183866671955998/1018184100118532196"
-    target="_blank" rel="noopener noreferrer" (click)="clearSelectedChannel()">
+    target="_blank" rel="noopener noreferrer" (click)="clearSelectedChannel()"
+    *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
     <img src="./assets/img/discord-logo.png" alt="Map Image" class="discord-image">
     <span>Discord Channel</span>
   </a>
   <div class="channels-container">
     <div *ngFor="let channel of channels">
       <div class="each-channel-name" [ngClass]="{'active-channel': selectedChannelId === channel.id}"
-        (click)="selectedChannelId !== channel.id && setSelectedChannelId(channel.id)">
+        (click)="selectedChannelId !== channel.id && setSelectedChannelId(channel.id)"
+        *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
         <span># {{channel.name}}</span>
       </div>
     </div>
