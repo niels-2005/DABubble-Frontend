@@ -26,6 +26,10 @@
     <img src="./assets/img/discord-logo.png" alt="Map Image" class="discord-image">
     <span>Discord Channel</span>
   </a>
+  <div class="switch-to-map-container" (click)="switchToStatistics()">
+    <img src="./assets/img/statistic.png" alt="Statistik" class="statistic-image">
+    <span>Statistiken</span>
+  </div>
   <div class="channels-container">
     <div *ngFor="let channel of channels">
       <div class="each-channel-name" [ngClass]="{'active-channel': selectedChannelId === channel.id}"

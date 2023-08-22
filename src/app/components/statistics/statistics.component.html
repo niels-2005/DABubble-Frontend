@@ -1,0 +1,31 @@
+<div class="statistic-complete-around-container">
+  <h1>Statistiken</h1>
+  <div class="user-informations-container">
+    <div>
+      <img src="./assets/img/group-normal.png" alt="Group normal">
+      <span>Aktuelle User: <b>{{ backendData?.user_totals.total_users }}</b></span>
+    </div>
+    <div>
+      <img src="./assets/img/group-plus.png" alt="Group Add">
+      <span>Neue User in den letzten 30 Tagen: <b>{{ backendData?.user_totals.new_users_last_30_days }}</b></span>
+    </div>
+    <div>
+      <img src="./assets/img/group-delete.png" alt="Group Delete">
+      <span>Gelöschte User: <b>{{ backendData?.user_totals.deleted_users }}</b></span>
+    </div>
+  </div>
+  <div class="alumni-students-container">
+    <div class="card">
+      <h2>Schüler <img src="./assets/img/green-marker.png" alt="" class="user-marker-image"></h2>
+      <p-chart type="pie" [data]="dataStudents" [options]="optionsStudents"></p-chart>
+    </div>
+    <div class="card">
+      <h2>Alumni <img src="./assets/img/blue-marker.png" alt="" class="user-marker-image"></h2>
+      <p-chart type="pie" [data]="dataAlumni" [options]="optionsAlumni"></p-chart>
+    </div>
+    <div class="card">
+      <h2>Direkter Vergleich der User</h2>
+      <p-chart type="pie" [data]="dataAllUser" [options]="optionsAllUser"></p-chart>
+    </div>
+  </div>
+</div>

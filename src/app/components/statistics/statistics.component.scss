@@ -1,0 +1,66 @@
+.alumni-students-container {
+  display: flex;
+  flex-direction: row;  // Hinzugefügt
+  align-items: center;
+  justify-content: space-between;
+  height: 20vw;
+  margin-top: -50px;
+  .card {
+    width: 30%;
+    height: 30%;
+    h2 {
+      text-align: center;
+    }
+  }
+}
+
+
+.statistic-complete-around-container {
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.users-login-statistic-container {
+  margin-top: 75px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  h2 {
+    text-align: center;
+  }
+  .card {
+    width: 40%;
+    height: 30%;
+  }
+}
+
+.user-informations-container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 24px;
+  div {
+    width: 30%;
+    padding-right: 12px;
+    border: 1px solid black;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    span {
+      font-size: 20px;
+    }
+    img {
+      height: 75px;
+      aspect-ratio: 1;
+      object-fit: cover;
+    }
+  }
+}
+
+.user-marker-image {
+  height: 25px;
+  aspect-ratio: 1;
+  object-fit: contain;
+}

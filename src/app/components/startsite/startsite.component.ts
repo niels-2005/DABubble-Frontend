@@ -1,5 +1,11 @@
 import { Component } from '@angular/core';
 
+export enum ViewType {
+  MAP = 'map',
+  CHAT = 'chat',
+  STATISTICS = 'statistics'
+}
+
 @Component({
   selector: 'app-startsite',
   templateUrl: './startsite.component.html',
@@ -7,10 +13,11 @@ import { Component } from '@angular/core';
 })
 export class StartsiteComponent {
 
-  isChatVisible = false;
+  ViewType = ViewType;
+
+  currentView: ViewType = ViewType.MAP;
 
   handleSwitchView(view: string) {
-    this.isChatVisible = (view === 'chat');
-}
-
+    this.currentView = view as ViewType;
+  }
 }

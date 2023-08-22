@@ -58,6 +58,10 @@ export class SitenavigationComponent implements OnInit {
     this.switchView.emit('map');
   }
 
+  switchToStatistics(){
+    this.switchView.emit('statistics');
+  }
+
   clearSelectedChannel() {
     this.selectedChannelId = null;
 }

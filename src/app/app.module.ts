@@ -27,6 +27,8 @@ import { SitenavigationComponent } from './components/sitenavigation/sitenavigat
 import { ChatComponent } from './components/chat/chat.component';
 import { StartsiteComponent } from './components/startsite/startsite.component';
 import { MapsettingsComponent } from './components/mapsettings/mapsettings.component';
+import { StatisticsComponent } from './components/statistics/statistics.component';
+import { ChartModule } from 'primeng/chart';
 
 @NgModule({
   declarations: [
@@ -50,6 +52,7 @@ import { MapsettingsComponent } from './components/mapsettings/mapsettings.compo
     ChatComponent,
     StartsiteComponent,
     MapsettingsComponent,
+    StatisticsComponent,
   ],
   imports: [
     BrowserModule,
@@ -59,7 +62,8 @@ import { MapsettingsComponent } from './components/mapsettings/mapsettings.compo
     ImageCropperModule,
     LeafletModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ChartModule
   ],
   providers: [],
   bootstrap: [AppComponent]
