@@ -15,6 +15,8 @@ export class CompleteyourprofileComponent implements OnInit {
 
   selectedImage: any = null;
 
+  readedValue: boolean = false;
+
   imagePreview: string = './assets/img/avatar-men-1.png';
 
   token = localStorage.getItem('token');

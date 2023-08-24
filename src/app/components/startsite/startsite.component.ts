@@ -3,7 +3,8 @@ import { Component } from '@angular/core';
 export enum ViewType {
   MAP = 'map',
   CHAT = 'chat',
-  STATISTICS = 'statistics'
+  STATISTICS = 'statistics',
+  EVENT = 'event'
 }
 
 @Component({

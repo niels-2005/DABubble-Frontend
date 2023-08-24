@@ -62,6 +62,10 @@ export class SitenavigationComponent implements OnInit {
     this.switchView.emit('statistics');
   }
 
+  switchToEvent(){
+    this.switchView.emit('event');
+  }
+
   clearSelectedChannel() {
     this.selectedChannelId = null;
 }

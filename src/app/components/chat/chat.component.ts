@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ChannelsService } from 'src/app/services/channels.service';
+import { UserprofilesService } from 'src/app/services/userprofiles.service';
 
 @Component({
   selector: 'app-chat',
@@ -9,7 +10,7 @@ import { ChannelsService } from 'src/app/services/channels.service';
 })
 export class ChatComponent implements OnInit {
 
-  constructor(private channelService: ChannelsService) {}
+  constructor(private channelService: ChannelsService, private userProfileService: UserprofilesService) {}
 
   private subscription: Subscription = new Subscription();
 
@@ -18,13 +19,29 @@ export class ChatComponent implements OnInit {
   messageContent: string = "";
 
   currentUser = localStorage.getItem('full_name');
+  currentUserType = "";
 
   lastDisplayedDate: string = '';
 
+
   ngOnInit(): void {
-    console.log(this.currentUser);
+    this.getUserInformations();
     this.subscribeToChannelContent();
     this.subscribeToNewMessagesContent();
+  }
+
+    getUserInformations(){
+    this.subscription.add(
+      this.userProfileService.profileData$.subscribe(data => {
+        if (data) {
+          this.updateProfileData(data);
+        }
+      })
+    );
+  }
+
+    private updateProfileData(result: any) {
+    this.currentUserType = result.user_type
   }
 
   subscribeToChannelContent(){
@@ -116,5 +133,11 @@ closeSitebarRenderedMembersData() {
   document.getElementById('unseen-background-container')?.classList.add('d-none');
 }
 
+hasWritePermission(): boolean {
+  if (this.currentUserType === 'Community Manager' || this.currentUserType === 'Mentor') {
+      return true;
+  }
+  return false;
+}
 
 }

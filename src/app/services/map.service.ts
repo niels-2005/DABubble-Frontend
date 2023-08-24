@@ -70,5 +70,26 @@ export class MapService {
       });
   }
 
+  async checkIfEvent() {
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", "Token 929ee46e080383f6910b2dd80764515b23be61e3");
+
+    const requestOptions : RequestInit = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+
+    try {
+        const response = await fetch("http://127.0.0.1:8000/events/create/", requestOptions);
+        const result = await response.json();
+        console.log('Event', result);
+        return result; // <-- Dies gibt das Ergebnis zurück
+    } catch(error) {
+        console.log('error', error);
+        return []; // gibt eine leere Liste zurück, falls es einen Fehler gibt
+    }
+}
+
+
 
 }

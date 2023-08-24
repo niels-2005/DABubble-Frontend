@@ -29,6 +29,8 @@ import { StartsiteComponent } from './components/startsite/startsite.component';
 import { MapsettingsComponent } from './components/mapsettings/mapsettings.component';
 import { StatisticsComponent } from './components/statistics/statistics.component';
 import { ChartModule } from 'primeng/chart';
+import { TooltipModule } from 'primeng/tooltip';
+import { EventComponent } from './components/event/event.component';
 
 @NgModule({
   declarations: [
@@ -53,6 +55,7 @@ import { ChartModule } from 'primeng/chart';
     StartsiteComponent,
     MapsettingsComponent,
     StatisticsComponent,
+    EventComponent,
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { ChartModule } from 'primeng/chart';
     LeafletModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    ChartModule
+    ChartModule,
+    TooltipModule
   ],
   providers: [],
   bootstrap: [AppComponent]

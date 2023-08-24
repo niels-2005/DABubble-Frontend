@@ -17,8 +17,18 @@
         Lernweg zu begleiten. Bei Fragen oder Anliegen zögern Sie bitte nicht,
         uns zu kontaktieren.
       </p>
-      <div class="verify-quiz-button-container">
-        <button (click)="switchContainerToCompleteYourProfile()">
+      <h2>WICHTIG</h2>
+      <p>Wir legen größten Wert auf den Schutz Ihrer Privatsphäre. Ihre sensiblen Daten wie PLZ, Stadt, Straße,
+        Hausnummer und Telefonnummer werden ausschließlich zur ordnungsgemäßen Funktion unserer Plattform verwendet und
+        nicht an Dritte weitergegeben. Sie haben die volle Kontrolle über alle weiteren Informationen und können selbst
+        entscheiden, welche davon geteilt werden dürfen.</p>
+      <div class="checkbox-container">
+        <span>Gelesen</span>
+        <input type="checkbox" [(ngModel)]="readedValue" name="readedValue">
+      </div>
+      <div class="welcome-message-button-containerr">
+        <button (click)="switchContainerToCompleteYourProfile()" [disabled]="!readedValue"
+          [ngClass]="readedValue ? 'button-not-disabled' : ''">
           Zum Profil
         </button>
       </div>

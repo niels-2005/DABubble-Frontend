@@ -1,0 +1,74 @@
+<div class="event-around-container">
+  <h1>Erstelle ein Event</h1>
+  <form class="event-formular-container">
+    <div class="title-and-organisator-container">
+      <div class="title-and-input-container">
+        <span>Titel des Events:</span>
+        <div class="input-error-container">
+          <input type="text" autocomplete="off" required [(ngModel)]="eventTitle" name="eventTitle" class="width-50"
+            placeholder="mindestens 5 Buchstaben">
+          <span>{{eventTitleError}}</span>
+        </div>
+      </div>
+      <div class="organisator-container">
+        <span>Veranstalter:</span>
+        <span><b>{{eventOrganisator}}</b></span>
+      </div>
+    </div>
+    <div class="date-time-container">
+      <div>
+        <span>Datum:</span>
+        <input type="date" autocomplete="off" required [(ngModel)]="eventDate" name="eventDate">
+      </div>
+      <div>
+        <div>
+          <span>Zeit von:</span>
+          <input type="time" autocomplete="off" required [(ngModel)]="eventStartTime" name="eventStartTime">
+        </div>
+        <div>
+          <span>bis:</span>
+          <input type="time" autocomplete="off" required [(ngModel)]="eventEndTime" name="eventEndTime">
+        </div>
+      </div>
+    </div>
+    <span>Veranstaltungsort:</span>
+    <div class="location-informations-container">
+
+      <div class="floating-label-group input-error-container">
+        <input type="text" autocomplete="off" required [(ngModel)]="eventLocationPLZ" name="eventLocationPLZ">
+        <label class="floating-label">Postleitzahl</label>
+        <span>{{eventPLZError}}</span>
+      </div>
+
+      <div class="floating-label-group input-error-container">
+        <input type="text" autocomplete="off" required [(ngModel)]="eventLocationCity" name="eventLocationCity">
+        <label class="floating-label">Stadt</label>
+        <span>{{eventCityError}}</span>
+      </div>
+
+      <div class="floating-label-group input-error-container">
+        <input type="text" autocomplete="off" required [(ngModel)]="eventLocationStreet" name="eventLocationStreet">
+        <label class="floating-label">Straße</label>
+        <span>{{eventStreetError}}</span>
+      </div>
+
+      <div class="floating-label-group input-error-container">
+        <input type="text" autocomplete="off" required [(ngModel)]="eventLocationHouseNumber"
+          name="eventLocationHouseNumber">
+        <label class="floating-label">Hausnummer</label>
+        <span>{{eventHouseNumberError}}</span>
+      </div>
+
+    </div>
+
+    <span>Beschreibung der Veranstaltung:</span>
+    <textarea cols="30" rows="10" required [(ngModel)]="eventDescription" name="eventDescription"
+      placeholder="Beschreibung der Veranstaltung (mindestens 15 Worte)"></textarea>
+    <span class="description-error-span">{{eventDescriptionError}}</span>
+    <div class="event-button-container">
+      <button [disabled]="!enableCreateEventButton()" [ngClass]="{'button-not-disabled': enableCreateEventButton()}"
+        (click)="createEvent()">Erstellen</button>
+
+    </div>
+  </form>
+</div>

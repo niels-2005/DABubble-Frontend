@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { tileLayer, LatLngTuple, marker, Map, Layer, Icon, LeafletMouseEvent, Marker } from 'leaflet';
+import { tileLayer, LatLngTuple, marker, Map, Layer, Icon, LeafletMouseEvent, Marker, icon } from 'leaflet';
 import { MapService } from 'src/app/services/map.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { Subscription } from 'rxjs';
@@ -17,6 +17,7 @@ export class MapComponent implements OnInit {
 
   map?: Map;
   layers: Layer[] = [];  // Hier werden die Marker gespeichert
+  eventLayers: Layer[] = [];
   allUsersData: any[] = []; // Hier werden alle Benutzerdaten gespeichert
 
   filterForm: FormGroup;
@@ -30,6 +31,8 @@ export class MapComponent implements OnInit {
   fullNameGuest = localStorage.getItem('full_name');
 
   displayNumbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
+
+  eventData: any[] = [];
 
   private subscriptions: Subscription = new Subscription();
 
@@ -80,10 +83,19 @@ export class MapComponent implements OnInit {
 
   async getAndChangeUserMapInfos(){
     let userData;
+    let eventData;
     if(this.fullNameGuest === 'Guest') {
       userData = await this.mapService.getUserMapInfosForGuest();
   } else {
       userData = await this.mapService.getUserMapInfos();
+      eventData = await this.mapService.checkIfEvent();
+      if (eventData && eventData.length > 0) {
+        console.log('Es gibt ein Event!!!');
+        this.eventData = eventData;  // Speichert die Eventdaten in einer Klassenvariable
+        this.addEventToMap(eventData[0]);
+    } else {
+        console.log('Es gibt kein Event!!!');
+    }
   }
     if (Array.isArray(userData)) {
       this.allUsersData = userData;
@@ -105,7 +117,7 @@ export class MapComponent implements OnInit {
       tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
     ],
     zoomAnimation: true,
-    zoom: 6.5,
+    zoom: 6,
     zoomSnap: 0.99,
     zoomDelta: 0.5,
     center: <[number, number]>[51.1657, 10.4515]
@@ -136,8 +148,58 @@ export class MapComponent implements OnInit {
 
   onMapReady(map: Map) {
     this.map = map;
-    this.addMarkersToMap(this.allUsersData); // Die Benutzerdaten beim Laden der Karte hinzufügen
+    this.addMarkersToMap(this.allUsersData);
   }
+
+  createEventIcon(iconUrl: string, dimension: number = 50): Icon {
+    return icon({
+      iconUrl: iconUrl,
+      iconSize: [dimension, dimension / 1.5],
+      iconAnchor: [dimension / 2, dimension / 2],
+    });
+  }
+
+
+  addEventToMap(eventData: any) {
+    if (!eventData || !this.map) return;
+
+    const eventIconUrl = './assets/img/event-icon.png';
+    const eventIcon = this.createEventIcon(eventIconUrl, 50);
+    const eventMarker = marker([eventData.latitude, eventData.longitude], { icon: eventIcon })
+        .bindTooltip(`${eventData.title} (Event)`)
+        .addTo(this.map)
+        .on('click', (event: LeafletMouseEvent) => this.zoomToEventMarker(event));
+    this.eventLayers.push(eventMarker);
+}
+
+zoomToEventMarker(event: LeafletMouseEvent) {
+    const clickedMarker: Marker = event.target;
+    const eventData = this.eventData.find(ev =>
+        ev.latitude === clickedMarker.getLatLng().lat && ev.longitude === clickedMarker.getLatLng().lng
+    );
+
+    if (eventData) {
+        const popupContent = this.returnEventPopupContentHTML(eventData);
+        clickedMarker.unbindPopup();
+        clickedMarker.bindPopup(popupContent).openPopup();
+    }
+    this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
+}
+
+returnEventPopupContentHTML(eventData: any): string {
+    return `
+        <div class="popup-content">
+            <h2>${eventData.title}</h2>
+            <p class="user-about">${eventData.description}</p>
+            <p class="user-about">Am ${eventData.date}</p>
+            <p class="user-about"><b>Start:</b> ${eventData.start_time} <b>Ende:</b> ${eventData.end_time}</p>
+            <p class="user-about"><b>PLZ, Stadt:</b> ${eventData.location_plz} ${eventData.location_city}</p>
+            <p class="user-about"><b>Straße, Hausnr.:</b> ${eventData.location_street} ${eventData.location_house_number}</p>
+            <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
+        </div>
+    `;
+}
+
 
   addMarkersToMap(userData?: any[]) {
     this.clearAllMarkers();

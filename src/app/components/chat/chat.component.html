@@ -37,9 +37,12 @@
     </div>
   </div>
   <div class="textarea-container">
-    <textarea cols="30" rows="10" placeholder="Nachricht an #{{channelData?.details.name}}"
-      [(ngModel)]="messageContent"></textarea>
-    <img src="./assets/img/send-message.png" alt="Send Message Image" (click)="createNewMessage()">
+    <textarea cols="30" rows="10"
+      [placeholder]="channelData?.details.name === 'News' && !hasWritePermission() ? 'Bitte beachte, dass Schreiben in diesem Kanal nicht möglich ist.' : 'Nachricht an #' + channelData?.details.name"
+      [(ngModel)]="messageContent" [disabled]="channelData?.details.name === 'News' && !hasWritePermission()">
+    </textarea>
+    <img src="./assets/img/send-message.png" alt="Send Message Image" (click)="createNewMessage()"
+      *ngIf="currentUserType === 'Community Manager' || currentUserType === 'Mentor'">
   </div>
 </div>
 

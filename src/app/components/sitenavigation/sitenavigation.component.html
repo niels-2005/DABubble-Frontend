@@ -26,7 +26,12 @@
     <img src="./assets/img/discord-logo.png" alt="Map Image" class="discord-image">
     <span>Discord Channel</span>
   </a>
-  <div class="switch-to-map-container" (click)="switchToStatistics()">
+  <div class="switch-to-map-container" (click)="switchToEvent(); clearSelectedChannel()"
+    *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
+    <img src="./assets/img/plan-event.png" alt="Planing Event Icon " class="event-image">
+    <span>Event erstellen</span>
+  </div>
+  <div class="switch-to-map-container" (click)="switchToStatistics(); clearSelectedChannel()">
     <img src="./assets/img/statistic.png" alt="Statistik" class="statistic-image">
     <span>Statistiken</span>
   </div>
