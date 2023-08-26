@@ -22,6 +22,10 @@
               <img src="./assets/img/blue-marker.png" alt="Red Marker" />
               <span>Alumni</span>
             </div>
+            <div class="filter-roles-container">
+              <img src="./assets/img/da-community-icon.png" alt="Event Icon" class="event-icon" />
+              <span>Event</span>
+            </div>
             <!-- <div class="filter-roles-container">
               <img src="./assets/img/laptop.png" alt="Red Marker" />
               <span class="searching-job-span">Auf Jobsuche</span>
@@ -93,6 +97,11 @@
               <img src="./assets/img/laptop.png" alt="Red Marker" />
               <span class="searching-job-span">Auf Jobsuche</span>
               <input type="checkbox" formControlName="searchingJob" (click)="$event.stopPropagation()" />
+            </div>
+            <div (click)=" toggleCheckbox('event')" class="filter-roles-container">
+              <img src="./assets/img/da-community-icon.png" alt="Event" />
+              <span class="searching-job-span">Event</span>
+              <input type="checkbox" formControlName="event" (click)="$event.stopPropagation()" />
             </div>
           </div>
         </div>

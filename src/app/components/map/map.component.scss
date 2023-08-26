@@ -134,6 +134,8 @@
   }
 }
 
+
+
 .map-info-image-container:hover .tooltip-content {
   opacity: 1;
   visibility: visible;
@@ -192,6 +194,43 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+.event-participants {
+  font-size: 18px;
+  color: #444DF2;
+  margin: 0 !important;
+}
+
+.event-join-button-container {
+  display: flex;
+  button {
+    border-style: unset;
+    padding: 12px;
+    border-radius: 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    color: white;
+    background-color: #444DF2;
+    &:hover {
+      background-color: #797EF3;
+    }
+  }
+}
+
+.zoom-button {
+  border-style: unset;
+  padding: 12px 16px;
+  border-radius: 30px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.1s ease-in-out;
+  color: white;
+  background-color: #444DF2;
+  &:hover {
+    background-color: #797EF3;
   }
 }
 
@@ -275,4 +314,13 @@
   min-width: 150px;
 }
 
+@keyframes fadeInOut {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animated-icon {
+  animation: fadeInOut 5s infinite;
+}
 

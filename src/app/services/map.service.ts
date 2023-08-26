@@ -70,7 +70,7 @@ export class MapService {
       });
   }
 
-  async checkIfEvent() {
+  async getEvents() {
     const myHeaders = new Headers();
     myHeaders.append("Authorization", "Token 929ee46e080383f6910b2dd80764515b23be61e3");
 

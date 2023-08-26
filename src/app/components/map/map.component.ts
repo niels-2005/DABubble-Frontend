@@ -19,20 +19,26 @@ export class MapComponent implements OnInit {
   layers: Layer[] = [];  // Hier werden die Marker gespeichert
   eventLayers: Layer[] = [];
   allUsersData: any[] = []; // Hier werden alle Benutzerdaten gespeichert
-
   filterForm: FormGroup;
-
   numbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
   selectedNumber: number | null = null;
   selectedModules: number[] = this.numbers;
-
   user_type = "";
-
   fullNameGuest = localStorage.getItem('full_name');
-
   displayNumbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
-
   eventData: any[] = [];
+  private lastClickedMarker?: L.Marker;
+
+  options = {
+    layers: [
+      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
+    ],
+    zoomAnimation: true,
+    zoom: 6,
+    zoomSnap: 0.99,
+    zoomDelta: 0.5,
+    center: <[number, number]>[51.1657, 10.4515]
+  };
 
   private subscriptions: Subscription = new Subscription();
 
@@ -46,25 +52,22 @@ export class MapComponent implements OnInit {
       backend: [true],
       fullstack: [true],
       modules: [this.numbers],
-      searchingJob: [false]
+      searchingJob: [false],
+      event: [true],
     });
   }
 
   async ngOnInit(): Promise<void> {
     this.userStatusService.checkIfUserIsAuthenticated();
     this.getUserInformations();
-    this.subscriptions.add(
-      this.mapService.mapRefreshNeeded.subscribe(async () => {
-        await this.getAndChangeUserMapInfos();
-        console.log('Refreshed!');
-      })
-    );
-    await this.getAndChangeUserMapInfos();
+    this.checkIfMapNeedsRefreshed();
+    this.getAndChangeUserMapInfos();
+    (window as any).zoomFromPopup = this.zoomFromPopup.bind(this);
 }
-
 
   ngOnDestroy(): void {
     this.subscriptions.unsubscribe();
+    delete (window as any).zoomFromPopup;
   }
 
   getUserInformations(){
@@ -81,6 +84,14 @@ export class MapComponent implements OnInit {
     this.user_type = result.user_type;
   }
 
+  checkIfMapNeedsRefreshed(){
+    this.subscriptions.add(
+      this.mapService.mapRefreshNeeded.subscribe(async () => {
+        await this.getAndChangeUserMapInfos();
+      })
+    );
+  }
+
   async getAndChangeUserMapInfos(){
     let userData;
     let eventData;
@@ -88,118 +99,50 @@ export class MapComponent implements OnInit {
       userData = await this.mapService.getUserMapInfosForGuest();
   } else {
       userData = await this.mapService.getUserMapInfos();
-      eventData = await this.mapService.checkIfEvent();
-      if (eventData && eventData.length > 0) {
-        console.log('Es gibt ein Event!!!');
-        this.eventData = eventData;  // Speichert die Eventdaten in einer Klassenvariable
-        this.addEventToMap(eventData[0]);
-    } else {
-        console.log('Es gibt kein Event!!!');
-    }
+      eventData = await this.mapService.getEvents();
+      this.checkIfEvent(eventData);
+      this.checkUserDataArrayAndAddMarkersToMap(userData);
   }
+    this.checkMapFilter();
+  }
+
+  checkIfEvent(eventData: any){
+    if (eventData && eventData.length > 0) {
+      this.eventData = eventData;
+      this.addEventToMap(this.eventData[0]);
+  }
+  }
+
+  checkUserDataArrayAndAddMarkersToMap(userData: any){
     if (Array.isArray(userData)) {
       this.allUsersData = userData;
       this.addMarkersToMap(this.allUsersData);
     }
+  }
+
+  checkMapFilter(){
     this.filterForm.valueChanges.subscribe(() => {
-      this.updateMapBasedOnFilters();
+      this.clearEventLayerAndRefreshMapBecauseFilter();
+      this.clearUserLayerAndRefreshMapBecauseFilter();
     });
   }
 
-  updateMapBasedOnFilters() {
+  clearUserLayerAndRefreshMapBecauseFilter(){
     this.layers.forEach(layer => this.map?.removeLayer(layer));
     this.layers = [];
     this.addMarkersToMap(this.allUsersData);
   }
 
-  options = {
-    layers: [
-      tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 18, attribution: '...' })
-    ],
-    zoomAnimation: true,
-    zoom: 6,
-    zoomSnap: 0.99,
-    zoomDelta: 0.5,
-    center: <[number, number]>[51.1657, 10.4515]
-  };
-
-  getIconUrlByUserType(userType: string): string {
-    switch (userType) {
-      case 'Mentor':
-        return './assets/img/red-marker.png';
-      case 'Schüler':
-        return './assets/img/green-marker.png';
-      case 'Alumni':
-        return './assets/img/blue-marker.png';
-      case 'Community Manager':
-        return './assets/img/black-marker.png';
-      default:
-        return './assets/img/green-marker.png';
-    }
-  }
-
-  createCustomIcon(iconUrl: string): Icon {
-    return new Icon({
-      iconUrl: iconUrl,
-      iconSize: [25, 25],
-      iconAnchor: [0, 0],
-    });
+  clearEventLayerAndRefreshMapBecauseFilter(){
+    this.eventLayers.forEach(eventLayer => this.map?.removeLayer(eventLayer));
+    this.eventLayers = [];
+    this.addEventToMap(this.eventData[0]);
   }
 
   onMapReady(map: Map) {
     this.map = map;
     this.addMarkersToMap(this.allUsersData);
   }
-
-  createEventIcon(iconUrl: string, dimension: number = 50): Icon {
-    return icon({
-      iconUrl: iconUrl,
-      iconSize: [dimension, dimension / 1.5],
-      iconAnchor: [dimension / 2, dimension / 2],
-    });
-  }
-
-
-  addEventToMap(eventData: any) {
-    if (!eventData || !this.map) return;
-
-    const eventIconUrl = './assets/img/event-icon.png';
-    const eventIcon = this.createEventIcon(eventIconUrl, 50);
-    const eventMarker = marker([eventData.latitude, eventData.longitude], { icon: eventIcon })
-        .bindTooltip(`${eventData.title} (Event)`)
-        .addTo(this.map)
-        .on('click', (event: LeafletMouseEvent) => this.zoomToEventMarker(event));
-    this.eventLayers.push(eventMarker);
-}
-
-zoomToEventMarker(event: LeafletMouseEvent) {
-    const clickedMarker: Marker = event.target;
-    const eventData = this.eventData.find(ev =>
-        ev.latitude === clickedMarker.getLatLng().lat && ev.longitude === clickedMarker.getLatLng().lng
-    );
-
-    if (eventData) {
-        const popupContent = this.returnEventPopupContentHTML(eventData);
-        clickedMarker.unbindPopup();
-        clickedMarker.bindPopup(popupContent).openPopup();
-    }
-    this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
-}
-
-returnEventPopupContentHTML(eventData: any): string {
-    return `
-        <div class="popup-content">
-            <h2>${eventData.title}</h2>
-            <p class="user-about">${eventData.description}</p>
-            <p class="user-about">Am ${eventData.date}</p>
-            <p class="user-about"><b>Start:</b> ${eventData.start_time} <b>Ende:</b> ${eventData.end_time}</p>
-            <p class="user-about"><b>PLZ, Stadt:</b> ${eventData.location_plz} ${eventData.location_city}</p>
-            <p class="user-about"><b>Straße, Hausnr.:</b> ${eventData.location_street} ${eventData.location_house_number}</p>
-            <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
-        </div>
-    `;
-}
-
 
   addMarkersToMap(userData?: any[]) {
     this.clearAllMarkers();
@@ -245,27 +188,61 @@ returnEventPopupContentHTML(eventData: any): string {
     });
 }
 
+getIconUrlByUserType(userType: string): string {
+  switch (userType) {
+    case 'Mentor':
+      return './assets/img/red-marker.png';
+    case 'Schüler':
+      return './assets/img/green-marker.png';
+    case 'Alumni':
+      return './assets/img/blue-marker.png';
+    case 'Community Manager':
+      return './assets/img/black-marker.png';
+    default:
+      return './assets/img/green-marker.png';
+  }
+}
+
+createCustomIcon(iconUrl: string): Icon {
+  return new Icon({
+    iconUrl: iconUrl,
+    iconSize: [25, 25],
+    iconAnchor: [0, 0],
+  });
+}
+
   clearAllMarkers() {
     this.layers.forEach(layer => this.map?.removeLayer(layer));
     this.layers = [];
 }
 
+zoomFromPopup() {
+  const clickedMarker = this.lastClickedMarker;
+  if (clickedMarker) {
+    this.flyToMarker(clickedMarker);
+  }
+}
+
 zoomToMarker(event: LeafletMouseEvent) {
   const clickedMarker: Marker = event.target;
+
+  this.lastClickedMarker = clickedMarker;
+
+  this.map?.closePopup();
+
   const userData = this.allUsersData.find(user =>
       user.latitude === clickedMarker.getLatLng().lat && user.longitude === clickedMarker.getLatLng().lng
   );
 
   if (userData) {
-    const popupContent = this.returnPopupContentHTML(userData);
+    const popupContent = this.returnPopupContentHTML(userData, clickedMarker);
     clickedMarker.unbindPopup();
     clickedMarker.bindPopup(popupContent).openPopup();
   }
-  this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
-
 }
 
-returnPopupContentHTML(userData: any): string {
+
+returnPopupContentHTML(userData: any, clickedMarker: any): string {
   const userImage = this.getUserImage(userData);
   const searchingJob = this.getSearchingJob(userData);
   const courseAndModule = this.getCourseAndModule(userData);
@@ -282,9 +259,15 @@ returnPopupContentHTML(userData: any): string {
         ${email}
         ${about}
         ${websiteLink}
+        <button id="zoomToMarkerButton" class="zoom-button" onclick="zoomFromPopup()">Zum Marker</button>
     </div>
   `;
 }
+
+flyToMarker(clickedMarker: any){
+  this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
+}
+
 
 getUserImage(userData: any): string {
   if (userData.image_url) {
@@ -334,6 +317,72 @@ getWebsiteLink(userData: any): string {
   return '';
 }
 
+// Events Content
+
+  addEventToMap(eventData: any) {
+    const eventFilterValue = this.filterForm.get('event')?.value;
+    if (!eventData || !this.map || !eventFilterValue) return;
+
+    const eventIconUrl = './assets/img/da-community-icon.png';
+    const eventIcon = this.createEventIcon(eventIconUrl);
+    const eventMarker = marker([eventData.latitude, eventData.longitude], { icon: eventIcon })
+        .bindTooltip(`${eventData.title} (Event)`)
+        .addTo(this.map)
+        .on('click', (event: LeafletMouseEvent) => this.zoomToEventMarker(event));
+    this.eventLayers.push(eventMarker);
+}
+
+createEventIcon(iconUrl: string): Icon {
+  return icon({
+    iconUrl: iconUrl,
+    iconSize: [40, 40],
+    iconAnchor: [0, 0],
+    className: 'animated-icon'
+  });
+}
+
+zoomToEventMarker(event: LeafletMouseEvent) {
+    const clickedMarker: Marker = event.target;
+    const eventData = this.eventData.find(ev =>
+        ev.latitude === clickedMarker.getLatLng().lat && ev.longitude === clickedMarker.getLatLng().lng
+    );
+
+    if (eventData) {
+        const popupContent = this.returnEventPopupContentHTML(eventData);
+        clickedMarker.unbindPopup();
+        clickedMarker.bindPopup(popupContent).openPopup();
+    }
+    // this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
+}
+
+returnEventPopupContentHTML(eventData: any): string {
+  const formattedDate = this.formatDate(eventData.date);
+    return `
+        <div class="popup-content">
+            <h2>${eventData.title}</h2>
+            <p class="user-about">${eventData.description}</p>
+            <p class="user-about">${formattedDate}</p>
+            <p class="user-about"><b>Start:</b> ${eventData.start_time} <b>Ende:</b> ${eventData.end_time}</p>
+            <p class="user-about"><b>PLZ, Stadt:</b> ${eventData.location_plz} ${eventData.location_city}</p>
+            <p class="user-about"><b>Straße, Hausnr.:</b> ${eventData.location_street} ${eventData.location_house_number}</p>
+            <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
+            <p class="event-participants">Teilnehmer : 1</p>
+            <div class="event-join-button-container">
+              <button>Trag mich ein!</button>
+            </div>
+        </div>
+    `;
+}
+
+formatDate(inputDate: string): string {
+  const monthNames = ["Januar", "Februar", "März", "April", "Mai", "Juni",
+                      "Juli", "August", "September", "Oktober", "November", "Dezember"];
+
+  const [year, month, day] = inputDate.split('-');
+
+  return `Wann? <b>${parseInt(day)}. ${monthNames[parseInt(month) - 1]} ${year}</b>`;
+}
+
 //      <button class="user-button">Nachricht schreiben</button>
 
   toggleCheckbox(controlName: string) {
@@ -354,6 +403,4 @@ getWebsiteLink(userData: any): string {
     }
     this.filterForm.get('modules')?.setValue(this.selectedModules);
 }
-
-
 }
