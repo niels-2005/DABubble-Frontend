@@ -31,7 +31,7 @@ export class EventComponent {
 
   async createEvent(){
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Token 929ee46e080383f6910b2dd80764515b23be61e3");
+    myHeaders.append("Authorization", `Token ${this.token}`);
     myHeaders.append("Content-Type", "application/json");
 
     const raw = JSON.stringify({
@@ -44,7 +44,7 @@ export class EventComponent {
       "location_street": this.eventLocationStreet,
       "location_house_number": this.eventLocationHouseNumber,
       "description": this.eventDescription,
-      "organisator": 28,
+      "organisator": this.userId,
       "organisatorName": this.eventOrganisator,
     });
 
@@ -54,7 +54,8 @@ export class EventComponent {
       body: raw,
     };
 
-    const resp = await fetch("http://127.0.0.1:8000/events/create/", requestOptions)
+    // const resp = await fetch("http://127.0.0.1:8000/events/create/", requestOptions)
+    const resp = await fetch("https://celinemueller.pythonanywhere.com/events/create/", requestOptions);
 
     if(resp.ok) {
       const result = await resp.json();

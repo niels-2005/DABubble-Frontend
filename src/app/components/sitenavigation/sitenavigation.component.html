@@ -27,9 +27,10 @@
     <span>Discord Channel</span>
   </a>
   <div class="switch-to-map-container" (click)="switchToEvent(); clearSelectedChannel()"
-    *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'">
+    *ngIf="user_type === 'Alumni' || user_type === 'Schüler' || user_type === 'Community Manager' || user_type === 'Mentor'"
+    [ngClass]="{'is-disabled': isOrganisatorOfEvent}">
     <img src="./assets/img/plan-event.png" alt="Planing Event Icon " class="event-image">
-    <span>Event erstellen</span>
+    <span>{{ isOrganisatorOfEvent ? 'Bereits ein Event' : 'Event erstellen' }}</span>
   </div>
   <div class="switch-to-map-container" (click)="switchToStatistics(); clearSelectedChannel()">
     <img src="./assets/img/statistic.png" alt="Statistik" class="statistic-image">

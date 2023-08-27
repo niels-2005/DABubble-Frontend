@@ -2,6 +2,7 @@ import { Component, OnInit, EventEmitter, Output } from '@angular/core';
 import { ChannelsService } from 'src/app/services/channels.service';
 import { Subscription } from 'rxjs';
 import { UserprofilesService } from 'src/app/services/userprofiles.service';
+import { MapService } from 'src/app/services/map.service';
 
 @Component({
   selector: 'app-sitenavigation',
@@ -10,13 +11,20 @@ import { UserprofilesService } from 'src/app/services/userprofiles.service';
 })
 export class SitenavigationComponent implements OnInit {
 
-  constructor(public channelService: ChannelsService, private userProfileService: UserprofilesService) {}
+  constructor(public channelService: ChannelsService, private userProfileService: UserprofilesService, private mapService: MapService) {}
 
   channels: any;
 
   selectedChannelId: any = null;
 
   user_type: string = "";
+
+  userFullName = localStorage.getItem('full_name');
+
+  eventData: any[] = [];
+
+  isOrganisatorOfEvent: boolean = false;
+
 
   @Output() switchView = new EventEmitter<string>();
 
@@ -29,6 +37,12 @@ export class SitenavigationComponent implements OnInit {
       console.log('error', error);
     });
     this.getUserInformations();
+    this.mapService.eventData$.subscribe(data => {
+      this.eventData = data;
+      this.isOrganisatorOfEvent = this.eventData.some(event => event.organisatorName === this.userFullName);
+      console.log('Eventdaten in Sitenavigation', this.eventData);
+  });
+
   }
 
   getUserInformations(){

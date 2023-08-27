@@ -146,6 +146,22 @@
   visibility: visible;
 }
 
+.popup-content-participants {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  .user-about {
+    font-size: 18px;
+    margin: 0;
+    text-align: center;
+  }
+}
+
+.participants-list-headline {
+  text-align: center;
+}
+
 .popup-content {
   padding: 8px;
   display: flex;
@@ -201,6 +217,13 @@
   font-size: 18px;
   color: #444DF2;
   margin: 0 !important;
+  padding:  4px 12px;
+  transition: 0.1s ease-in-out;
+  border-radius: 8px;
+  cursor: pointer;
+  &:hover {
+    background-color: #ECEEFE;
+  }
 }
 
 .event-join-button-container {
@@ -324,3 +347,18 @@
   animation: fadeInOut 5s infinite;
 }
 
+.position-relative-popup {
+  position: relative;
+  img {
+    position: absolute;
+    left: -5px;
+    top: 0px;
+    cursor: pointer;
+    transition: 0.1s ease-in-out;
+    padding: 6px;
+    border-radius: 50%;
+    &:hover {
+      background-color: #ECEEFE;
+    }
+  }
+}

@@ -24,9 +24,11 @@ export class MapComponent implements OnInit {
   selectedNumber: number | null = null;
   selectedModules: number[] = this.numbers;
   user_type = "";
-  fullNameGuest = localStorage.getItem('full_name');
+  fullName = localStorage.getItem('full_name');
   displayNumbers: number[] = Array.from({length: 28}, (_, i) => i + 1);
   eventData: any[] = [];
+  token = localStorage.getItem('token');
+  userId = localStorage.getItem('user_id');
   private lastClickedMarker?: L.Marker;
 
   options = {
@@ -95,7 +97,7 @@ export class MapComponent implements OnInit {
   async getAndChangeUserMapInfos(){
     let userData;
     let eventData;
-    if(this.fullNameGuest === 'Guest') {
+    if(this.fullName === 'Guest') {
       userData = await this.mapService.getUserMapInfosForGuest();
   } else {
       userData = await this.mapService.getUserMapInfos();
@@ -343,6 +345,7 @@ createEventIcon(iconUrl: string): Icon {
 
 zoomToEventMarker(event: LeafletMouseEvent) {
     const clickedMarker: Marker = event.target;
+    this.lastClickedMarker = clickedMarker;
     const eventData = this.eventData.find(ev =>
         ev.latitude === clickedMarker.getLatLng().lat && ev.longitude === clickedMarker.getLatLng().lng
     );
@@ -351,14 +354,46 @@ zoomToEventMarker(event: LeafletMouseEvent) {
         const popupContent = this.returnEventPopupContentHTML(eventData);
         clickedMarker.unbindPopup();
         clickedMarker.bindPopup(popupContent).openPopup();
+
+        setTimeout(() => {
+          const joinButton = document.getElementById(`joinEventButton_${eventData.id}`);
+          joinButton?.addEventListener('click', () => this.joinEvent(eventData.id));
+
+          const toggleParticipants = document.getElementById('toggle-participants');
+          const backToInfo = document.getElementById('back-to-info'); // Referenz zum Bild-Element
+
+          const toggleContentVisibility = () => {
+            const contentInfo = document.getElementById('popup-content-informations');
+            const contentParticipants = document.getElementById('popup-content-participants');
+
+            if (contentInfo && contentParticipants) {
+              contentInfo.classList.toggle('d-none');
+              contentParticipants.classList.toggle('d-none');
+            }
+          };
+
+          toggleParticipants?.addEventListener('click', toggleContentVisibility);
+          backToInfo?.addEventListener('click', toggleContentVisibility); // Fügen Sie den EventListener dem Bild hinzu
+
+        }, 0);
     }
     // this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
 }
 
 returnEventPopupContentHTML(eventData: any): string {
   const formattedDate = this.formatDate(eventData.date);
+  const joinEventButton = this.getJoinEventButton(eventData);
+  const totalParticipants = eventData.participants.length + 1;
+
+  let participantsList = `<div class="user-about"><b>1.</b> ${eventData.organisatorName} (Organisator)</div>`;
+
+  for (let i = 0; i < eventData.participants.length; i++) {
+    participantsList += `<div class="user-about"><b>${i + 2}.</b> ${eventData.participants[i].full_name}</div>`;
+  }
+
     return `
-        <div class="popup-content">
+    <div>
+        <div class="popup-content" id="popup-content-informations">
             <h2>${eventData.title}</h2>
             <p class="user-about">${eventData.description}</p>
             <p class="user-about">${formattedDate}</p>
@@ -366,11 +401,20 @@ returnEventPopupContentHTML(eventData: any): string {
             <p class="user-about"><b>PLZ, Stadt:</b> ${eventData.location_plz} ${eventData.location_city}</p>
             <p class="user-about"><b>Straße, Hausnr.:</b> ${eventData.location_street} ${eventData.location_house_number}</p>
             <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
-            <p class="event-participants">Teilnehmer : 1</p>
+            <p class="event-participants" id="toggle-participants">Teilnehmer : ${totalParticipants}</p>
             <div class="event-join-button-container">
-              <button>Trag mich ein!</button>
+              ${joinEventButton}
             </div>
+            <button id="zoomToMarkerButton" class="zoom-button" onclick="zoomFromPopup()">Zum Marker</button>
         </div>
+          <div class="d-none position-relative-popup" id="popup-content-participants">
+          <img src="./assets/img/arrow-back-black.png" id="back-to-info">
+          <h2 class="participants-list-headline">Alle Teilnehmer</h2>
+          <div class="popup-content-participants">
+          ${participantsList}
+          </div>
+          </div>
+      </div>
     `;
 }
 
@@ -383,7 +427,45 @@ formatDate(inputDate: string): string {
   return `Wann? <b>${parseInt(day)}. ${monthNames[parseInt(month) - 1]} ${year}</b>`;
 }
 
-//      <button class="user-button">Nachricht schreiben</button>
+
+getJoinEventButton(eventData: any): string {
+  const isParticipant = eventData.participants.some((participant: any) => participant.full_name === this.fullName);
+
+  if (eventData.organisatorName !== this.fullName && !isParticipant) {
+    return `<button id="joinEventButton_${eventData.id}" class="joinEventButton">Trag mich ein!</button>`;
+  }
+
+  return "";
+}
+
+
+async joinEvent(eventId: any){
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Token ${this.token}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "user_id": this.userId
+  });
+
+  const requestOptions : RequestInit = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+  };
+
+  // await fetch(`http://127.0.0.1:8000/events/create/join/${eventId}/`, requestOptions)
+  const resp = await fetch(`https://celinemueller.pythonanywhere.com/events/create/join/${eventId}/`, requestOptions)
+  if (resp.ok) {
+    const result = await resp.json();
+    console.log(result);
+  } else {
+    const error = await resp.json();
+    console.log(error);
+  }
+}
+
+
 
   toggleCheckbox(controlName: string) {
     const currentVal = this.filterForm.get(controlName)?.value;

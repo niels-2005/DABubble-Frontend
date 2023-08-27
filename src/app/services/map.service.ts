@@ -10,11 +10,21 @@ export class MapService {
 
   token = localStorage.getItem('token');
 
+
   public mapRefreshNeeded$ = new Subject<void>();
 
   get mapRefreshNeeded(): Observable<any> {
       return this.mapRefreshNeeded$.asObservable();
   }
+
+  eventData: any[] = [];
+
+private eventDataSubject = new BehaviorSubject<any[]>([]);
+public eventData$ = this.eventDataSubject.asObservable();
+
+setEventData(data: any[]) {
+  this.eventDataSubject.next(data);
+}
 
 
   async getUserMapInfos(){
@@ -72,7 +82,7 @@ export class MapService {
 
   async getEvents() {
     const myHeaders = new Headers();
-    myHeaders.append("Authorization", "Token 929ee46e080383f6910b2dd80764515b23be61e3");
+    myHeaders.append("Authorization", `Token ${this.token}`);
 
     const requestOptions : RequestInit = {
       method: 'GET',
@@ -80,13 +90,16 @@ export class MapService {
     };
 
     try {
-        const response = await fetch("http://127.0.0.1:8000/events/create/", requestOptions);
+        // const response = await fetch("http://127.0.0.1:8000/events/create/", requestOptions);
+        const response = await fetch("https://celinemueller.pythonanywhere.com/events/create/", requestOptions);
         const result = await response.json();
         console.log('Event', result);
-        return result; // <-- Dies gibt das Ergebnis zurück
+        this.eventData = result;
+        this.setEventData(result);
+        return result;
     } catch(error) {
         console.log('error', error);
-        return []; // gibt eine leere Liste zurück, falls es einen Fehler gibt
+        return [];
     }
 }
 

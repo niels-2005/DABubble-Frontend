@@ -90,3 +90,9 @@
   aspect-ratio: 1;
   object-fit: cover;
 }
+
+.is-disabled {
+  background-color: #686868 !important;
+  color: lightgray !important;
+  pointer-events: none !important;
+}
