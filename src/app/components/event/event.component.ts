@@ -60,6 +60,7 @@ export class EventComponent {
     if(resp.ok) {
       const result = await resp.json();
       console.log(result);
+      window.location.reload();
     } else {
       const error = await resp.json();
       console.log('error', error);

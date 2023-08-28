@@ -31,6 +31,7 @@ import { StatisticsComponent } from './components/statistics/statistics.componen
 import { ChartModule } from 'primeng/chart';
 import { TooltipModule } from 'primeng/tooltip';
 import { EventComponent } from './components/event/event.component';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [
@@ -67,7 +68,7 @@ import { EventComponent } from './components/event/event.component';
     ReactiveFormsModule,
     BrowserAnimationsModule,
     ChartModule,
-    TooltipModule
+    TooltipModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -111,7 +111,9 @@ export class MapComponent implements OnInit {
   checkIfEvent(eventData: any){
     if (eventData && eventData.length > 0) {
       this.eventData = eventData;
-      this.addEventToMap(this.eventData[0]);
+      for (let event of this.eventData) {
+        this.addEventToMap(event);
+    }
   }
   }
 
@@ -344,45 +346,125 @@ createEventIcon(iconUrl: string): Icon {
 }
 
 zoomToEventMarker(event: LeafletMouseEvent) {
-    const clickedMarker: Marker = event.target;
-    this.lastClickedMarker = clickedMarker;
-    const eventData = this.eventData.find(ev =>
-        ev.latitude === clickedMarker.getLatLng().lat && ev.longitude === clickedMarker.getLatLng().lng
-    );
+  const clickedMarker: Marker = event.target;
+  this.lastClickedMarker = clickedMarker;
+  const eventData = this.eventData.find(ev =>
+      ev.latitude === clickedMarker.getLatLng().lat && ev.longitude === clickedMarker.getLatLng().lng
+  );
 
-    if (eventData) {
-        const popupContent = this.returnEventPopupContentHTML(eventData);
-        clickedMarker.unbindPopup();
-        clickedMarker.bindPopup(popupContent).openPopup();
+  if (eventData) {
+      this.setPopupContent(clickedMarker, eventData);
 
-        setTimeout(() => {
-          const joinButton = document.getElementById(`joinEventButton_${eventData.id}`);
-          joinButton?.addEventListener('click', () => this.joinEvent(eventData.id));
+      setTimeout(() => {
+          this.joinEventButtonFunctionality(eventData);
+          this.leaveEventButtonFunctionality(eventData);
+          this.toggleParticipantsList();
+          this.cancelTheEvent(eventData);
+          this.changeEventInfo(eventData);
+          this.toggleInformationContainer(eventData);
+      }, 0);
+  }
+}
 
-          const toggleParticipants = document.getElementById('toggle-participants');
-          const backToInfo = document.getElementById('back-to-info'); // Referenz zum Bild-Element
+setPopupContent(clickedMarker: Marker, eventData: any) {
+  const popupContent = this.returnEventPopupContentHTML(eventData);
+  clickedMarker.unbindPopup();
+  clickedMarker.bindPopup(popupContent).openPopup();
+}
 
-          const toggleContentVisibility = () => {
-            const contentInfo = document.getElementById('popup-content-informations');
-            const contentParticipants = document.getElementById('popup-content-participants');
+joinEventButtonFunctionality(eventData: any) {
+  const joinEventButton = document.getElementById(`joinEventButton_${eventData.id}`);
+  joinEventButton?.addEventListener('click', () => {
+      this.joinEvent(eventData.id);
+  });
+}
 
-            if (contentInfo && contentParticipants) {
-              contentInfo.classList.toggle('d-none');
-              contentParticipants.classList.toggle('d-none');
-            }
-          };
+leaveEventButtonFunctionality(eventData: any) {
+  const buttonId = `leaveEventButton_${eventData.id}`;
+  const button = document.getElementById(buttonId);
 
-          toggleParticipants?.addEventListener('click', toggleContentVisibility);
-          backToInfo?.addEventListener('click', toggleContentVisibility); // Fügen Sie den EventListener dem Bild hinzu
+  if (button) {
+    button.addEventListener('click', () => {
+      this.leaveEvent(eventData.id);
+    });
+  }
+}
 
-        }, 0);
-    }
-    // this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
+toggleParticipantsList() {
+  const toggleParticipants = document.getElementById('toggle-participants');
+  const backToInfo = document.getElementById('back-to-info');
+
+  const toggleContentVisibility = () => {
+      const contentInfo = document.getElementById('popup-content-informations');
+      const contentParticipants = document.getElementById('popup-content-participants');
+
+      if (contentInfo && contentParticipants) {
+          contentInfo.classList.toggle('d-none');
+          contentParticipants.classList.toggle('d-none');
+      }
+  };
+
+  toggleParticipants?.addEventListener('click', toggleContentVisibility);
+  backToInfo?.addEventListener('click', toggleContentVisibility);
+}
+
+cancelTheEvent(eventData: any) {
+  const cancelEventButton = document.getElementById(`cancelEventButton_${eventData.id}`);
+  const confirmCancelContainer = document.getElementById('confirmCancelContainer');
+  const eventCrudButtonContainer = document.getElementById('crudButtonContainer');
+
+  cancelEventButton?.addEventListener('click', () => {
+      if (eventCrudButtonContainer && confirmCancelContainer) {
+          eventCrudButtonContainer.classList.add('d-none');
+          confirmCancelContainer.classList.remove('d-none');
+      }
+  });
+
+  const cancelConfirmEventButton = document.getElementById(`cancelConfirmEventButton_${eventData.id}`);
+  cancelConfirmEventButton?.addEventListener('click', () => {
+      this.cancelEvent(eventData.id);
+  });
+}
+
+changeEventInfo(eventData: any) {
+  const eventId = eventData.id;
+  const saveChangesButton = document.getElementById(`saveChangesButton_${eventId}`);
+  saveChangesButton?.addEventListener('click', () => {
+      const updatedEventData = {
+          id: eventId,  // Event-ID hinzufügen
+          title: (<HTMLInputElement>document.getElementById('eventTitleInput')).value,
+          description: (<HTMLInputElement>document.getElementById('eventDescriptionInput')).value,
+          date: (<HTMLInputElement>document.getElementById('eventDateInput')).value,
+          start_time: (<HTMLInputElement>document.getElementById('eventStartTimeInput')).value,
+          end_time: (<HTMLInputElement>document.getElementById('eventEndTimeInput')).value,
+          location_plz: (<HTMLInputElement>document.getElementById('eventPlzInput')).value,
+          location_city: (<HTMLInputElement>document.getElementById('eventCityInput')).value,
+          location_street: (<HTMLInputElement>document.getElementById('eventStreetInput')).value,
+          location_house_number: (<HTMLInputElement>document.getElementById('eventHouseNumberInput')).value
+      };
+      this.changeEventInformations(updatedEventData);
+  });
+}
+
+toggleInformationContainer(eventData: any) {
+  const changeEventButton = document.getElementById(`changeEventButton_${eventData.id}`);
+  changeEventButton?.addEventListener('click', () => {
+      const popupContentInformations = document.getElementById('popup-content-informations');
+      const popupContentChangeInformations = document.getElementById('popup-content-change-informations');
+
+      if (popupContentInformations && popupContentChangeInformations) {
+          popupContentInformations.classList.add('d-none');
+          popupContentChangeInformations.classList.remove('d-none');
+      }
+  });
 }
 
 returnEventPopupContentHTML(eventData: any): string {
   const formattedDate = this.formatDate(eventData.date);
   const joinEventButton = this.getJoinEventButton(eventData);
+  const leaveEventButton = this.getLeaveEventButton(eventData);
+  const changeEventButton = this.getChangeEventButton(eventData);
+  const cancelEventButton = this.getCancelEventButton(eventData);
   const totalParticipants = eventData.participants.length + 1;
 
   let participantsList = `<div class="user-about"><b>1.</b> ${eventData.organisatorName} (Organisator)</div>`;
@@ -391,6 +473,18 @@ returnEventPopupContentHTML(eventData: any): string {
     participantsList += `<div class="user-about"><b>${i + 2}.</b> ${eventData.participants[i].full_name}</div>`;
   }
 
+  if(eventData.is_cancelled == true) {
+    return `
+    <div id="eventPopupContainer">
+        <div class="popup-content" id="popup-content-informations">
+            <h2>${eventData.title} <span>(abgesagt!)</span></h2>
+            <p class="user-about">${formattedDate}</p>
+            <p class="user-about"><b>Start:</b> ${eventData.start_time} <b>Ende:</b> ${eventData.end_time}</p>
+            <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
+        </div>
+      </div>
+    `;
+  } else {
     return `
     <div>
         <div class="popup-content" id="popup-content-informations">
@@ -403,7 +497,13 @@ returnEventPopupContentHTML(eventData: any): string {
             <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
             <p class="event-participants" id="toggle-participants">Teilnehmer : ${totalParticipants}</p>
             <div class="event-join-button-container">
-              ${joinEventButton}
+              ${joinEventButton} ${leaveEventButton}
+            </div>
+            <div class="event-crud-button-container" id="crudButtonContainer">
+              ${changeEventButton} ${cancelEventButton}
+            </div>
+            <div class="event-sure-button-container d-none"  id="confirmCancelContainer">
+              <button id="cancelConfirmEventButton_${eventData.id}">Sicher?</button>
             </div>
             <button id="zoomToMarkerButton" class="zoom-button" onclick="zoomFromPopup()">Zum Marker</button>
         </div>
@@ -414,8 +514,30 @@ returnEventPopupContentHTML(eventData: any): string {
           ${participantsList}
           </div>
           </div>
+          <div class="popup-content-change-informations d-none" id="popup-content-change-informations">
+              <input type="text" value="${eventData.title}" id="eventTitleInput" placeholder="Event Titel"/>
+              <textarea id="eventDescriptionInput" placeholder="Beschreibung">${eventData.description}</textarea>
+              <input type="date" value="${eventData.date}" id="eventDateInput" placeholder="Datum"/>
+              <div class="start-end-time-container">
+            <div>
+              <label><b>Start:</b></label>
+              <input type="time" value="${eventData.start_time}" id="eventStartTimeInput" placeholder="Startzeit"/>
+            </div>
+            <div>
+              <label><b>Ende:</b></label>
+              <input type="time" value="${eventData.end_time}" id="eventEndTimeInput" placeholder="Endzeit"/>
+          </div>
+          </div>
+          <input type="text" value="${eventData.location_plz}" id="eventPlzInput" placeholder="PLZ"/>
+          <input type="text" value="${eventData.location_city}" id="eventCityInput" placeholder="Stadt"/>
+          <input type="text" value="${eventData.location_street}" id="eventStreetInput" placeholder="Straße"/>
+          <input type="text" value="${eventData.location_house_number}" id="eventHouseNumberInput" placeholder="Hausnummer"/>
+          <p class="user-about"><b>Organisiert von:</b> ${eventData.organisatorName}</p>
+          <button id="saveChangesButton_${eventData.id}" data-id="${eventData.id}">Änderungen speichern</button>
+        </div>
       </div>
     `;
+  }
 }
 
 formatDate(inputDate: string): string {
@@ -438,6 +560,28 @@ getJoinEventButton(eventData: any): string {
   return "";
 }
 
+getLeaveEventButton(eventData: any) {
+  const isParticipant = eventData.participants.some((participant: any) => participant.full_name === this.fullName);
+
+  if (eventData.organisatorName !== this.fullName && isParticipant) {
+    return `<button id="leaveEventButton_${eventData.id}" class="joinEventButton">Trag mich aus!</button>`;
+  }
+  return "";
+}
+
+getChangeEventButton(eventData: any){
+  if(this.fullName === eventData.organisatorName) {
+    return `<button id="changeEventButton_${eventData.id}" class="change-event-button">Event ändern?</button>`;
+  }
+  return "";
+}
+
+getCancelEventButton(eventData: any) {
+  if(this.fullName === eventData.organisatorName) {
+    return `<button id="cancelEventButton_${eventData.id}" class="cancel-event-button">Event absagen?</button>`;
+  }
+  return "";
+}
 
 async joinEvent(eventId: any){
   const myHeaders = new Headers();
@@ -459,13 +603,117 @@ async joinEvent(eventId: any){
   if (resp.ok) {
     const result = await resp.json();
     console.log(result);
+    if (this.lastClickedMarker) {
+      const popupContent = this.returnEventPopupContentHTML(result);
+      this.lastClickedMarker.unbindPopup();
+      this.lastClickedMarker.bindPopup(popupContent).openPopup();
+  }
   } else {
     const error = await resp.json();
     console.log(error);
   }
 }
 
+async leaveEvent(eventId: any){
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Token ${this.token}`);
+  myHeaders.append("Content-Type", "application/json");
 
+  const raw = JSON.stringify({
+    "user_id": this.userId
+  });
+
+  const requestOptions : RequestInit = {
+    method: 'POST',
+    headers: myHeaders,
+    body: raw,
+  };
+
+  // await fetch(`http://127.0.0.1:8000/events/create/join/${eventId}/`, requestOptions)
+  const resp = await fetch(`https://celinemueller.pythonanywhere.com/events/create/leave/${eventId}/`, requestOptions)
+  if (resp.ok) {
+    const result = await resp.json();
+    console.log(result);
+    if (this.lastClickedMarker) {
+      const popupContent = this.returnEventPopupContentHTML(result);
+      this.lastClickedMarker.unbindPopup();
+      this.lastClickedMarker.bindPopup(popupContent).openPopup();
+  }
+  } else {
+    const error = await resp.json();
+    console.log(error);
+  }
+}
+
+async cancelEvent(eventId: any){
+  const myHeaders = new Headers();
+  myHeaders.append("Authorization", `Token ${this.token}`);
+  myHeaders.append("Content-Type", "application/json");
+
+  const raw = JSON.stringify({
+    "is_cancelled": true
+  });
+
+  const requestOptions = {
+    method: 'PATCH',
+    headers: myHeaders,
+    body: raw,
+  };
+
+  const response = await fetch(`https://celinemueller.pythonanywhere.com/events/change/${eventId}/`, requestOptions)
+
+  if(response.ok) {
+    const result = await response.json();
+    console.log(result);
+    if (this.lastClickedMarker) {
+      const popupContent = this.returnEventPopupContentHTML(result);
+      this.lastClickedMarker.unbindPopup();
+      this.lastClickedMarker.bindPopup(popupContent).openPopup();
+  }
+  } else {
+    const error = await response.json();
+    console.log(error);
+  }
+}
+
+  async changeEventInformations(eventData: any){
+    const myHeaders = new Headers();
+    myHeaders.append("Authorization", `Token ${this.token}`);
+    myHeaders.append("Content-Type", "application/json");
+
+    const raw = JSON.stringify({
+      "title": eventData.title,
+      "date": eventData.date,
+      "start_time": eventData.start_time,
+      "end_time": eventData.end_time,
+      "location_plz": eventData.location_plz,
+      "location_city": eventData.location_city,
+      "location_street": eventData.location_street,
+      "location_house_number": eventData.location_house_number,
+      "description": eventData.description
+  });
+
+    const requestOptions : RequestInit = {
+      method: 'PATCH',
+      headers: myHeaders,
+      body: raw,
+    };
+
+    const response = await fetch(`https://celinemueller.pythonanywhere.com/events/change/${eventData.id}/`, requestOptions);
+
+    if(response.ok){
+      const result = await response.json();
+      console.log(result);
+      if (this.lastClickedMarker) {
+        const popupContent = this.returnEventPopupContentHTML(result);
+        this.lastClickedMarker.unbindPopup();
+        this.lastClickedMarker.bindPopup(popupContent).openPopup();
+    }
+    } else {
+      const error = await response.json();
+      console.log(error);
+    }
+  }
 
   toggleCheckbox(controlName: string) {
     const currentVal = this.filterForm.get(controlName)?.value;
