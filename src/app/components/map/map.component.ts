@@ -247,6 +247,7 @@ zoomToMarker(event: LeafletMouseEvent) {
 
 
 returnPopupContentHTML(userData: any, clickedMarker: any): string {
+  const isCommunityMember = this.getCommunityLogo(userData);
   const userImage = this.getUserImage(userData);
   const searchingJob = this.getSearchingJob(userData);
   const courseAndModule = this.getCourseAndModule(userData);
@@ -256,7 +257,8 @@ returnPopupContentHTML(userData: any, clickedMarker: any): string {
 
   return `
     <div class="popup-content">
-        <h2 class="user-name">${userData.user} (${userData.user_type})</h2>
+        ${isCommunityMember}
+        <h2 class="user-name"> ${userData.user} (${userData.user_type})</h2>
         ${userImage}
         ${searchingJob}
         ${courseAndModule}
@@ -270,6 +272,13 @@ returnPopupContentHTML(userData: any, clickedMarker: any): string {
 
 flyToMarker(clickedMarker: any){
   this.map?.flyTo(clickedMarker.getLatLng(), 13, { duration: 0.5 });
+}
+
+getCommunityLogo(userData: any){
+  if(userData.community_member == true){
+    return `<img src="./assets/img/da-community-icon.png" class="community-icon-image">`
+  }
+  return "";
 }
 
 

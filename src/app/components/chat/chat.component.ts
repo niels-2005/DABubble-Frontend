@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { ChannelsService } from 'src/app/services/channels.service';
 import { UserprofilesService } from 'src/app/services/userprofiles.service';
@@ -21,8 +21,11 @@ export class ChatComponent implements OnInit {
   currentUser = localStorage.getItem('full_name');
   currentUserType = "";
 
+  currentChannel: string = "";
+
   lastDisplayedDate: string = '';
 
+  @ViewChild('messagesContainer') public messagesContainer!: ElementRef;
 
   ngOnInit(): void {
     this.getUserInformations();
@@ -58,8 +61,11 @@ export class ChatComponent implements OnInit {
   loadChannelContent() {
     this.channelService.loadChannelContent().subscribe(content => {
       console.log('Channel Daten', content);
+      this.currentChannel = content.details.name;
+      console.log('Aktueller Channel', this.currentChannel);
       this.channelData = content;
       this.initializeMessagesDisplayDate(content.messages);
+      this.scrollToBottom();
     });
   }
 
@@ -68,6 +74,7 @@ export class ChatComponent implements OnInit {
       this.channelService.newMessage$.subscribe(newMessage => {
         if (newMessage && this.channelData.messages) {
           this.channelData.messages.push(newMessage);
+          this.scrollToBottom();
         }
       })
     );
@@ -76,6 +83,17 @@ export class ChatComponent implements OnInit {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  scrollToBottom(): void {
+    setTimeout(() => {
+        try {
+            this.messagesContainer.nativeElement.scrollTop = this.messagesContainer.nativeElement.scrollHeight;
+        } catch(err) {
+            console.error("Scrolling error:", err);
+        }
+    }, 0);
+}
+
 
   initializeMessagesDisplayDate(messages: any[]): void {
     let lastDisplayedDate = '';
@@ -139,5 +157,7 @@ hasWritePermission(): boolean {
   }
   return false;
 }
+
+
 
 }

@@ -17,7 +17,7 @@
       <span>{{channelData?.details?.members?.length}}</span>
     </div>
   </div>
-  <div class="messages-around-container">
+  <div class="messages-around-container" #messagesContainer>
     <div *ngFor="let message of channelData?.messages"
       [ngClass]="{'my-message': message.user.full_name === currentUser, 'other-message': message.user.full_name !== currentUser}">
       <div *ngIf="message.displayDate" class="message-day-time-container">
@@ -42,7 +42,7 @@
       [(ngModel)]="messageContent" [disabled]="channelData?.details.name === 'News' && !hasWritePermission()">
     </textarea>
     <img src="./assets/img/send-message.png" alt="Send Message Image" (click)="createNewMessage()"
-      *ngIf="currentUserType === 'Community Manager' || currentUserType === 'Mentor'">
+      *ngIf="!(currentChannel === 'News' && (currentUserType === 'Schüler' || currentUserType === 'Alumni'))">
   </div>
 </div>
 

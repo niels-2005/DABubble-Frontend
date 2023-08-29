@@ -5,7 +5,7 @@
 <div class="default-map-settings-container">
   <div class="dialog-preview-container">
     <p class="font-size-22 text-align-center"><b>{{userFullName}} ({{userType}})</b></p>
-    <img [src]="imagePreview" alt="Profile Image" class="your-profile-image" *ngIf="dialogImage">
+    <img [src]="imagePreview" alt="Profile Image" class="your-profile-image" *ngIf="dialogImage && imagePreview">
     <div class="laptop-searching-job-container" *ngIf="isSearchingForJob && dialogSearchingJob">
       <img src="./assets/img/laptop.png" alt="Laptop Image">
       <p>Aktiv auf Jobsuche</p>
@@ -21,9 +21,9 @@
     <a href="{{website}}" class="portfolio-email-style font-size-20" *ngIf="dialogPortfolio && website">Portfolio</a>
   </div>
   <div class="map-settings-choice-container">
-    <div (click)="dialogImage = !dialogImage">
-      <span *ngIf="dialogImage">Dein Profilbild anzeigen?</span>
-      <span *ngIf="!dialogImage">Aktuell kein Profilbild</span>
+    <div (click)="dialogImage = !dialogImage" [class.map-option-disabled]="!dialogImage || !imagePreview">
+      <span *ngIf="dialogImage && imagePreview">Dein Profilbild anzeigen?</span>
+      <span *ngIf="!dialogImage || !imagePreview">Aktuell kein Profilbild</span>
       <input type="checkbox" [(ngModel)]="dialogImage" (click)="$event.stopPropagation()">
     </div>
     <div (click)="dialogSearchingJob = !dialogSearchingJob" [class.map-option-disabled]="!isSearchingForJob"

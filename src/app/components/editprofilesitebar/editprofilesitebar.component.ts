@@ -24,6 +24,7 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
   isSearchingForJob!: boolean;
   selectedCourse: string = "";
   selectedNumber: string = "";
+  isCommunityMember: boolean = false;
 
   private subscriptions: Subscription[] = [];
 
@@ -64,6 +65,7 @@ export class EditprofilesitebarComponent implements OnInit, OnDestroy {
   }
 
   private updateProfileData(result: any) {
+    this.isCommunityMember = result.community_member;
     this.about = result.about;
     this.city = result.city;
     this.houseNumber = result.house_number;
