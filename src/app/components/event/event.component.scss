@@ -182,3 +182,15 @@
   color: #ED1E79 !important;
   text-align: center;
 }
+
+.online-offline-event-container {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: flex-start !important;
+  align-items: center;
+  gap: 16px;
+  input {
+    width: 15px !important;
+    height: 15px !important;
+  }
+}

@@ -1,6 +1,14 @@
 <div class="event-around-container">
   <h1>Erstelle ein Event</h1>
   <form class="event-formular-container">
+    <div class="online-offline-event-container">
+      <input type="checkbox" [(ngModel)]="onlineEvent" name="event">
+      <span>Online Event?</span>
+      <input type="checkbox" [(ngModel)]="liveEvent" name="event">
+      <span>Präsenzevent?</span>
+    </div>
+
+
     <div class="title-and-organisator-container">
       <div class="title-and-input-container">
         <span>Titel des Events:</span>

@@ -474,6 +474,7 @@ returnEventPopupContentHTML(eventData: any): string {
   const leaveEventButton = this.getLeaveEventButton(eventData);
   const changeEventButton = this.getChangeEventButton(eventData);
   const cancelEventButton = this.getCancelEventButton(eventData);
+  const eventType = this.checkEventType(eventData);
   const totalParticipants = eventData.participants.length + 1;
 
   let participantsList = `<div class="user-about"><b>1.</b> ${eventData.organisatorName} (Organisator)</div>`;
@@ -497,7 +498,7 @@ returnEventPopupContentHTML(eventData: any): string {
     return `
     <div>
         <div class="popup-content" id="popup-content-informations">
-            <h2>${eventData.title}</h2>
+            <h2>${eventData.title} ${eventType}</h2>
             <p class="user-about">${eventData.description}</p>
             <p class="user-about">${formattedDate}</p>
             <p class="user-about"><b>Start:</b> ${eventData.start_time} <b>Ende:</b> ${eventData.end_time}</p>
@@ -590,6 +591,13 @@ getCancelEventButton(eventData: any) {
     return `<button id="cancelEventButton_${eventData.id}" class="cancel-event-button">Event absagen?</button>`;
   }
   return "";
+}
+
+checkEventType(event: any) {
+  if(event.is_online === true) {
+    return "(Online Event)"
+  }
+  return ""
 }
 
 async joinEvent(eventId: any){

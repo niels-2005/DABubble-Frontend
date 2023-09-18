@@ -7,6 +7,9 @@ import { Component } from '@angular/core';
 })
 export class EventComponent {
 
+  onlineEvent: boolean = true;
+  liveEvent: boolean = false;
+
   eventTitle: string = ""
   eventDate: string = "";
   eventStartTime: string = "";
@@ -34,6 +37,8 @@ export class EventComponent {
     myHeaders.append("Authorization", `Token ${this.token}`);
     myHeaders.append("Content-Type", "application/json");
 
+    console.log(this.onlineEvent)
+
     const raw = JSON.stringify({
       "title": this.eventTitle,
       "date": this.eventDate,
@@ -44,6 +49,7 @@ export class EventComponent {
       "location_street": this.eventLocationStreet,
       "location_house_number": this.eventLocationHouseNumber,
       "description": this.eventDescription,
+      "is_online": this.onlineEvent,
       "organisator": this.userId,
       "organisatorName": this.eventOrganisator,
     });
